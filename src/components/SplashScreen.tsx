@@ -15,8 +15,14 @@ interface SplashScreenProps {
 export default function SplashScreen({ onComplete, duration = 3000 }: SplashScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [started, setStarted] = useState(false);
   const [audioError, setAudioError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const startExperience = () => {
+    setStarted(true);
+    playWelcome();
+  };
 
   const playWelcome = async () => {
     if (playing) return;
@@ -61,12 +67,9 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
   };
 
   useEffect(() => {
-    // Auto-play welcome after a short delay
-    const autoPlayTimer = setTimeout(() => {
-      playWelcome();
-    }, 1500);
+    if (!started) return;
 
-    // Auto-advance if user doesn't click
+    // Auto-advance if audio finishes or if user doesn't click
     const autoAdvanceTimer = setTimeout(() => {
       if (!playing) {
         setFadeOut(true);
@@ -75,13 +78,12 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
     }, duration);
 
     return () => {
-      clearTimeout(autoPlayTimer);
       clearTimeout(autoAdvanceTimer);
       if (audioRef.current) {
         audioRef.current.pause();
       }
     };
-  }, [duration, onComplete, playing]);
+  }, [duration, onComplete, playing, started]);
 
   return (
     <Box
@@ -205,28 +207,54 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
 
         {/* Audio Controls */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-          <IconButton
-            onClick={playWelcome}
-            disabled={playing}
-            sx={{
-              bgcolor: 'primary.main',
-              color: 'white',
-              width: 64,
-              height: 64,
-              '&:hover': { bgcolor: 'primary.dark' },
-            }}
-          >
-            {playing ? <CircularProgress size={28} color="inherit" /> : <PlayArrowIcon sx={{ fontSize: 32 }} />}
-          </IconButton>
-          
-          <Typography variant="body2" color="text.secondary">
-            {playing ? 'Playing...' : 'Click to hear welcome'}
-          </Typography>
-          
-          {audioError && (
-            <Typography variant="caption" color="error">
-              {audioError}
-            </Typography>
+          {!started ? (
+            <Box
+              onClick={startExperience}
+              sx={{
+                bgcolor: 'primary.main',
+                color: 'white',
+                px: 4,
+                py: 1.5,
+                borderRadius: 2,
+                cursor: 'pointer',
+                fontFamily: '"Vazir", serif',
+                fontSize: '1.2rem',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 14px rgba(139, 69, 19, 0.3)',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              ورود به جهان رومی
+            </Box>
+          ) : (
+            <>
+              <IconButton
+                onClick={playWelcome}
+                disabled={playing}
+                sx={{
+                  bgcolor: 'primary.main',
+                  color: 'white',
+                  width: 64,
+                  height: 64,
+                  '&:hover': { bgcolor: 'primary.dark' },
+                }}
+              >
+                {playing ? <CircularProgress size={28} color="inherit" /> : <PlayArrowIcon sx={{ fontSize: 32 }} />}
+              </IconButton>
+              
+              <Typography variant="body2" color="text.secondary">
+                {playing ? 'Playing...' : 'Click to hear welcome'}
+              </Typography>
+              
+              {audioError && (
+                <Typography variant="caption" color="error">
+                  {audioError}
+                </Typography>
+              )}
+            </>
           )}
         </Box>
       </Box>
