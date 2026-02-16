@@ -1,13 +1,21 @@
 import type { Metadata } from 'next';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import Navbar from '@/components/Navbar';
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 import { Box } from '@mui/material';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Rumi | رومی - The Definitive Digital Experience',
-  description: 'Explore Rumi\'s poetry with AI-powered translations, transliterations, and interactive learning. Experience the wisdom of the great Sufi poet.',
-  keywords: ['Rumi', 'Poetry', 'Sufi', 'Persian', 'Masnavi', 'Divan', 'Philosophy'],
+  title: 'Hikmatia | حکمت - Persian Philosophy',
+  description: 'Explore 2,500 years of wisdom from Persia\'s greatest philosophers. Discover Rumi, Hafez, Saadi, Ibn Sina and more.',
+  keywords: ['Persian Philosophy', 'Sufi', 'Rumi', 'Hafez', 'Wisdom', 'Masnavi', 'Philosophy'],
+  manifest: '/manifest.json',
+  themeColor: '#8b4513',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Hikmatia',
+  },
 };
 
 export default function RootLayout({
@@ -19,6 +27,7 @@ export default function RootLayout({
     <html lang="en" dir="ltr">
       <body>
         <ThemeRegistry>
+          <ServiceWorkerRegistration />
           <Navbar />
           <Box
             component="main"

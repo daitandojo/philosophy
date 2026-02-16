@@ -28,14 +28,14 @@ import type { Verse } from '@/types';
 const features = [
   {
     icon: <AutoStoriesIcon sx={{ fontSize: 40 }} />,
-    title: 'Explore the Poetry',
-    description: 'Browse Rumi\'s timeless verses with Persian text, transliterations, and AI-powered translations.',
+    title: 'Explore the Wisdom',
+    description: 'Browse timeless verses from great Persian philosophers with translations and AI-powered insights.',
     href: '/explore',
   },
   {
     icon: <ChatIcon sx={{ fontSize: 40 }} />,
-    title: 'Chat with Rumi',
-    description: 'Experience an AI-powered conversation in the spirit of Rumi\'s wisdom and philosophy.',
+    title: 'Chat with Philosophers',
+    description: 'Experience AI-powered conversations with Rumi, Hafez, Saadi, and other great minds.',
     href: '/chat',
   },
   {
@@ -127,7 +127,7 @@ export default function Home() {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Welcome to the World of Rumi
+                Welcome to Hikmat
               </Typography>
               <Typography
                 variant="h5"
@@ -138,8 +138,8 @@ export default function Home() {
                   lineHeight: 1.6,
                 }}
               >
-                Explore the timeless wisdom of Jalāl ad-Din Muhammad Rūmī through AI-powered translations, 
-                interactive learning, and deep philosophical conversations.
+                Explore the timeless wisdom of Persian philosophy through AI-powered translations, 
+                interactive learning, and deep conversations with Rumi, Hafez, Saadi, and more.
               </Typography>
               
               <TextField
@@ -183,7 +183,7 @@ export default function Home() {
                   startIcon={<ChatIcon />}
                   sx={{ px: 4 }}
                 >
-                  Chat with Rumi
+                  Chat with Philosophers
                 </Button>
               </Stack>
             </Grid>
@@ -206,7 +206,7 @@ export default function Home() {
       {/* Features Section */}
       <Container maxWidth="lg" sx={{ mb: 8 }}>
         <Typography variant="h3" sx={{ mb: 4, textAlign: 'center' }}>
-          Experience Rumi Like Never Before
+          Experience Persian Wisdom
         </Typography>
         <Grid container spacing={4}>
           {features.map((feature) => (
@@ -305,7 +305,7 @@ export default function Home() {
             Begin Your Journey
           </Typography>
           <Typography variant="h6" sx={{ mb: 4, color: 'rgba(255,255,255,0.8)' }}>
-            Join thousands of seekers exploring Rumi's timeless wisdom.
+            Join thousands of seekers exploring Persian philosophy's timeless wisdom.
           </Typography>
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button

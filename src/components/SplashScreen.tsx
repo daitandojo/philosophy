@@ -4,8 +4,8 @@ import { Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
-const WELCOME_TEXT_FARSI = 'سلام و درود. به جهان رومی خوش آمدید. بیا تا برایت ببینیم.';
-const WELCOME_TEXT_ENGLISH = 'Peace be upon you. Welcome to the world of Rumi. Come, let us see for you.';
+const WELCOME_TEXT_FARSI = 'سلام و درود. به جهان حکمت خوش آمدید. بیا تا برایت ببینیم.';
+const WELCOME_TEXT_ENGLISH = 'Peace be upon you. Welcome to Hikmatia. Come, let us see for you.';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -151,7 +151,7 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
               direction: 'rtl',
             }}
           >
-            ر
+            ح
           </Box>
         </Box>
 
@@ -167,7 +167,7 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
               letterSpacing: '0.05em',
             }}
           >
-            رومی
+            حکمت
           </Box>
           <Typography
             sx={{
@@ -177,7 +177,7 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
               textTransform: 'uppercase',
             }}
           >
-            Rumi
+            Hikmatia
           </Typography>
         </Box>
 
@@ -227,7 +227,7 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
                 },
               }}
             >
-              ورود به جهان رومی
+              ورود به جهان حکمت
             </Box>
           ) : (
             <>

@@ -1,5 +1,5 @@
 {
-  "name": "rumi",
+  "name": "hikmat",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "eslint",
     "seed": "npx tsx src/lib/seed.ts",
     "generate-images": "npx tsx src/lib/generate-images.ts",
+    "enhance-content": "node scripts/enhance-content.js",
     "health": "npx tsx -e \"import { runHealthChecks, validateEnvironment } from './src/lib/health'; (async () => { const env = await validateEnvironment(); const health = await runHealthChecks(); console.log(JSON.stringify({ environment: env, health }, null, 2)); })()\""
   },
   "dependencies": {

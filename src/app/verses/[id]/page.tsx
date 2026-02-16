@@ -17,6 +17,12 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Alert,
+  TextField,
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
 } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -24,6 +30,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import CommentIcon from '@mui/icons-material/Comment';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import SendIcon from '@mui/icons-material/Send';
 import Link from 'next/link';
 import type { Verse } from '@/types';
 
@@ -35,6 +44,12 @@ export default function VersePage() {
   const [playing, setPlaying] = useState(false);
   const [audioLanguage, setAudioLanguage] = useState<'english' | 'persian'>('english');
   const [audioError, setAudioError] = useState<string | null>(null);
+  const [comments, setComments] = useState<any[]>([]);
+  const [newComment, setNewComment] = useState('');
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [annotations, setAnnotations] = useState<any[]>([]);
+  const [newAnnotation, setNewAnnotation] = useState('');
+  const [annotationVisibility, setAnnotationVisibility] = useState<'private' | 'public'>('private');
 
   useEffect(() => {
     const fetchVerse = async () => {
@@ -49,8 +64,30 @@ export default function VersePage() {
       }
     };
 
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`/api/comments?verseId=${params.id}`);
+        const data = await response.json();
+        setComments(data);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
+    const fetchAnnotations = async () => {
+      try {
+        const response = await fetch(`/api/annotations?verseId=${params.id}&visibility=public`);
+        const data = await response.json();
+        setAnnotations(data);
+      } catch (error) {
+        console.error('Error fetching annotations:', error);
+      }
+    };
+
     if (params.id) {
       fetchVerse();
+      fetchComments();
+      fetchAnnotations();
     }
   }, [params.id]);
 
@@ -86,6 +123,59 @@ export default function VersePage() {
       console.error('Audio error:', error);
       setAudioError('Network error - check console');
       setPlaying(false);
+    }
+  };
+
+  const handleSubmitComment = async () => {
+    if (!newComment.trim() || !verse) return;
+    
+    setCommentsLoading(true);
+    try {
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          verseId: verse._id, 
+          content: newComment 
+        }),
+      });
+      
+      if (response.ok) {
+        const comment = await response.json();
+        setComments([comment, ...comments]);
+        setNewComment('');
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+    } finally {
+      setCommentsLoading(false);
+    }
+  };
+
+  const handleSubmitAnnotation = async () => {
+    if (!newAnnotation.trim() || !verse) return;
+    
+    setCommentsLoading(true);
+    try {
+      const response = await fetch('/api/annotations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          verseId: verse._id, 
+          content: newAnnotation,
+          visibility: annotationVisibility,
+        }),
+      });
+      
+      if (response.ok) {
+        const annotation = await response.json();
+        setAnnotations([annotation, ...annotations]);
+        setNewAnnotation('');
+      }
+    } catch (error) {
+      console.error('Error posting annotation:', error);
+    } finally {
+      setCommentsLoading(false);
     }
   };
 
@@ -272,9 +362,90 @@ export default function VersePage() {
         ))}
       </Box>
 
+      {/* Annotations Section */}
+      {annotations.length > 0 && (
+        <Box sx={{ mb: 4 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <NoteAltIcon color="secondary" />
+            <Typography variant="h6">
+              Community Notes ({annotations.length})
+            </Typography>
+          </Box>
+          <Stack spacing={2}>
+            {annotations.map((annotation: any) => (
+              <Card key={annotation._id} variant="outlined">
+                <CardContent>
+                  {annotation.highlightedText && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontStyle: 'italic',
+                        borderLeft: '3px solid',
+                        borderColor: 'secondary.main',
+                        pl: 2,
+                        mb: 1,
+                        color: 'text.secondary',
+                      }}
+                    >
+                      "{annotation.highlightedText}"
+                    </Typography>
+                  )}
+                  <Typography variant="body1">{annotation.content}</Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    — {annotation.userId?.name || 'Anonymous'}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        </Box>
+      )}
+
+      {/* Add Annotation */}
+      <Card sx={{ mb: 4, bgcolor: 'grey.50' }}>
+        <CardContent>
+          <Typography variant="subtitle2" gutterBottom>
+            Add a Note
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={2}
+            placeholder="Add your insight or note about this verse..."
+            value={newAnnotation}
+            onChange={(e) => setNewAnnotation(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="caption" color="text.secondary">
+              Visibility: 
+            </Typography>
+            <ToggleButtonGroup
+              value={annotationVisibility}
+              exclusive
+              onChange={(_, value) => value && setAnnotationVisibility(value)}
+              size="small"
+            >
+              <ToggleButton value="private">Private</ToggleButton>
+              <ToggleButton value="public">Public</ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={handleSubmitAnnotation}
+              disabled={!newAnnotation.trim() || commentsLoading}
+            >
+              Save Note
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+
       {/* Tags */}
       <Typography variant="h6" gutterBottom>Tags</Typography>
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 4 }}>
         {verse.tags.map((tag) => (
           <Chip
             key={tag}
@@ -283,6 +454,79 @@ export default function VersePage() {
             variant="outlined"
           />
         ))}
+      </Box>
+
+      <Divider sx={{ my: 4 }} />
+
+      {/* Comments Section */}
+      <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+          <CommentIcon color="primary" />
+          <Typography variant="h5">
+            Discussion ({comments.length})
+          </Typography>
+        </Box>
+
+        {/* Comment Input */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              placeholder="Share your thoughts on this verse..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleSubmitComment}
+                disabled={!newComment.trim() || commentsLoading}
+              >
+                {commentsLoading ? 'Posting...' : 'Post Comment'}
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+
+        {/* Comments List */}
+        {comments.length === 0 ? (
+          <Typography color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
+            No comments yet. Be the first to share your thoughts!
+          </Typography>
+        ) : (
+          <List>
+            {comments.map((comment: any) => (
+              <ListItem
+                key={comment._id}
+                alignItems="flex-start"
+                sx={{ px: 0 }}
+              >
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: 'primary.main' }}>
+                    {comment.userId?.name?.charAt(0) || '?'}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        {comment.userId?.name || 'Anonymous'}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                      </Typography>
+                    </Box>
+                  }
+                  secondary={comment.content}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Box>
     </Container>
   );

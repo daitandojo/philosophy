@@ -18,6 +18,25 @@ export interface Verse {
   updatedAt: Date;
 }
 
+export interface Philosopher {
+  id: string;
+  name: {
+    persian: string;
+    english: string;
+  };
+  life: {
+    birth: number;
+    death: number;
+    birthPlace: string;
+    deathPlace: string;
+  };
+  school: string[];
+  description: string;
+  image?: string;
+  quoteCount: number;
+  era: 'ancient' | 'classical' | 'golden-age' | 'modern';
+}
+
 export interface VerseVersion {
   version: number;
   persianText: string;

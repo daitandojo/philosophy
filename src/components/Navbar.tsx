@@ -24,12 +24,17 @@ import ChatIcon from '@mui/icons-material/Chat';
 import BlogIcon from '@mui/icons-material/Article';
 import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
+import QuizIcon from '@mui/icons-material/Quiz';
+import PeopleIcon from '@mui/icons-material/People';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 const navItems = [
   { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
-  { label: 'Chat with Rumi', href: '/chat', icon: <ChatIcon /> },
+  { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
+  { label: 'Quiz', href: '/quiz', icon: <QuizIcon /> },
+  { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
+  { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
   { label: 'About', href: '/about', icon: <InfoIcon /> },
-  { label: 'Blog', href: '/blog', icon: <BlogIcon /> },
 ];
 
 export default function Navbar() {
@@ -44,8 +49,8 @@ export default function Navbar() {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', py: 2 }}>
-      <Typography variant="h6" sx={{ fontFamily: 'serif', mb: 2, color: 'primary.main' }}>
-        رومی | Rumi
+      <Typography variant="h6" sx={{ fontFamily: '"Vazir", serif', mb: 2, color: 'primary.main' }}>
+        حکمت | Hikmat
       </Typography>
       <List>
         {navItems.map((item) => (
@@ -76,7 +81,16 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar position="sticky" color="default" elevation={0}>
+      <AppBar 
+        position="sticky" 
+        color="default" 
+        elevation={1}
+        sx={{ 
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          background: 'rgba(250, 249, 247, 0.95)',
+          backdropFilter: 'blur(8px)',
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
             {isMobile && (
@@ -105,7 +119,7 @@ export default function Navbar() {
                 variant="h5"
                 component="div"
                 sx={{
-                  fontFamily: 'serif',
+                  fontFamily: '"Vazir", serif',
                   fontWeight: 700,
                   background: 'linear-gradient(135deg, #8b4513 0%, #c9a962 100%)',
                   WebkitBackgroundClip: 'text',
@@ -113,7 +127,7 @@ export default function Navbar() {
                   letterSpacing: '0.05em',
                 }}
               >
-                رومی
+                حکمت
               </Typography>
               <Typography
                 variant="body2"

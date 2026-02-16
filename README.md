@@ -1,11 +1,11 @@
-# Rumi - The Definitive Digital Experience
+# Hikmatia - Persian Philosophy Platform
 
-A beautiful, immersive, and interactive platform for exploring Rumi's poetry, philosophy, and wisdom. Built with Next.js 15, MUI v5, and AI-powered by DeepSeek.
+A beautiful, immersive, and interactive platform for exploring Persian philosophy, wisdom from Rumi, Hafez, Saadi, and more. Built with Next.js 15, MUI v5, and AI-powered by DeepSeek.
 
 ## Features
 
 - **AI-Powered Translations**: DeepSeek LLM generates translations, transliterations, and summaries
-- **Chat with Rumi**: Experience philosophical conversations in Rumi's voice
+- **Chat with Philosophers**: Experience philosophical conversations with Rumi, Hafez, Saadi, and more
 - **Guided Learning**: Structured educational paths from beginner to advanced
 - **Community Features**: Annotations, comments, and blog posts
 - **Responsive Design**: Works on desktop, tablet, and mobile
@@ -31,8 +31,8 @@ A beautiful, immersive, and interactive platform for exploring Rumi's poetry, ph
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/daitandojo/rumi.git
-cd rumi
+git clone https://github.com/daitandojo/hikmatia.git
+cd hikmatia
 ```
 
 2. Install dependencies:
@@ -68,7 +68,9 @@ src/
 ├── app/                    # Next.js App Router pages
 │   ├── api/               # API routes
 │   ├── explore/           # Verse exploration
-│   ├── chat/              # Chat with Rumi
+│   ├── chat/              # Chat with philosophers
+│   ├── philosophers/      # Browse philosophers
+│   ├── quiz/              # Personality quiz
 │   ├── blog/              # Community blog
 │   ├── learn/             # Guided learning
 │   └── account/           # User account
@@ -77,21 +79,6 @@ src/
 ├── theme/                 # MUI theme configuration
 └── types/                 # TypeScript definitions
 ```
-
-## Epics
-
-This project is organized into 10 epics:
-
-1. **Core Content Engine** - Database schema and content management
-2. **AI-Powered Interpretation** - DeepSeek integration for translations and chat
-3. **User Interface** - Persian-inspired responsive design
-4. **Multimedia** - Images, calligraphy, TTS support
-5. **Authentication** - Google OAuth and user management
-6. **Community** - Annotations, comments, blogs
-7. **Search & Navigation** - Full-text search and filtering
-8. **Education** - Learning paths and quizzes
-9. **PWA** - Progressive Web App support
-10. **Deployment** - CI/CD and operations
 
 ## Contributing
 
@@ -106,4 +93,4 @@ MIT License - See LICENSE file for details.
 
 ---
 
-*Made with love and the spirit of Rumi's wisdom*
+*Made with love and the spirit of Persian wisdom*

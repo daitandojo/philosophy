@@ -1,154 +1,337 @@
-## Epic 4: Multimedia & Interactive Layers
+# EPIC 4: Learning & Education 2.0
 
-**Objective:**
-Implement AI-generated visual and audio layers to enrich the Rumi website, making it immersive and interactive. This includes thematic images, calligraphy, text-to-speech (TTS), and dynamic audio-visual interactions per verse or section. Also includes configuration management for API keys and environment variables.
-
----
-
-### **1. Scope & Deliverables**
-
-* **AI-generated images:**
-
-  * Generate thematic illustrations per quote or verse based on content, theme, or emotion.
-  * Maintain a consistent visual style (e.g., Persian miniature-inspired, watercolor, or abstract).
-  * Support resizing and adaptive layout for desktop, tablet, and mobile.
-* **Calligraphy rendering:**
-
-  * Convert Persian text into styled calligraphy (SVG or vector format).
-  * Overlay or pair with background images.
-  * Support interactive zoom or hover effects.
-* **Text-to-Speech (TTS):**
-
-  * Persian audio: native pronunciation of each verse.
-  * English audio: AI voice reading summaries, translations, or commentary.
-  * Optional multi-voice support for emphasis or theme-based variation.
-* **Interactive layering:**
-
-  * Allow hover, click, or toggle interactions to reveal:
-
-    * Translation
-    * Transliteration
-    * Commentary
-    * Images or calligraphy
-    * Audio playback controls
-* **Environment configuration:**
-
-  * `.env.example` file to standardize API keys, TTS credentials, and image generation endpoints.
-  * Support multiple AI providers (image, TTS, LLM) with separate config entries.
+## Objective
+Transform the learning section into an immersive, interactive educational experience featuring a visual timeline of Persian philosophy, engaging quizzes, comparative tools, and gamified learning paths that make discovering this rich tradition addictive and meaningful.
 
 ---
 
-### **2. Technical Requirements**
-
-* **Front-end integration:**
-
-  * Components for rendering images, calligraphy, and TTS controls.
-  * Lazy loading for images and audio for performance optimization.
-  * Integration with Epic 1 content objects and Epic 2 LLM outputs.
-* **Back-end or serverless API:**
-
-  * Pipeline for generating images and TTS on demand or pre-populating the database.
-  * Cache generated assets to reduce repeated API calls.
-  * Store asset references in content objects with versioning.
-* **TTS and audio playback:**
-
-  * Controls: play, pause, replay, volume, speed.
-  * Visual indicator for currently reading verse.
-* **Calligraphy rendering:**
-
-  * Convert Persian text to scalable SVG or PNG.
-  * Support layering over images without obscuring text readability.
+## Vision
+Create the Khan Academy of Persian Philosophy - a platform where users don't just read about thinkers but embark on guided journeys, test their knowledge, visualize connections, and develop genuine understanding and appreciation for 2,500 years of intellectual history.
 
 ---
 
-### **3. Functional Specifications**
+## Core Features
 
-* **Image generation pipeline:**
+### 1. Interactive Timeline of Persian Philosophy
 
-  * Input: Persian text + theme + AI prompt template.
-  * Output: themed illustration stored in media storage, linked to content ID.
-* **TTS pipeline:**
+**Visual Timeline Design:**
+A horizontal scrollable timeline from 2500 BCE to Present with color-coded eras:
+- Ancient (pre-Islamic): Deep purple
+- Classical (8th-13th century): Rich blue  
+- Golden Age (13th-16th century): Gold/amber
+- Safavid/Ottoman (16th-18th): Green
+- Modern (19th-21st): Silver/white
 
-  * Input: Persian or English text.
-  * Output: MP3/OGG file linked to content ID.
-* **Interactive quote cards:**
+**Interactive Elements:**
+- Click philosopher to open detail modal/page
+- Hover shows quick facts
+- Drag to pan, pinch to zoom on mobile
+- Double-click era to zoom to that period
 
-  * Display Persian, transliteration, English translation, commentary, image, and audio.
-  * Allow toggling layers on/off and playing audio inline.
-* **Caching and performance:**
+**Contextual Layers:**
+- World events toggle on/off
+- Contemporary philosophers globally
+- Major historical events in Persia/Iran
+- Scientific and artistic achievements
 
-  * Store all AI-generated assets in CDN or local storage for instant retrieval.
+**Philosopher Nodes:**
+- Size equals influence/wisdom score
+- Thumbnail avatar
+- Name in Persian and English
+- Life dates
+- Pulse animation for featured
+- Connection lines to teachers and students
+
+**Zoom Levels:**
+1. Millennium View: 500-year chunks, major figures only
+2. Century View: Individual philosophers
+3. Decade View: Detailed life events, works published
+4. Year View: Specific events, quotes written
+
+### 2. Quiz and Assessment System
+
+**Quiz Types:**
+
+**A. Personality Quiz - "Which Philosopher Are You?"**
+10 questions that match users to their philosophical soulmate:
+- Questions about handling difficulty, views on love, ideal evenings
+- Results show match percentage, description, recommended works
+- Shareable results with social media
+
+**B. Knowledge Quizzes**
+Multiple difficulty levels: beginner, intermediate, advanced, scholar
+Question types include:
+- Multiple choice
+- True/false
+- Matching
+- Fill in the blank
+- Ordering/chronology
+
+**Quiz Categories:**
+1. Who Said What - Match quote to philosopher
+2. Work to Author - Match work to creator
+3. Timeline Challenge - Order events chronologically
+4. Theme Matcher - Identify theme of quote
+5. Philosophy in Context - Historical questions
+6. Quote Completion - Fill missing words
+7. True or False - Fact checking
+8. Deep Dive - Comprehensive single philosopher
+
+**C. Daily Challenge**
+- 5 questions every day
+- Streak tracking
+- Leaderboards
+- Difficulty adjusts to user level
+- Themes rotate weekly
+
+**Gamification Elements:**
+Points for correct answers, streaks, speed
+Badges include:
+- Rumi Expert (100 Rumi questions correct)
+- Timeline Master (Perfect timeline quiz)
+- Speed Reader (Complete quiz under 2 minutes)
+- Scholar (Pass advanced quiz)
+- Streak Warrior (30-day streak)
+
+Levels:
+- Novice (0-100 points)
+- Seeker (100-500)
+- Student (500-1000)
+- Scholar (1000-2500)
+- Sage (2500-5000)
+- Master (5000+)
+
+### 3. "Who Is Who" Quiz
+
+Flashcard-style identification game:
+- Shows image or artistic representation
+- Multiple choice name selection
+- Progressive difficulty from famous to obscure
+- Variations: Portrait mode, Quote mode, Work mode, Timeline mode
+
+### 4. Philosophy Comparison Tool
+
+Side-by-side comparison of philosophers showing:
+- Biographical information
+- School of thought
+- Core teachings
+- Famous quotes on same themes
+- AI-generated analysis of similarities and differences
+- Reading recommendations
+
+### 5. Enhanced Learning Paths
+
+**Guided Journeys:**
+- 30 Days with Rumi
+- Sufism 101
+- Persian Philosophy Through the Ages
+- Love in Persian Poetry
+- Wisdom for Difficult Times
+
+**Path Features:**
+- Daily modules with quotes, reflections, quizzes
+- Progress tracking with visual indicators
+- Streak maintenance
+- Completion certificates
+- Prerequisite system for advanced paths
+
+### 6. Interactive Learning Activities
+
+Quote Annotation Exercise:
+- User highlights and annotates complex quotes
+- Compare with community annotations
+- Learn annotation techniques
+
+Translation Comparison:
+- One Persian verse, multiple English translations
+- User voting on best translation
+- Explanation of translation challenges
+
+Theme Mapping:
+- Drag quotes to theme categories
+- Visual theme interconnection maps
+- AI suggests related themes
+
+Historical Context Explorer:
+- Interactive timeline with events
+- "What was happening when Rumi wrote this?"
+- World map showing cultural connections
+
+Reflection Prompts:
+- Daily philosophical questions
+- Personal journal entries
+- Optional community sharing
+- AI-generated follow-up questions
+
+### 7. Visual Learning Tools
+
+Concept Maps:
+- Interactive diagrams of philosophical concepts
+- Clickable nodes for exploration
+- Example: Divine Love connects to Lover, Beloved, Wine, Drunkenness
+
+Venn Diagrams:
+- Compare overlapping concepts
+- Example: Rumi vs Hafez on Love
+
+Flow Charts:
+- Decision trees for "Which philosopher should I read?"
+- Process maps showing "The Sufi Path"
+
+Infographics:
+- One-page philosopher summaries
+- Downloadable and shareable
+- Beautiful, information-dense design
 
 ---
 
-### **4. Environment Variables (`.env.example`)**
+## Gamification Deep Dive
 
-Create `.env.example` in the project root with placeholders for all keys and endpoints:
+**Achievement System:**
+Common achievements:
+- First Steps: Complete first learning module
+- Rumi Devotee: Study 50 Rumi quotes
+- Timeline Master: Perfect score on timeline quiz
+- Philosophy Sage: Reach 5000 points
 
-```
-# LLM (DeepSeek) API
-DEESEEK_API_KEY=your_deepseek_api_key_here
-DEESEEK_API_URL=https://api.deepseek.ai
+Rare and legendary achievements for dedicated users.
 
-# Image Generation API
-IMAGE_API_KEY=your_image_api_key_here
-IMAGE_API_URL=https://api.imagery.ai
+**Leaderboards:**
+- Weekly (resets Monday)
+- Monthly (resets 1st)
+- All-time rankings
+- Category-specific (quizzes, reading, streaks)
 
-# TTS API
-TTS_API_KEY=your_tts_api_key_here
-TTS_API_URL=https://api.tts.ai
+**Challenges:**
+- Daily: Complete 3 modules
+- Weekly: Read a full work
+- Monthly: Complete learning path
+- Special events: Nowruz challenge, Ramadan reflections
 
-# Storage / CDN
-STORAGE_BUCKET_URL=https://your-storage-bucket.url
-STORAGE_ACCESS_KEY=your_storage_access_key
-STORAGE_SECRET_KEY=your_storage_secret_key
-
-# Optional: Logging & Analytics
-LOGGING_API_KEY=your_logging_service_key
-```
-
-* Developers copy `.env.example` to `.env` and populate with real keys.
-* All keys must be kept secret and not pushed to the repository.
-
----
-
-### **5. User Experience Considerations**
-
-* Audio should auto-sync with displayed text where appropriate.
-* Image and calligraphy display should not overwhelm text readability.
-* Provide fallback content if AI-generated media fails to load.
-* Maintain consistent style and theme across all media.
+**Rewards:**
+- Points unlock content
+- Badges display on profile
+- Titles like "Rumi Scholar" or "Timeline Expert"
+- Premium days for free users
+- Physical rewards for Premium Plus
 
 ---
 
-### **6. Security & Permissions**
+## Technical Implementation
 
-* Protect all API keys via environment variables.
-* Only server-side code should call AI APIs; front-end calls must use backend proxy.
-* Validate and sanitize all user-provided content if uploads are integrated later.
+### Database Schema
+
+User Progress tracks:
+- Completed modules
+- Quiz scores with attempts and best times
+- Achievements unlocked
+- Points and levels
+- Daily streaks
+- Active learning paths with progress
+
+Quiz data includes:
+- Title, type, difficulty
+- Questions with multiple formats
+- Passing scores and time limits
+- Categories and tags
+
+Leaderboard entries track:
+- User identification
+- Scores by time period
+- Rankings
+- Update timestamps
+
+### API Endpoints
+
+Quizzes:
+- List and get quizzes
+- Submit answers
+- Daily challenge retrieval
+- Personality quiz access
+
+Progress:
+- Get and update user progress
+- Start and complete learning paths
+- Track module completion
+
+Gamification:
+- Achievements and leaderboard
+- Points tracking
+- Reward claims
+
+Timeline:
+- Timeline data
+- Philosopher and event listings
+
+Comparison:
+- Compare philosophers
+- Theme analysis
+
+### Frontend Components
+
+Timeline component with philosopher data, events, zoom controls
+Quiz component with question display and results
+Learning Path component with progress tracking
+Philosopher Comparison component with multiple dimensions
 
 ---
 
-### **7. Future-Proofing**
+## Success Metrics
 
-* Allow switching between multiple AI providers for images or TTS.
-* Extend pipelines for user-generated multimedia uploads in later epics.
-* Ensure assets are versioned alongside content for reproducibility.
+**Engagement:**
+- 40% of users take at least one quiz
+- 25% complete a learning path
+- 15% daily challenge participation
+- 10-minute average time in learning section
+
+**Learning Outcomes:**
+- Quiz scores improve over time
+- 70% can correctly identify 10+ philosophers
+- 60% report increased understanding
+- 45% completion rate for paths
+
+**Gamification:**
+- 50% of users have 5+ achievements
+- 20% check leaderboards weekly
+- 30% maintain 7+ day streaks
+- 10% reach Scholar level
+
+**Content:**
+- 50+ quizzes created
+- 20+ learning paths
+- 1000+ quiz questions
+- 10+ personality quiz types
 
 ---
 
-### **8. Acceptance Criteria**
+## Acceptance Criteria
 
-* Every verse/quote can display:
-
-  * Thematic AI-generated image or illustration
-  * Persian calligraphy
-  * TTS playback in Persian and English
-  * Interactive toggle for text and audio layers
-* `.env.example` file exists and contains all placeholder variables.
-* All generated assets are cached and retrievable from storage/CDN.
-* Front-end components are fully responsive and maintain design consistency.
+- Interactive timeline with 50+ philosophers
+- 4 zoom levels from millennium to year view
+- World events context layer
+- Quiz system with 5+ question types
+- Personality quiz "Which Philosopher Are You?"
+- Daily challenge with streaks
+- 20+ knowledge quizzes
+- Gamification with points, badges, leaderboards
+- Philosophy comparison tool
+- 10+ guided learning paths
+- Progress tracking and certificates
+- Achievement system with 20+ achievements
+- Mobile-responsive quiz interface
+- Social sharing of results
 
 ---
 
-This epic ensures the Rumi website is **immersive, multi-sensory, and fully interactive**, providing visuals and audio that bring each verse to life while maintaining secure, flexible AI integration.
+## Timeline
+
+Week 1-2: Timeline component and basic data
+Week 3-4: Quiz system and question types
+Week 5-6: Personality quiz and daily challenge
+Week 7-8: Gamification, achievements, leaderboards
+Week 9-10: Learning paths and progress tracking
+Week 11-12: Comparison tool, polish, and testing
+
+---
+
+This EPIC transforms learning from passive reading to active, engaging exploration - making Persian philosophy accessible, addictive, and deeply meaningful.

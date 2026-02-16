@@ -142,3 +142,68 @@ Describe the scene in a way that can be used as an AI image generation prompt. K
 
   return await callDeepSeek(prompt);
 }
+
+export async function* chatWithRumiStream(
+  userMessage: string,
+  conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
+): AsyncGenerator<string, void, unknown> {
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...conversationHistory.slice(-10),
+    { role: 'user', content: userMessage },
+  ];
+
+  const response = await fetch(`${DEEPSEEK_API_URL}/v1/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${DEEPSEEK_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      messages,
+      stream: true,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`DeepSeek API error: ${response.statusText}`);
+  }
+
+  if (!response.body) {
+    throw new Error('No response body');
+  }
+
+  const decoder = new TextDecoder();
+  const reader = response.body.getReader();
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value);
+      const lines = chunk.split('\n').filter(line => line.trim() !== '');
+
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6);
+          if (data === '[DONE]') {
+            return;
+          }
+          try {
+            const parsed = JSON.parse(data);
+            const content = parsed.choices?.[0]?.delta?.content;
+            if (content) {
+              yield content;
+            }
+          } catch {
+            // Skip malformed JSON
+          }
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}

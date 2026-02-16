@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { chatWithRumi } from '@/lib/deepseek';
 
 export async function POST(request: NextRequest) {
@@ -7,14 +7,23 @@ export async function POST(request: NextRequest) {
     const { message, history } = body;
 
     if (!message) {
-      return NextResponse.json({ error: 'Message is required' }, { status: 400 });
+      return new Response(JSON.stringify({ error: 'Message is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const result = await chatWithRumi(message, history || []);
     
-    return NextResponse.json(result);
+    return new Response(JSON.stringify(result), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Error in chat:', error);
-    return NextResponse.json({ error: 'Failed to get response' }, { status: 500 });
+    return new Response(JSON.stringify({ error: 'Failed to get response' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
