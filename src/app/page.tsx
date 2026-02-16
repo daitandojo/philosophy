@@ -127,7 +127,7 @@ export default function Home() {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Welcome to Hikmat
+                Welcome to Hikmatia
               </Typography>
               <Typography
                 variant="h5"

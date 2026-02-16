@@ -50,7 +50,7 @@ export default function Navbar() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', py: 2 }}>
       <Typography variant="h6" sx={{ fontFamily: '"Vazir", serif', mb: 2, color: 'primary.main' }}>
-        حکمت | Hikmat
+        حکمت | Hikmatia
       </Typography>
       <List>
         {navItems.map((item) => (

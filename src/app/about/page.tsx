@@ -83,7 +83,7 @@ export default function AboutPage() {
       {/* Philosophers Overview */}
       <Typography variant="h4" sx={{ mb: 3 }}>The Philosophers</Typography>
       <Typography variant="body1" sx={{ mb: 3, color: 'text.secondary' }}>
-        Hikmat brings together wisdom from over a thousand years of Persian philosophical tradition:
+        Hikmatia brings together wisdom from over a thousand years of Persian philosophical tradition:
       </Typography>
       <Grid container spacing={3} sx={{ mb: 6 }}>
         {philosophers.map((philosopher, index) => (
