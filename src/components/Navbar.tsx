@@ -27,10 +27,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import QuizIcon from '@mui/icons-material/Quiz';
 import PeopleIcon from '@mui/icons-material/People';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 const navItems = [
   { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
   { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
+  { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
   { label: 'Quiz', href: '/quiz', icon: <QuizIcon /> },
   { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
   { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
