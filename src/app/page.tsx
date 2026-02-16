@@ -23,6 +23,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import VerseCard from '@/components/VerseCard';
 import HeroImage from '@/components/HeroImage';
 import SplashScreen from '@/components/SplashScreen';
+import { useI18n } from '@/i18n';
 import type { Verse } from '@/types';
 
 const features = [
@@ -100,29 +101,54 @@ const sampleVerses: Verse[] = [
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSplash, setShowSplash] = useState(true);
+  const [fadeIn, setFadeIn] = useState(false);
+  const { t } = useI18n();
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    setTimeout(() => setFadeIn(true), 100);
+  };
+
+  const features = [
+    {
+      icon: <AutoStoriesIcon sx={{ fontSize: 40 }} />,
+      title: t.home.exploreVerses,
+      description: t.home.subtitle,
+      href: '/explore',
+    },
+    {
+      icon: <ChatIcon sx={{ fontSize: 40 }} />,
+      title: t.chat.title,
+      description: t.home.chatWithPhilosophers,
+      href: '/chat',
+    },
+    {
+      icon: <SchoolIcon sx={{ fontSize: 40 }} />,
+      title: t.philosophers.title,
+      description: t.home.beginJourney,
+      href: '/learn',
+    },
+  ];
 
   return (
     <Box>
       {/* Splash Screen */}
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 
-      {/* Hero Section */}
+      {/* Main Content - Full page fade in */}
       <Box
         sx={{
-          position: 'relative',
-          py: { xs: 8, md: 12 },
-          mb: 6,
-          background: 'linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(201, 169, 98, 0.1) 100%)',
-          overflow: 'hidden',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 1.5s ease-in',
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 4, md: 6 } }}>
           <Grid container spacing={4} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography
-                variant="h1"
+                variant="h2"
                 sx={{
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  fontSize: { xs: '1.75rem', md: '2.5rem' },
                   fontWeight: 700,
                   mb: 2,
                   background: 'linear-gradient(135deg, #8b4513 0%, #2e4a3d 100%)',
@@ -130,10 +156,10 @@ export default function Home() {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Welcome to Hikmatia
+                {t.home.welcome}
               </Typography>
               <Typography
-                variant="h5"
+                variant="h6"
                 sx={{
                   color: 'text.secondary',
                   mb: 4,
@@ -141,8 +167,7 @@ export default function Home() {
                   lineHeight: 1.6,
                 }}
               >
-                Explore the timeless wisdom of Persian philosophy through AI-powered translations, 
-                interactive learning, and deep conversations with Rumi, Hafez, Saadi, and more.
+                {t.home.subtitle}
               </Typography>
               
               <TextField
@@ -176,7 +201,7 @@ export default function Home() {
                   endIcon={<ArrowForwardIcon />}
                   sx={{ px: 4 }}
                 >
-                  Explore Verses
+                  {t.home.exploreVerses}
                 </Button>
                 <Button
                   variant="outlined"
@@ -186,7 +211,7 @@ export default function Home() {
                   startIcon={<ChatIcon />}
                   sx={{ px: 4 }}
                 >
-                  Chat with Philosophers
+                  {t.home.chatWithPhilosophers}
                 </Button>
               </Stack>
             </Grid>
@@ -204,12 +229,11 @@ export default function Home() {
             </Grid>
           </Grid>
         </Container>
-      </Box>
 
       {/* Features Section */}
       <Container maxWidth="lg" sx={{ mb: 8 }}>
         <Typography variant="h3" sx={{ mb: 4, textAlign: 'center' }}>
-          Experience Persian Wisdom
+          {t.home.experiencePersianWisdom}
         </Typography>
         <Grid container spacing={4}>
           {features.map((feature) => (
@@ -305,10 +329,10 @@ export default function Home() {
       >
         <Container maxWidth="md">
           <Typography variant="h3" sx={{ mb: 2, color: 'white' }}>
-            Begin Your Journey
+            {t.home.beginJourney}
           </Typography>
           <Typography variant="h6" sx={{ mb: 4, color: 'rgba(255,255,255,0.8)' }}>
-            Join thousands of seekers exploring Persian philosophy's timeless wisdom.
+            {t.home.subtitle}
           </Typography>
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button
@@ -324,7 +348,7 @@ export default function Home() {
                 },
               }}
             >
-              Start Exploring
+              {t.common.start}
             </Button>
             <Button
               variant="outlined"
@@ -337,10 +361,11 @@ export default function Home() {
                 },
               }}
             >
-              Learn More
+              {t.common.learnMore}
             </Button>
           </Stack>
         </Container>
+      </Box>
       </Box>
     </Box>
   );

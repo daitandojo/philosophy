@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
@@ -114,20 +115,21 @@ const tiers: PricingTier[] = [
 
 export default function PremiumPage() {
   const [isYearly, setIsYearly] = useState(true);
+  const { t } = useI18n();
 
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
       <Box sx={{ textAlign: 'center', mb: 6 }}>
         <Typography variant="h3" sx={{ mb: 2 }}>
-          Choose Your Path
+          {t.premium.title}
         </Typography>
         <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-          Unlock the full depth of Persian philosophy
+          {t.premium.subtitle}
         </Typography>
 
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 4 }}>
           <Typography variant="body1" color={!isYearly ? 'primary' : 'text.secondary'}>
-            Monthly
+            {t.premium.monthly}
           </Typography>
           <Switch
             checked={isYearly}
@@ -135,9 +137,9 @@ export default function PremiumPage() {
             color="primary"
           />
           <Typography variant="body1" color={isYearly ? 'primary' : 'text.secondary'}>
-            Yearly
+            {t.premium.yearly}
           </Typography>
-          <Chip label="Save 33%" color="primary" size="small" />
+          <Chip label={t.premium.save} color="primary" size="small" />
         </Box>
       </Box>
 
@@ -166,7 +168,7 @@ export default function PremiumPage() {
             {tier.popular && (
               <Chip
                 icon={<StarIcon />}
-                label="Most Popular"
+                label={t.premium.mostPopular}
                 color="primary"
                 size="small"
                 sx={{
@@ -191,7 +193,7 @@ export default function PremiumPage() {
               <Box sx={{ mb: 3 }}>
                 {tier.id === 'institution' ? (
                   <Typography variant="h4">
-                    Custom Pricing
+                    {t.premium.contactSales}
                   </Typography>
                 ) : (
                   <>
@@ -199,11 +201,11 @@ export default function PremiumPage() {
                       ${isYearly ? Math.round(tier.price.yearly / 12) : tier.price.monthly}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" component="span">
-                      /month
+                      {t.premium.perMonth}
                     </Typography>
                     {isYearly && tier.price.yearly > 0 && (
                       <Typography variant="caption" display="block" color="text.secondary">
-                        ${tier.price.yearly} billed yearly
+                        ${tier.price.yearly} {t.premium.perYear}
                       </Typography>
                     )}
                   </>
@@ -233,7 +235,7 @@ export default function PremiumPage() {
                 sx={{ mt: 3 }}
                 startIcon={tier.id === 'institution' ? <MenuBookIcon /> : undefined}
               >
-                {tier.id === 'free' ? 'Get Started' : tier.price.monthly === 0 ? 'Downgrade' : tier.id === 'institution' ? 'Contact Sales' : 'Subscribe'}
+                {tier.id === 'free' ? t.premium.getStarted : tier.price.monthly === 0 ? t.premium.free : tier.id === 'institution' ? t.premium.contactSales : t.premium.subscribe}
               </Button>
             </CardContent>
           </Card>
@@ -242,20 +244,20 @@ export default function PremiumPage() {
 
       <Box sx={{ mt: 6, textAlign: 'center' }}>
         <Typography variant="h6" gutterBottom>
-          Need a custom plan?
+          {t.premium.contactSales}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          For universities, libraries, and organizations, we offer custom pricing and features.
+          {t.premium.institution}
         </Typography>
-        <Button variant="outlined">Contact Us</Button>
+        <Button variant="outlined">{t.premium.contactSales}</Button>
       </Box>
 
       <Box sx={{ mt: 6, textAlign: 'center' }}>
         <Typography variant="h6" gutterBottom>
-          100% Satisfaction Guarantee
+          {t.premium.sage}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Try Premium risk-free. Cancel anytime within the first 30 days for a full refund.
+          {t.premium.subscribe}
         </Typography>
       </Box>
     </Container>

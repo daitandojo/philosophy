@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
@@ -28,6 +29,7 @@ import { philosophers } from '@/lib/philosophers';
 import type { Verse } from '@/types';
 
 function ExploreContent() {
+  const { t } = useI18n();
   const searchParams = useSearchParams();
   const philosopherParam = searchParams.get('philosopher');
   
@@ -78,14 +80,14 @@ function ExploreContent() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typo variant="h3" sx={{ mb: 4 }}>
-        Explore Persian Wisdom
+        {t.explore.title}
       </Typo>
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid size={{ xs: 12, md: 3 }}>
           <TextField
             fullWidth
-            placeholder="Search verses..."
+            placeholder={t.explore.searchPlaceholder}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             InputProps={{
@@ -99,13 +101,13 @@ function ExploreContent() {
         </Grid>
         <Grid size={{ xs: 12, md: 3 }}>
           <FormControl fullWidth>
-            <InputLabel>Philosopher</InputLabel>
+            <InputLabel>{t.verse.philosopher}</InputLabel>
             <Select
               value={philosopher}
-              label="Philosopher"
+              label={t.verse.philosopher}
               onChange={(e) => setPhilosopher(e.target.value)}
             >
-              <MenuItem value="">All Philosophers</MenuItem>
+              <MenuItem value="">{t.philosophers.viewAll} {t.verse.philosopher}</MenuItem>
               {philosophers.map((p) => (
                 <MenuItem key={p.id} value={p.id}>{p.name.english}</MenuItem>
               ))}
@@ -114,13 +116,13 @@ function ExploreContent() {
         </Grid>
         <Grid size={{ xs: 12, md: 3 }}>
           <FormControl fullWidth>
-            <InputLabel>Theme</InputLabel>
+            <InputLabel>{t.explore.themes}</InputLabel>
             <Select
               value={theme}
-              label="Theme"
+              label={t.explore.themes}
               onChange={(e) => setTheme(e.target.value)}
             >
-              <MenuItem value="">All Themes</MenuItem>
+              <MenuItem value="">{t.explore.allThemes}</MenuItem>
               {themes.map((t) => (
                 <MenuItem key={t} value={t}>{t}</MenuItem>
               ))}
@@ -129,13 +131,13 @@ function ExploreContent() {
         </Grid>
         <Grid size={{ xs: 12, md: 3 }}>
           <FormControl fullWidth>
-            <InputLabel>Source</InputLabel>
+            <InputLabel>{t.verse.source}</InputLabel>
             <Select
               value={source}
-              label="Source"
+              label={t.verse.source}
               onChange={(e) => setSource(e.target.value)}
             >
-              <MenuItem value="">All Sources</MenuItem>
+              <MenuItem value="">{t.common.viewAll} {t.verse.source}</MenuItem>
               {sources.map((s) => (
                 <MenuItem key={s} value={s}>{s}</MenuItem>
               ))}

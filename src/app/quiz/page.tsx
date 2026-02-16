@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
@@ -153,6 +154,7 @@ const philosopherDatabase: Record<string, { name: string; description: string; e
 };
 
 export default function QuizPage() {
+  const { t } = useI18n();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<{ philosopherId: string; score: number }[]>([]);
   const [showResult, setShowResult] = useState(false);
@@ -279,7 +281,7 @@ export default function QuizPage() {
               onClick={resetQuiz}
               sx={{ mt: 2 }}
             >
-              Take Quiz Again
+              {t.quiz.startQuiz}
             </Button>
           </Box>
         </Fade>
@@ -293,10 +295,10 @@ export default function QuizPage() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 1 }}>
-          Which Persian Philosopher Are You?
+          {t.quiz.title}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Answer 10 questions to discover your philosophical soulmate
+          {t.quiz.subtitle}
         </Typography>
       </Box>
 

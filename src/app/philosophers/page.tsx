@@ -21,10 +21,12 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useI18n } from '@/i18n';
 import { philosophers, eraColors, eraLabels } from '@/lib/philosophers';
 import type { Philosopher } from '@/types';
 
 export default function PhilosophersPage() {
+  const { t } = useI18n();
   const [search, setSearch] = useState('');
   const [era, setEra] = useState('');
   const [school, setSchool] = useState('');
@@ -44,10 +46,10 @@ export default function PhilosophersPage() {
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
-          Persian Philosophers
+          {t.philosophers.title}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Explore 2,500 years of wisdom from Persia's greatest minds
+          {t.philosophers.subtitle}
         </Typography>
       </Box>
 
@@ -69,8 +71,8 @@ export default function PhilosophersPage() {
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
           <FormControl fullWidth>
-            <InputLabel>Era</InputLabel>
-            <Select value={era} label="Era" onChange={(e) => setEra(e.target.value)}>
+            <InputLabel>{t.philosophers.era}</InputLabel>
+            <Select value={era} label={t.philosophers.era} onChange={(e) => setEra(e.target.value)}>
               <MenuItem value="">All Eras</MenuItem>
               {Object.entries(eraLabels).map(([key, label]) => (
                 <MenuItem key={key} value={key}>{label}</MenuItem>
@@ -80,8 +82,8 @@ export default function PhilosophersPage() {
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
           <FormControl fullWidth>
-            <InputLabel>School</InputLabel>
-            <Select value={school} label="School" onChange={(e) => setSchool(e.target.value)}>
+            <InputLabel>{t.philosophers.school}</InputLabel>
+            <Select value={school} label={t.philosophers.school} onChange={(e) => setSchool(e.target.value)}>
               <MenuItem value="">All Schools</MenuItem>
               {schools.map((s) => (
                 <MenuItem key={s} value={s}>{s}</MenuItem>
@@ -170,7 +172,7 @@ export default function PhilosophersPage() {
                 <Box sx={{ p: 2, pt: 0, display: 'flex', alignItems: 'center', gap: 1 }}>
                   <AutoStoriesIcon fontSize="small" color="action" />
                   <Typography variant="body2" color="text.secondary">
-                    {philosopher.quoteCount} quotes
+                    {philosopher.quoteCount} {t.philosophers.quotes}
                   </Typography>
                 </Box>
               </CardActionArea>

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
@@ -45,6 +46,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function AccountPage() {
+  const { t } = useI18n();
   const [tab, setTab] = useState(0);
   const [preferences, setPreferences] = useState({
     theme: 'light',
@@ -67,7 +69,7 @@ export default function AccountPage() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h3" sx={{ mb: 4 }}>
-        My Account
+        {t.account.title}
       </Typography>
 
       <Box sx={{ width: '100%' }}>

@@ -38,6 +38,7 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
   max-width: 100vw;
 }
 
@@ -67,7 +68,7 @@ a {
 }
 
 /* Prevent horizontal scroll on mobile */
-* {
+html, body {
   overflow-x: hidden;
   max-width: 100%;
 }

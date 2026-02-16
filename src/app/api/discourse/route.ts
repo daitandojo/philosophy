@@ -1,4 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import connectDB from '@/lib/mongodb';
+import { DiscourseModel } from '@/lib/models';
 
 const DEEPSEEK_API_URL = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com';
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || '';
@@ -26,75 +28,205 @@ const discourseThemes: DiscourseTheme[] = [
   { name: 'The Pearl and the Oyster', description: 'Wisdom hidden within hardship' },
 ];
 
+const languageNames: Record<string, string> = {
+  en: 'English',
+  es: 'Spanish',
+  nl: 'Dutch',
+};
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { philosopher, themes, type = 'fable' } = body;
+    const { philosopher, type = 'fable', language = 'en', userId, userName } = body;
 
     if (!philosopher) {
-      return NextResponse.json({ error: 'Philosopher is required' }, { status: 400 });
+      return new Response(JSON.stringify({ error: 'Philosopher is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const selectedTheme = discourseThemes[Math.floor(Math.random() * discourseThemes.length)];
-    
     const philosopherContext = getPhilosopherContext(philosopher);
-    
-    const prompt = `Create a short ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in the style of ${philosopher}, the Persian Sufi philosopher. 
+    const languageName = languageNames[language] || 'English';
 
+    const titlePrompt = `Create a short, evocative title (3-7 words) for a ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in the style of ${philosopher}. 
+    The theme is: ${selectedTheme.name}.
+    Write only the title, no quotes or explanation.`;
+
+    const contentPrompt = `Create a short ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in ${languageName}. 
+    
 ${philosopherContext}
 
 The story should:
 - Be 400-600 words
+- Include **bold** for important concepts and *italics* for poetic phrases
 - Include a clear moral or spiritual lesson
 - Feature ${selectedTheme.name}: ${selectedTheme.description}
 - Use elevated, poetic language appropriate to ${philosopher}'s style
 - Include dialogue between characters
-- End with a philosophical insight or wisdom teaching
+- End with a philosophical insight or wisdom teaching`;
 
-Write in English, but you may include occasional Persian words with translations.`;
+    const encoder = new TextEncoder();
 
-    const response = await fetch(`${DEEPSEEK_API_URL}/v1/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'deepseek-reasoner',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a master storyteller specializing in Persian Sufi wisdom traditions. Create evocative fables and discourses that capture the mystical and philosophical spirit of ancient Persian poets like Rumi, Hafez, Saadi, Attar, and Sanai.'
-          },
-          {
-            role: 'user',
-            content: prompt
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          const titleResponse = await fetch(`${DEEPSEEK_API_URL}/v1/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: 'deepseek-reasoner',
+              messages: [
+                { role: 'system', content: 'You are a master storyteller. Create only a title, nothing else.' },
+                { role: 'user', content: titlePrompt }
+              ],
+              temperature: 0.9,
+              max_tokens: 30,
+            }),
+          });
+
+          let title = '';
+          if (titleResponse.ok) {
+            const titleData = await titleResponse.json();
+            title = titleData.choices[0]?.message?.content?.trim() || selectedTheme.name;
+          } else {
+            title = selectedTheme.name;
           }
-        ],
-        temperature: 0.8,
-        max_tokens: 1000,
-      }),
+
+          const themeData = JSON.stringify({ 
+            theme: selectedTheme, 
+            philosopher, 
+            type,
+            title,
+            language,
+          });
+          controller.enqueue(encoder.encode(`data: ${themeData}\n\n`));
+
+          const response = await fetch(`${DEEPSEEK_API_URL}/v1/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: 'deepseek-reasoner',
+              messages: [
+                {
+                  role: 'system',
+                  content: 'You are a master storyteller specializing in Persian Sufi wisdom traditions. Use **bold** for important concepts and *italics* for poetic phrases. Create evocative fables and discourses.'
+                },
+                {
+                  role: 'user',
+                  content: contentPrompt
+                }
+              ],
+              temperature: 0.8,
+              max_tokens: 1500,
+              stream: true,
+            }),
+          });
+
+          if (!response.ok) {
+            const error = await response.text();
+            console.error('DeepSeek API error:', error);
+            const errorData = JSON.stringify({ error: 'Failed to generate discourse' });
+            controller.enqueue(encoder.encode(`data: ${errorData}\n\n`));
+            controller.close();
+            return;
+          }
+
+          const reader = response.body?.getReader();
+          if (!reader) {
+            throw new Error('No response body');
+          }
+
+          const decoder = new TextDecoder();
+          let fullContent = '';
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split('\n').filter((line) => line.trim() !== '');
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const data = line.slice(6);
+                if (data === '[DONE]') {
+                  break;
+                }
+                try {
+                  const parsed = JSON.parse(data);
+                  const content = parsed.choices?.[0]?.delta?.content || '';
+                  if (content) {
+                    fullContent += content;
+                    const contentData = JSON.stringify({ content });
+                    controller.enqueue(encoder.encode(`data: ${contentData}\n\n`));
+                  }
+                } catch {
+                  // Skip malformed JSON
+                }
+              }
+            }
+          }
+
+          try {
+            await connectDB();
+            const philosopherName = getPhilosopherName(philosopher);
+            await DiscourseModel.create({
+              title,
+              content: fullContent,
+              type,
+              philosopherId: philosopher,
+              philosopherName,
+              theme: selectedTheme,
+              language,
+              userId: userId || undefined,
+              userName: userName || undefined,
+            });
+          } catch (dbError) {
+            console.error('Error saving discourse to database:', dbError);
+          }
+
+          controller.enqueue(encoder.encode('data: {"done": true}\n\n'));
+          controller.close();
+        } catch (error) {
+          console.error('Stream error:', error);
+          const errorData = JSON.stringify({ error: 'Failed to generate discourse' });
+          controller.enqueue(encoder.encode(`data: ${errorData}\n\n`));
+          controller.close();
+        }
+      },
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('DeepSeek API error:', error);
-      return NextResponse.json({ error: 'Failed to generate discourse' }, { status: 500 });
-    }
-
-    const data = await response.json();
-    const content = data.choices[0]?.message?.content || '';
-
-    return NextResponse.json({
-      discourse: content,
-      theme: selectedTheme,
-      philosopher,
-      type,
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+      },
     });
   } catch (error) {
     console.error('Error generating discourse:', error);
-    return NextResponse.json({ error: 'Failed to generate discourse' }, { status: 500 });
+    return new Response(JSON.stringify({ error: 'Failed to generate discourse' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
+}
+
+export async function GET() {
+  return new Response(JSON.stringify({ themes: discourseThemes }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 function getPhilosopherContext(philosopher: string): string {
@@ -115,8 +247,19 @@ function getPhilosopherContext(philosopher: string): string {
   return contexts[philosopher] || '';
 }
 
-export async function GET() {
-  return NextResponse.json({
-    themes: discourseThemes,
-  });
+function getPhilosopherName(philosopher: string): string {
+  const names: Record<string, string> = {
+    'rumi': 'Rumi',
+    'hafez': 'Hafez',
+    'saadi': 'Saadi',
+    'attar': 'Attar',
+    'sanai': 'Sanai',
+    'jami': 'Jami',
+    'ibn-sina': 'Ibn Sina',
+    'ghazali': 'Al-Ghazali',
+    'mulla-sadra': 'Mulla Sadra',
+    'ibn-arabi': 'Ibn Arabi',
+  };
+  
+  return names[philosopher] || philosopher;
 }

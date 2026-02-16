@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
@@ -140,6 +141,7 @@ const discussionCategories = [
 ];
 
 export default function CommunityPage() {
+  const { t } = useI18n();
   const [tabValue, setTabValue] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [discussionCategory, setDiscussionCategory] = useState('all');
@@ -148,10 +150,10 @@ export default function CommunityPage() {
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
-          Community
+          {t.community.title}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Connect with fellow seekers, share wisdom, and learn together
+          {t.community.subtitle}
         </Typography>
       </Box>
 

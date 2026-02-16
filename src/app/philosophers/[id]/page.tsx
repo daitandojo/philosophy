@@ -375,53 +375,55 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h5" sx={{ mb: 2 }}>Influenced By</Typography>
               <Stack spacing={1}>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers/sanai">
-                      Sanai
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers/attar">
-                      Attar of Nishapur
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers/ibn-arabi">
-                      Ibn Arabi
-                    </Button>
-                  </CardContent>
-                </Card>
+                {(philosopher.influences || []).length > 0 ? (
+                  philosopher.influences?.map((infId) => {
+                    const infPhilosopher = getPhilosopherById(infId);
+                    return infPhilosopher ? (
+                      <Card key={infId}>
+                        <CardContent sx={{ py: 1.5 }}>
+                          <Button variant="text" component={Link} href={`/philosophers/${infId}`}>
+                            {infPhilosopher.name.english}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ) : null;
+                  })
+                ) : (
+                  <Card>
+                    <CardContent sx={{ py: 1.5 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        No recorded influences
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )}
               </Stack>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h5" sx={{ mb: 2 }}>Influenced</Typography>
               <Stack spacing={1}>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers/hafez">
-                      Hafez
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers/jami">
-                      Jami
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent sx={{ py: 1.5 }}>
-                    <Button variant="text" component={Link} href="/philosophers">
-                      Many subsequent Persian mystics
-                    </Button>
-                  </CardContent>
-                </Card>
+                {(philosopher.influenced || []).length > 0 ? (
+                  philosopher.influenced?.map((infId) => {
+                    const infPhilosopher = getPhilosopherById(infId);
+                    return infPhilosopher ? (
+                      <Card key={infId}>
+                        <CardContent sx={{ py: 1.5 }}>
+                          <Button variant="text" component={Link} href={`/philosophers/${infId}`}>
+                            {infPhilosopher.name.english}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ) : null;
+                  })
+                ) : (
+                  <Card>
+                    <CardContent sx={{ py: 1.5 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        No recorded followers
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )}
               </Stack>
             </Grid>
           </Grid>

@@ -1,6 +1,6 @@
 'use client';
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { ThemeProvider as MuiThemeProvider } from '@mui/material';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import theme, { darkTheme } from '@/theme/theme';
 
 interface ThemeContextType {
@@ -12,26 +12,28 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function useThemeMode() {
   const context = useContext(ThemeContext);
-  // Return default values during SSR
   if (!context) {
     return { mode: 'light' as const, toggleTheme: () => {} };
   }
   return context;
 }
 
+function getInitialMode(): 'light' | 'dark' {
+  if (typeof window === 'undefined') return 'light';
+  const saved = localStorage.getItem('theme-mode');
+  if (saved === 'dark' || saved === 'light') return saved;
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+  return 'light';
+}
+
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const [mounted, setMounted] = useState(false);
+  const [mode, setMode] = useState<'light' | 'dark'>(getInitialMode);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-    const savedMode = localStorage.getItem('theme-mode') as 'light' | 'dark' | null;
-    if (savedMode) {
-      setMode(savedMode);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setMode('dark');
-    }
-  }, []);
+    document.documentElement.setAttribute('data-theme', mode);
+  }, [mode]);
 
   const toggleTheme = useCallback(() => {
     setMode((prev) => {
@@ -42,19 +44,12 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
     });
   }, []);
 
-  const currentTheme = mode === 'dark' ? darkTheme : theme;
-
-  if (!mounted) {
-    return (
-      <MuiThemeProvider theme={theme}>
-        {children}
-      </MuiThemeProvider>
-    );
-  }
+  const currentTheme = useMemo(() => mode === 'dark' ? darkTheme : theme, [mode]);
 
   return (
     <ThemeContext.Provider value={{ mode, toggleTheme }}>
       <MuiThemeProvider theme={currentTheme}>
+        <CssBaseline />
         {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>

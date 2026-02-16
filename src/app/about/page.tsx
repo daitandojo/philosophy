@@ -13,6 +13,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import ExploreIcon from '@mui/icons-material/Explore';
 import Link from 'next/link';
+import { useI18n } from '@/i18n';
 
 const philosophers = [
   { name: 'Rumi', years: '1207-1273', role: 'Mystical Poet' },
@@ -31,6 +32,7 @@ const coreValues = [
 ];
 
 export default function AboutPage() {
+  const { t } = useI18n();
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Hero Section */}
@@ -54,15 +56,15 @@ export default function AboutPage() {
           حکمت
         </Typography>
         <Typography variant="h4" sx={{ color: 'text.secondary', mb: 2 }}>
-          Persian Philosophy Platform
+          {t.about.subtitle}
         </Typography>
           <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
-            Discover the timeless wisdom of Persia&apos;s greatest philosophers — Rumi, Hafez, Saadi, and more
+            {t.about.title}
           </Typography>
       </Box>
 
       {/* Core Values */}
-      <Typography variant="h4" sx={{ mb: 3 }}>Our Mission</Typography>
+      <Typography variant="h4" sx={{ mb: 3 }}>{t.about.mission}</Typography>
       <Grid container spacing={3} sx={{ mb: 6 }}>
         {coreValues.map((value, index) => (
           <Grid size={{ xs: 12, md: 6 }} key={index}>
@@ -126,7 +128,7 @@ export default function AboutPage() {
         }}
       >
         <Typography variant="h4" sx={{ mb: 2 }}>
-          Begin Your Journey
+          {t.about.vision}
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
           Explore verses, chat with AI-powered philosopher personas, or take our quiz to discover which philosopher resonates with you.

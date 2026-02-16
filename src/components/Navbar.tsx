@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -15,7 +15,6 @@ import {
   ListItemButton,
   ListItemText,
   Container,
-  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -33,27 +32,56 @@ import SchoolIcon from '@mui/icons-material/School';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useThemeMode } from '@/theme/ThemeRegistry';
-
-const navItems = [
-  { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
-  { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
-  { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
-  { label: 'Learn', href: '/learn', icon: <SchoolIcon /> },
-  { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
-  { label: 'Community', href: '/community', icon: <GroupsIcon /> },
-  { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
-  { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
-  { label: 'About', href: '/about', icon: <InfoIcon /> },
-];
+import { useI18n } from '@/i18n';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const { t } = useI18n();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const navItems = mounted ? [
+    { label: t.navigation.explore, href: '/explore', icon: <AutoStoriesIcon /> },
+    { label: t.navigation.history, href: '/read', icon: <MenuBookIcon /> },
+    { label: t.navigation.philosophers, href: '/philosophers', icon: <PeopleIcon /> },
+    { label: t.navigation.timeline, href: '/timeline', icon: <TimelineIcon /> },
+    { label: t.navigation.learn, href: '/learn', icon: <SchoolIcon /> },
+    { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
+    { label: t.navigation.community, href: '/community', icon: <GroupsIcon /> },
+    { label: t.navigation.chat, href: '/chat', icon: <ChatIcon /> },
+    { label: t.navigation.premium, href: '/premium', icon: <WorkspacePremiumIcon /> },
+    { label: t.navigation.about, href: '/about', icon: <InfoIcon /> },
+  ] : [
+    { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
+    { label: 'History', href: '/read', icon: <MenuBookIcon /> },
+    { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
+    { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
+    { label: 'Learn', href: '/learn', icon: <SchoolIcon /> },
+    { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
+    { label: 'Community', href: '/community', icon: <GroupsIcon /> },
+    { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
+    { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
+    { label: 'About', href: '/about', icon: <InfoIcon /> },
+  ];
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(false);
   const { mode, toggleTheme } = useThemeMode();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < theme.breakpoints.values.md);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [theme]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -62,7 +90,7 @@ export default function Navbar() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', py: 2 }}>
       <Typography variant="h6" sx={{ fontFamily: '"Vazir", serif', mb: 2, color: 'primary.main' }}>
-        حکمت | Hikmatia
+        Hikmatia
       </Typography>
       <List>
         {navItems.map((item) => (
@@ -84,7 +112,7 @@ export default function Navbar() {
             selected={pathname === '/account'}
             sx={{ textAlign: 'center' }}
           >
-            <ListItemText primary="Account" />
+            <ListItemText primary={mounted ? t.navigation.account : 'Account'} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -139,22 +167,12 @@ export default function Navbar() {
                   letterSpacing: '0.05em',
                 }}
               >
-                حکمت
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  ml: 1,
-                  color: 'text.secondary',
-                  display: { xs: 'none', sm: 'block' },
-                }}
-              >
-                Rumi
+                Hikmatia
               </Typography>
             </Box>
 
             {!isMobile && (
-              <Box sx={{ display: 'flex', gap: 1 }}>
+              <Box sx={{ display: 'flex', gap: 1, ml: 4 }}>
                 {navItems.map((item) => (
                   <Button
                     key={item.href}

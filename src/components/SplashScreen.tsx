@@ -1,89 +1,24 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
-import { Box, CircularProgress, IconButton, Typography } from '@mui/material';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-
-const WELCOME_TEXT_FARSI = 'سلام و درود. به جهان حکمت خوش آمدید. بیا تا برایت ببینیم.';
-const WELCOME_TEXT_ENGLISH = 'Peace be upon you. Welcome to Hikmatia. Come, let us see for you.';
+import { useState, useEffect } from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
 
 interface SplashScreenProps {
   onComplete: () => void;
   duration?: number;
 }
 
-export default function SplashScreen({ onComplete, duration = 3000 }: SplashScreenProps) {
+export default function SplashScreen({ onComplete, duration = 2000 }: SplashScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [audioError, setAudioError] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const startExperience = () => {
-    setStarted(true);
-    playWelcome();
-  };
-
-  const playWelcome = async () => {
-    if (playing) return;
-    
-    setPlaying(true);
-    setAudioError(null);
-    
-    try {
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: WELCOME_TEXT_FARSI, voiceType: 'persian' }),
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        audioRef.current = new Audio(url);
-        audioRef.current.onended = () => {
-          setPlaying(false);
-          // Auto-advance after audio finishes
-          setTimeout(() => {
-            setFadeOut(true);
-            setTimeout(onComplete, 800);
-          }, 500);
-        };
-        audioRef.current.onerror = () => {
-          setAudioError('Audio playback failed');
-          setPlaying(false);
-        };
-        audioRef.current.play();
-      } else {
-        const error = await response.json();
-        setAudioError(error.error || 'Failed to generate speech');
-        setPlaying(false);
-      }
-    } catch (error: any) {
-      console.error('Audio error:', error);
-      setAudioError(error.message || 'Network error');
-      setPlaying(false);
-    }
-  };
+  const theme = useTheme();
 
   useEffect(() => {
-    if (!started) return;
-
-    // Auto-advance if audio finishes or if user doesn't click
-    const autoAdvanceTimer = setTimeout(() => {
-      if (!playing) {
-        setFadeOut(true);
-        setTimeout(onComplete, 800);
-      }
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(onComplete, 1500);
     }, duration);
 
-    return () => {
-      clearTimeout(autoAdvanceTimer);
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    };
-  }, [duration, onComplete, playing, started]);
+    return () => clearTimeout(timer);
+  }, [duration, onComplete]);
 
   return (
     <Box
@@ -93,17 +28,18 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
         left: 0,
         width: '100vw',
         height: '100vh',
-        background: 'linear-gradient(135deg, #faf9f7 0%, #f5f4f1 100%)',
+        background: theme.palette.mode === 'dark' 
+          ? 'linear-gradient(135deg, #1a1a1a 0%, #121212 100%)'
+          : 'linear-gradient(135deg, #faf9f7 0%, #f5f4f1 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 9999,
-        transition: 'opacity 0.8s ease-out',
+        transition: 'opacity 1.5s ease-out',
         opacity: fadeOut ? 0 : 1,
       }}
     >
-      {/* Background Image with White Edges */}
       <Box
         sx={{
           position: 'absolute',
@@ -120,7 +56,6 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
         }}
       />
 
-      {/* Content */}
       <Box
         sx={{
           position: 'relative',
@@ -128,7 +63,6 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
           zIndex: 1,
         }}
       >
-        {/* Rumi Symbol / Logo */}
         <Box
           sx={{
             width: 120,
@@ -155,7 +89,6 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
           </Box>
         </Box>
 
-        {/* Title */}
         <Box sx={{ mb: 2 }}>
           <Box
             sx={{
@@ -181,7 +114,6 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
           </Typography>
         </Box>
 
-        {/* Tagline */}
         <Box sx={{ maxWidth: 400, mx: 'auto', mb: 4 }}>
           <Typography
             sx={{
@@ -204,62 +136,8 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
             "Come, let us see for you..."
           </Typography>
         </Box>
-
-        {/* Audio Controls */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-          {!started ? (
-            <Box
-              onClick={startExperience}
-              sx={{
-                bgcolor: 'primary.main',
-                color: 'white',
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-                cursor: 'pointer',
-                fontFamily: '"Vazir", serif',
-                fontSize: '1.2rem',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 14px rgba(139, 69, 19, 0.3)',
-                '&:hover': {
-                  bgcolor: 'primary.dark',
-                  transform: 'translateY(-2px)',
-                },
-              }}
-            >
-              ورود به جهان حکمت
-            </Box>
-          ) : (
-            <>
-              <IconButton
-                onClick={playWelcome}
-                disabled={playing}
-                sx={{
-                  bgcolor: 'primary.main',
-                  color: 'white',
-                  width: 64,
-                  height: 64,
-                  '&:hover': { bgcolor: 'primary.dark' },
-                }}
-              >
-                {playing ? <CircularProgress size={28} color="inherit" /> : <PlayArrowIcon sx={{ fontSize: 32 }} />}
-              </IconButton>
-              
-              <Typography variant="body2" color="text.secondary">
-                {playing ? 'Playing...' : 'Click to hear welcome'}
-              </Typography>
-              
-              {audioError && (
-                <Typography variant="caption" color="error">
-                  {audioError}
-                </Typography>
-              )}
-            </>
-          )}
-        </Box>
       </Box>
 
-      {/* Decorative Border */}
       <Box
         sx={{
           position: 'absolute',
@@ -267,7 +145,8 @@ export default function SplashScreen({ onComplete, duration = 3000 }: SplashScre
           left: 20,
           right: 20,
           bottom: 20,
-          border: '1px solid rgba(139, 69, 19, 0.2)',
+          border: '1px solid',
+          borderColor: 'rgba(139, 69, 19, 0.2)',
           borderRadius: 4,
           pointerEvents: 'none',
         }}

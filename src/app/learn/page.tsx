@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   Box,
   Container,
@@ -10,270 +11,442 @@ import {
   CardActions,
   Button,
   Chip,
-  LinearProgress,
   Stack,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  LinearProgress,
+  Tabs,
+  Tab,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SchoolIcon from '@mui/icons-material/School';
 import TimerIcon from '@mui/icons-material/Timer';
-import { LearningPath } from '@/types';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import HistoryIcon from '@mui/icons-material/History';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import TempleBuddhistIcon from '@mui/icons-material/TempleBuddhist';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import { useI18n } from '@/i18n';
+
+interface Lesson {
+  _id: string;
+  title: string;
+  content: string;
+  verseIds: string[];
+}
+
+interface LearningPath {
+  _id: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  philosopher?: string;
+  era: string;
+  verses: any[];
+  lessons: Lesson[];
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  estimatedTime: number;
+}
 
 const learningPaths: LearningPath[] = [
+  // Part 1: Ancient Iranian Thought
   {
-    _id: '1',
-    title: 'Introduction to Rumi',
-    description: 'Begin your journey into the mystical world of Rumi. Learn about his life, his poetry, and the spiritual traditions that shaped his work.',
+    _id: 'ancient-iranian',
+    subtitle: 'Part I: The Dawn of Wisdom',
+    title: 'Ancient Iranian Philosophy',
+    description: 'Explore the origins of Persian philosophical thought, from Zoroastrian cosmology to the Achaemenid ethical empire.',
+    philosopher: 'Zarathustra',
+    era: 'ancient',
     verses: [],
     lessons: [
-      { _id: '1', title: 'Who Was Rumi?', content: '', verseIds: [] },
-      { _id: '2', title: 'The Masnavi', content: '', verseIds: [] },
-      { _id: '3', title: 'The Spiritual Path', content: '', verseIds: [] },
+      { _id: '1', title: 'The World of Zarathustra', content: 'The Iranian plateau in the second millennium BCE, where a distinct way of seeing the world was born.', verseIds: [] },
+      { _id: '2', title: 'Ahura Mazda and the Cosmic Order', content: 'The revolutionary idea of a universe defined by ethical choice and cosmic order (Asha).', verseIds: [] },
+      { _id: '3', title: 'The Gathas as Metaphysics', content: 'Understanding the Gathas as philosophical poetry that interrogates the cosmos.', verseIds: [] },
+      { _id: '4', title: 'Cyrus the Great: Power as Stewardship', content: 'How the Achaemenid dynasty built an empire on ethical principles.', verseIds: [] },
+      { _id: '5', title: 'Darius and the Moral Empire', content: 'The political philosophy of the Behistun inscription.', verseIds: [] },
     ],
     difficulty: 'beginner',
-    estimatedTime: 30,
+    estimatedTime: 60,
   },
+  // Part 2: Revelation and Reason
   {
-    _id: '2',
-    title: 'The Poetry of Divine Love',
-    description: 'Explore Rumi\'s beautiful expressions of divine love and the longing of the soul for the Beloved.',
+    _id: 'islamic-golden-age',
+    subtitle: 'Part II: Revelation and Reason',
+    title: 'The Islamic Golden Age',
+    description: 'Discover how Persian scholars translated, preserved, and advanced Greek philosophy while creating new schools of thought.',
+    philosopher: 'Al-Farabi',
+    era: 'classical',
     verses: [],
     lessons: [
-      { _id: '1', title: 'The Nature of Love', content: '', verseIds: [] },
-      { _id: '2', title: 'Longing and Ecstasy', content: '', verseIds: [] },
-      { _id: '3', title: 'The Beloved and the Lover', content: '', verseIds: [] },
+      { _id: '1', title: 'The Translation Movement', content: 'How Persian scholars preserved Greek philosophy and created a new synthesis.', verseIds: [] },
+      { _id: '2', title: 'Al-Farabi: The Second Teacher', content: 'Logic, music, and the ideal city in Farabi\'s philosophy.', verseIds: [] },
+      { _id: '3', title: 'Ibn Sina (Avicenna): The Healing of the Soul', content: 'The Book of Healing and the floating man argument.', verseIds: [] },
+      { _id: '4', title: 'Al-Ghazali: The Reviver', content: 'The Incoherence of the Philosophers and the renovation of Islamic thought.', verseIds: [] },
     ],
     difficulty: 'intermediate',
-    estimatedTime: 45,
+    estimatedTime: 90,
   },
+  // Part 3: Illumination and Mysticism
   {
-    _id: '3',
-    title: 'Wisdom for Daily Life',
-    description: 'Apply Rumi\'s timeless wisdom to everyday challenges. Find guidance for relationships, work, and spiritual growth.',
+    _id: 'illuminationist',
+    subtitle: 'Part III: Illumination and Ecstasy',
+    title: 'The Illuminationist School',
+    description: 'Enter the mystical dimension of Persian philosophy with Suhrawardi\'s wisdom of illumination.',
+    philosopher: 'Suhrawardi',
+    era: 'medieval',
     verses: [],
     lessons: [
-      { _id: '1', title: 'Transforming Difficulty', content: '', verseIds: [] },
-      { _id: '2', title: 'The Power of Gratitude', content: '', verseIds: [] },
-      { _id: '3', title: 'Living with Purpose', content: '', verseIds: [] },
-    ],
-    difficulty: 'beginner',
-    estimatedTime: 40,
-  },
-  {
-    _id: '4',
-    title: 'Advanced Studies in Sufism',
-    description: 'Deep dive into the philosophical and mystical dimensions of Rumi\'s work for advanced students.',
-    verses: [],
-    lessons: [
-      { _id: '1', title: 'The Concept of Wahdat al-Wujud', content: '', verseIds: [] },
-      { _id: '2', title: 'The Spiritual States', content: '', verseIds: [] },
-      { _id: '3', title: 'The Maqam of the Sufi', content: '', verseIds: [] },
+      { _id: '1', title: 'Suhrawardi and the Light Theory', content: 'The philosophy of illumination (Ishraq) and the nature of light.', verseIds: [] },
+      { _id: '2', title: 'The Realm of Light', content: 'The cosmological hierarchy of lights beyond the material world.', verseIds: [] },
+      { _id: '3', title: 'Active Intelligence', content: 'The role of celestial intellects in mystical knowledge.', verseIds: [] },
     ],
     difficulty: 'advanced',
     estimatedTime: 60,
   },
   {
-    _id: '5',
-    title: '30 Days with Rumi',
-    description: 'A daily journey through Rumi\'s wisdom. One quote, one reflection, one day at a time.',
-    verses: [],
-    lessons: Array.from({ length: 30 }, (_, i) => ({
-      _id: String(i + 1),
-      title: `Day ${i + 1}`,
-      content: '',
-      verseIds: [],
-    })),
-    difficulty: 'beginner',
-    estimatedTime: 15,
-  },
-  {
-    _id: '6',
-    title: 'Sufism 101',
-    description: 'Learn the fundamentals of Sufism - the mystical dimension of Islam that produced some of history\'s greatest philosophers.',
+    _id: 'rumi-mysticism',
+    subtitle: 'Part III: Illumination and Ecstasy',
+    title: 'Rumi: The Poet of Divine Love',
+    description: 'Journey through Rumi\'s mystical poetry and the spiritual path of the whirling dervishes.',
+    philosopher: 'Rumi',
+    era: 'golden-age',
     verses: [],
     lessons: [
-      { _id: '1', title: 'What is Sufism?', content: '', verseIds: [] },
-      { _id: '2', title: 'The Sufi Path', content: '', verseIds: [] },
-      { _id: '3', title: 'Fana and Baqa', content: '', verseIds: [] },
-      { _id: '4', title: 'The Role of the Teacher', content: '', verseIds: [] },
-      { _id: '5', title: 'Sufi Poetry and Music', content: '', verseIds: [] },
+      { _id: '1', title: 'Life of Rumi', content: 'From scholar to mystic: the transformation of Jalal al-Din Muhammad.', verseIds: [] },
+      { _id: '2', title: 'The Masnavi: The Soul\'s Journey', content: 'The masterwork of spiritual poetry and its philosophical depths.', verseIds: [] },
+      { _id: '3', title: 'The Spiritual Path', content: 'The stations of the soul from separation to union.', verseIds: [] },
+      { _id: '4', title: 'Love as the Fundamental Force', content: 'Rumi\'s radical teaching that love is the only reality.', verseIds: [] },
     ],
     difficulty: 'beginner',
-    estimatedTime: 50,
+    estimatedTime: 75,
   },
   {
-    _id: '7',
-    title: 'Persian Philosophy Through the Ages',
-    description: 'Trace the development of Persian philosophical thought from ancient times to the modern era.',
+    _id: 'ibn-arabi',
+    subtitle: 'Part III: Illumination and Ecstasy',
+    title: 'Ibn Arabi: The Great Master',
+    description: 'Explore the philosophy of the Unity of Being (Wahdat al-Wujud) with the greatest Sufi metaphysician.',
+    philosopher: 'Ibn Arabi',
+    era: 'medieval',
     verses: [],
     lessons: [
-      { _id: '1', title: 'Ancient Persian Wisdom', content: '', verseIds: [] },
-      { _id: '2', title: 'The Islamic Golden Age', content: '', verseIds: [] },
-      { _id: '3', title: 'The Sufi Masters', content: '', verseIds: [] },
-      { _id: '4', title: 'Philosophy vs Mysticism', content: '', verseIds: [] },
-      { _id: '5', title: 'Modern Persian Thought', content: '', verseIds: [] },
+      { _id: '1', title: 'The Concept of Unity', content: 'All existence is one; the infinite manifestations of the Divine.', verseIds: [] },
+      { _id: '2', title: 'The Perfect Human', content: 'The Adam Kadmon concept and cosmic consciousness.', verseIds: [] },
+      { _id: '3', title: 'The Divine Names', content: 'How God knows Himself through creation.', verseIds: [] },
+    ],
+    difficulty: 'advanced',
+    estimatedTime: 60,
+  },
+  // Part 4: The Great Synthesis
+  {
+    _id: 'mulla-sadra',
+    subtitle: 'Part IV: The Great Synthesis',
+    title: 'Mulla Sadra: Transcendent Theosophy',
+    description: 'The final synthesis of Iranian philosophy that transformed Islamic metaphysics.',
+    philosopher: 'Mulla Sadra',
+    era: 'safavid',
+    verses: [],
+    lessons: [
+      { _id: '1', title: 'The Transcendent Philosophy', content: 'How Sadra synthesized peripatetic and illuminationist traditions.', verseIds: [] },
+      { _id: '2', title: 'The Journey of the Soul', content: 'Barzakh, death, and the soul\'s progression toward God.', verseIds: [] },
+      { _id: '3', title: 'Actualization and Existence', content: 'The primacy of existence over essence.', verseIds: [] },
+    ],
+    difficulty: 'advanced',
+    estimatedTime: 75,
+  },
+  // Part 5: Poetry and Ethics
+  {
+    _id: 'saadi-wisdom',
+    subtitle: 'Part V: Poetry and Ethics',
+    title: 'Saadi: The Master of Moral Wisdom',
+    description: 'Learn from Saadi\'s practical philosophy of ethics, friendship, and human dignity.',
+    philosopher: 'Saadi',
+    era: 'golden-age',
+    verses: [],
+    lessons: [
+      { _id: '1', title: 'The Gulistan: Garden of Roses', content: 'The masterpiece of moral prose and poetry.', verseIds: [] },
+      { _id: '2', title: 'Practical Ethics', content: 'Saadi\'s teachings on kindness, patience, and gratitude.', verseIds: [] },
+      { _id: '3', title: 'Human Dignity', content: '"Human beings are members of a whole" - the brotherhood of humanity.', verseIds: [] },
+    ],
+    difficulty: 'beginner',
+    estimatedTime: 45,
+  },
+  {
+    _id: 'hafez-mysticism',
+    subtitle: 'Part V: Poetry and Ethics',
+    title: 'Hafez: The Tongue of the Unseen',
+    description: 'Unlock the mystical meanings in Hafez\'s ghazals and the secrets of the Divan.',
+    philosopher: 'Hafez',
+    era: 'golden-age',
+    verses: [],
+    lessons: [
+      { _id: '1', title: 'The Divan of Hafez', content: 'The collection of ghazals that contains hidden truths.', verseIds: [] },
+      { _id: '2', title: 'The Wine of Divine Love', content: 'Understanding the symbolism of wine and the tavern.', verseIds: [] },
+      { _id: '3', title: 'Fate and Free Will', content: 'The mystery of destiny in Hafez\'s poetry.', verseIds: [] },
+      { _id: '4', title: 'The Art of Interpretation', content: 'How to read Hafez: layers of meaning in the ghazals.', verseIds: [] },
     ],
     difficulty: 'intermediate',
     estimatedTime: 60,
   },
   {
-    _id: '8',
-    title: 'Love in Persian Poetry',
-    description: 'Explore how Persian poets from Rumi to Hafez to Saadi expressed the many dimensions of love.',
+    _id: 'ferdowsi-epic',
+    subtitle: 'Part V: Poetry and Ethics',
+    title: 'Ferdowsi: The Epic of Iran',
+    description: 'Journey through the Shahnameh, the epic that preserved Persian identity and wisdom.',
+    philosopher: 'Ferdowsi',
+    era: 'golden-age',
     verses: [],
     lessons: [
-      { _id: '1', title: 'Divine Love in Rumi', content: '', verseIds: [] },
-      { _id: '2', title: 'Mystical Love in Hafez', content: '', verseIds: [] },
-      { _id: '3', title: 'Earthly Wisdom in Saadi', content: '', verseIds: [] },
-      { _id: '4', title: 'Romantic Epics', content: '', verseIds: [] },
-    ],
-    difficulty: 'intermediate',
-    estimatedTime: 45,
-  },
-  {
-    _id: '9',
-    title: 'Wisdom for Difficult Times',
-    description: 'Find solace and guidance in Persian philosophy during challenging periods of life.',
-    verses: [],
-    lessons: [
-      { _id: '1', title: 'Embracing Change', content: '', verseIds: [] },
-      { _id: '2', title: 'Finding Peace', content: '', verseIds: [] },
-      { _id: '3', title: 'Healing and Renewal', content: '', verseIds: [] },
-      { _id: '4', title: 'The Power of Surrender', content: '', verseIds: [] },
+      { _id: '1', title: 'The Shahnameh', content: 'The epic poem that contains the soul of Persian culture.', verseIds: [] },
+      { _id: '2', title: 'Kings and Heroes', content: 'The wisdom of kingship and heroic virtue.', verseIds: [] },
+      { _id: '3', title: 'Tragedy and Fate', content: 'The tragic heroes and the question of destiny.', verseIds: [] },
     ],
     difficulty: 'beginner',
-    estimatedTime: 40,
+    estimatedTime: 50,
   },
+  // Part 6: Modern Voices
   {
-    _id: '10',
-    title: 'The Essential Seven',
-    description: 'Get introduced to the seven most influential Persian philosophers and poets.',
+    _id: 'modern-philosophy',
+    subtitle: 'Part VI: Modern Voices',
+    title: 'Modern Persian Philosophy',
+    description: 'Explore how Iranian philosophers engaged with modernity while preserving their heritage.',
+    philosopher: 'Ali Shariati',
+    era: 'modern',
     verses: [],
     lessons: [
-      { _id: '1', title: 'Rumi - The Master of Love', content: '', verseIds: [] },
-      { _id: '2', title: 'Hafez - The Interpreter', content: '', verseIds: [] },
-      { _id: '3', title: 'Saadi - The Wise Teacher', content: '', verseIds: [] },
-      { _id: '4', title: 'Attar - The Visionary', content: '', verseIds: [] },
-      { _id: '5', title: 'Ferdowsi - The Preserver', content: '', verseIds: [] },
-      { _id: '6', title: 'Ibn Sina - The Physician', content: '', verseIds: [] },
-      { _id: '7', title: 'Al-Ghazali - The Reviver', content: '', verseIds: [] },
+      { _id: '1', title: 'Ali Shariati: Islam and Modernity', content: 'Reinterpreting Islam for the modern age.', verseIds: [] },
+      { _id: '2', title: 'Ahmad Fardid: Westoxication', content: 'The critique of Western materialism.', verseIds: [] },
+      { _id: '3', title: 'Abdolkarim Soroush: Religious Knowledge', content: 'The evolution of religious understanding.', verseIds: [] },
     ],
-    difficulty: 'beginner',
-    estimatedTime: 70,
+    difficulty: 'advanced',
+    estimatedTime: 90,
   },
 ];
 
-const difficultyColors = {
-  beginner: 'success',
-  intermediate: 'warning',
-  advanced: 'error',
-};
-
 export default function LearnPage() {
-  const [expanded, setExpanded] = useState<string | false>(false);
+  const [selectedEra, setSelectedEra] = useState('all');
+  const [expandedPath, setExpandedPath] = useState<string | false>(false);
+  const { t } = useI18n();
 
-  const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
+  const eras = [
+    { id: 'all', label: t.learn.allEras, icon: <SchoolIcon /> },
+    { id: 'ancient', label: t.learn.ancient, icon: <HistoryIcon /> },
+    { id: 'classical', label: t.learn.classical, icon: <MenuBookIcon /> },
+    { id: 'medieval', label: t.learn.medieval, icon: <TempleBuddhistIcon /> },
+    { id: 'golden-age', label: t.learn.goldenAge, icon: <LocalFireDepartmentIcon /> },
+    { id: 'safavid', label: t.learn.safavid, icon: <PsychologyIcon /> },
+    { id: 'modern', label: t.learn.modern, icon: <AutoStoriesIcon /> },
+  ];
+
+  const filteredPaths = selectedEra === 'all' 
+    ? learningPaths 
+    : learningPaths.filter(p => p.era === selectedEra);
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'beginner': return 'success';
+      case 'intermediate': return 'warning';
+      case 'advanced': return 'error';
+      default: return 'default';
+    }
+  };
+
+  const getEraLabel = (era: string) => {
+    const eraData = eras.find(e => e.id === era);
+    return eraData?.label || era;
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" sx={{ mb: 2 }}>
-        Guided Learning
-      </Typography>
-      <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-        Structured paths to understand Rumi's wisdom
-      </Typography>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          py: { xs: 6, md: 10 },
+          textAlign: 'center',
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+            {t.learn.journey}
+          </Typography>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 2 }}>
+            {t.learn.title}
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, mb: 4 }}>
+            {t.learn.subtitle}
+          </Typography>
+        </Container>
+      </Box>
 
-      <Grid container spacing={4}>
-        {learningPaths.map((path) => (
-          <Grid size={{ xs: 12, md: 6 }} key={path._id}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flex: 1 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                  <Chip
-                    icon={<SchoolIcon />}
-                    label={path.difficulty}
-                    color={difficultyColors[path.difficulty] as any}
-                    size="small"
-                  />
-                  <Chip
-                    icon={<TimerIcon />}
-                    label={`${path.estimatedTime} min`}
-                    size="small"
-                    variant="outlined"
-                  />
-                </Box>
-                <Typography variant="h5" gutterBottom>
-                  {path.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {path.description}
-                </Typography>
-                <Box sx={{ mt: 2 }}>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    {path.lessons.length} lessons
-                  </Typography>
-                  <LinearProgress
-                    variant="determinate"
-                    value={0}
-                    sx={{ height: 8, borderRadius: 4 }}
-                  />
-                </Box>
-              </CardContent>
-              <CardActions sx={{ p: 2, pt: 0 }}>
-                <Button variant="contained" fullWidth>
-                  Start Learning
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
-      <Typography variant="h4" sx={{ mt: 8, mb: 4 }}>
-        Lesson Topics
-      </Typography>
-
-      <Stack spacing={2}>
-        {learningPaths.map((path) => (
-          <Accordion
-            key={path._id}
-            expanded={expanded === path._id}
-            onChange={handleChange(path._id)}
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        {/* Era Filter Tabs */}
+        <Box sx={{ mb: 4, borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs 
+            value={selectedEra} 
+            onChange={(_, v) => setSelectedEra(v)}
+            variant="scrollable"
+            scrollButtons="auto"
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6">{path.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Stack spacing={2}>
-                {path.lessons.map((lesson, index) => (
-                  <Box
-                    key={lesson._id}
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      p: 2,
-                      bgcolor: 'background.default',
-                      borderRadius: 2,
-                    }}
+            {eras.map((era) => (
+              <Tab 
+                key={era.id} 
+                value={era.id} 
+                label={era.label}
+                icon={era.icon}
+                iconPosition="start"
+                sx={{ minHeight: 48 }}
+              />
+            ))}
+          </Tabs>
+        </Box>
+
+        {/* Learning Paths */}
+        <Grid container spacing={3}>
+          {filteredPaths.map((path) => (
+            <Grid size={{ xs: 12, md: 6 }} key={path._id}>
+              <Card 
+                sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: 4,
+                  },
+                }}
+              >
+                <CardContent sx={{ flex: 1 }}>
+                  {path.subtitle && (
+                    <Typography variant="caption" color="primary" sx={{ fontWeight: 600, letterSpacing: 1 }}>
+                      {path.subtitle}
+                    </Typography>
+                  )}
+                  <Typography variant="h5" component="div" sx={{ mt: 1, mb: 1 }}>
+                    {path.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {path.description}
+                  </Typography>
+                  
+                  <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap', gap: 1 }}>
+                    <Chip 
+                      size="small" 
+                      label={path.difficulty.charAt(0).toUpperCase() + path.difficulty.slice(1)} 
+                      color={getDifficultyColor(path.difficulty) as any}
+                    />
+                    <Chip 
+                      size="small" 
+                      icon={<TimerIcon />}
+                      label={`${path.estimatedTime} ${t.learn.minutes}`}
+                      variant="outlined"
+                    />
+                    <Chip 
+                      size="small" 
+                      label={getEraLabel(path.era)}
+                      variant="outlined"
+                    />
+                  </Stack>
+
+                  <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+                    {path.lessons.length} {t.learn.lessons}
+                  </Typography>
+                </CardContent>
+
+                <Accordion 
+                  expanded={expandedPath === path._id}
+                  onChange={() => setExpandedPath(expandedPath === path._id ? false : path._id)}
+                  sx={{ boxShadow: 'none' }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="body2">{t.learn.viewCurriculum}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Stack spacing={1}>
+                      {path.lessons.map((lesson, index) => (
+                        <Box 
+                          key={lesson._id}
+                          sx={{
+                            p: 1.5,
+                            bgcolor: 'rgba(46, 74, 61, 0.05)',
+                            borderRadius: 1,
+                            cursor: 'pointer',
+                            '&:hover': { bgcolor: 'rgba(46, 74, 61, 0.1)' },
+                          }}
+                        >
+                          <Stack direction="row" alignItems="center" spacing={1}>
+                            <Chip 
+                              size="small" 
+                              label={index + 1} 
+                              sx={{ width: 24, height: 24, fontSize: '0.7rem' }}
+                            />
+                            <Typography variant="body2">
+                              {lesson.title}
+                            </Typography>
+                          </Stack>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </AccordionDetails>
+                </Accordion>
+
+                <CardActions sx={{ p: 2, pt: 0 }}>
+                  <Button 
+                    variant="contained" 
+                    fullWidth
+                    component={Link}
+                    href={`/learn/${path._id}`}
+                    startIcon={<SchoolIcon />}
                   >
-                    <Box>
-                      <Typography variant="subtitle1">
-                        {index + 1}. {lesson.title}
-                      </Typography>
-                    </Box>
-                    <Button size="small">Start</Button>
-                  </Box>
-                ))}
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Stack>
-    </Container>
+                    Start Learning
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+
+        {filteredPaths.length === 0 && (
+          <Box sx={{ textAlign: 'center', py: 8 }}>
+            <Typography variant="h6" color="text.secondary">
+              No learning paths found for this era.
+            </Typography>
+          </Box>
+        )}
+
+        {/* Progress Overview */}
+        <Box sx={{ mt: 6, p: 4, bgcolor: 'rgba(46, 74, 61, 0.08)', borderRadius: 3 }}>
+          <Typography variant="h5" sx={{ mb: 3 }}>
+            Your Learning Journey
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 12, sm: 4 }}>
+              <Box sx={{ textAlign: 'center', p: 2 }}>
+                <Typography variant="h3" color="primary">{learningPaths.length}</Typography>
+                <Typography variant="body2" color="text.secondary">Learning Paths</Typography>
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 4 }}>
+              <Box sx={{ textAlign: 'center', p: 2 }}>
+                <Typography variant="h3" color="primary">
+                  {learningPaths.reduce((sum, p) => sum + p.lessons.length, 0)}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">Total Lessons</Typography>
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 4 }}>
+              <Box sx={{ textAlign: 'center', p: 2 }}>
+                <Typography variant="h3" color="primary">
+                  {Math.round(learningPaths.reduce((sum, p) => sum + p.estimatedTime, 0) / 60)}h
+                </Typography>
+                <Typography variant="body2" color="text.secondary">Total Content</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 }

@@ -11,6 +11,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 450,
     influence: 100,
     verified: true,
+    influences: ['sanai', 'attar', 'ibn-arabi', 'shams-tabrizi'],
+    influenced: ['hafez', 'jami', ' Iqbal'],
   },
   {
     id: 'hafez',
@@ -21,6 +23,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 380,
     influence: 95,
     verified: true,
+    influences: ['rumi', 'saadi', 'attar'],
+    influenced: ['jami', 'iqbal'],
   },
   {
     id: 'saadi',
@@ -31,6 +35,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 320,
     influence: 90,
     verified: true,
+    influences: ['attar', 'sanai'],
+    influenced: ['hafez', 'jami'],
   },
   {
     id: 'attar',
@@ -41,6 +47,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 180,
     influence: 85,
     verified: true,
+    influences: ['sanai', 'hallaj', 'bayazid'],
+    influenced: ['rumi', 'jami'],
   },
   {
     id: 'sanai',
@@ -51,6 +59,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 120,
     influence: 80,
     verified: true,
+    influences: ['ghazali'],
+    influenced: ['attar', 'rumi'],
   },
   {
     id: 'jami',
@@ -61,6 +71,8 @@ export const philosophers: Philosopher[] = [
     quoteCount: 95,
     influence: 78,
     verified: true,
+    influences: ['rumi', 'hafez', 'attar', 'nizami'],
+    influenced: [],
   },
   {
     id: 'nizami',
