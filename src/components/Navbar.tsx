@@ -47,7 +47,7 @@ export default function Navbar() {
     setMounted(true);
   }, []);
 
-  const navItems = mounted ? [
+  const navItems = [
     { label: t.navigation.explore, href: '/explore', icon: <AutoStoriesIcon /> },
     { label: t.navigation.history, href: '/read', icon: <MenuBookIcon /> },
     { label: t.navigation.philosophers, href: '/philosophers', icon: <PeopleIcon /> },
@@ -58,17 +58,6 @@ export default function Navbar() {
     { label: t.navigation.chat, href: '/chat', icon: <ChatIcon /> },
     { label: t.navigation.premium, href: '/premium', icon: <WorkspacePremiumIcon /> },
     { label: t.navigation.about, href: '/about', icon: <InfoIcon /> },
-  ] : [
-    { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
-    { label: 'History', href: '/read', icon: <MenuBookIcon /> },
-    { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
-    { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
-    { label: 'Learn', href: '/learn', icon: <SchoolIcon /> },
-    { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
-    { label: 'Community', href: '/community', icon: <GroupsIcon /> },
-    { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
-    { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
-    { label: 'About', href: '/about', icon: <InfoIcon /> },
   ];
   const theme = useTheme();
   const [isMobile, setIsMobile] = useState(false);
@@ -112,7 +101,7 @@ export default function Navbar() {
             selected={pathname === '/account'}
             sx={{ textAlign: 'center' }}
           >
-            <ListItemText primary={mounted ? t.navigation.account : 'Account'} />
+            <ListItemText primary={t.navigation.account} />
           </ListItemButton>
         </ListItem>
       </List>
