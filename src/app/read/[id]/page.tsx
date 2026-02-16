@@ -97,7 +97,6 @@ export default function ReadingPage() {
         >
           <Typography variant="body2" sx={{ fontWeight: 'inherit', color: 'inherit' }}>
             {section.title}
-            {section.title}
           </Typography>
           {section.subtitle && (
             <Typography variant="caption" sx={{ opacity: 0.8, color: 'inherit' }}>
@@ -244,7 +243,7 @@ export default function ReadingPage() {
         <Box
           sx={{
             position: 'relative',
-            height: { xs: 250, md: 400 },
+            height: { xs: 150, md: 250 },
             overflow: 'hidden',
             '&::after': {
               content: '""',
@@ -252,7 +251,7 @@ export default function ReadingPage() {
               bottom: 0,
               left: 0,
               right: 0,
-              height: 150,
+              height: 80,
               background: `linear-gradient(to top, ${colors.bg}, transparent)`,
             },
           }}
@@ -261,22 +260,19 @@ export default function ReadingPage() {
         </Box>
 
         {/* Content */}
-        <Container maxWidth="md" sx={{ py: 4, pb: 10 }}>
-          <Typography variant="overline" sx={{ color: colors.primary, letterSpacing: 3, fontWeight: 600 }}>
-            {currentSection.title}
-          </Typography>
-
+        <Container maxWidth="md" sx={{ py: 3, pb: 10 }}>
           {currentSection.subtitle && (
             <Typography
-              variant="h3"
+              variant="h4"
               component="h1"
               sx={{
                 fontWeight: 700,
-                mb: 4,
+                mb: 3,
+                mt: 2,
                 background: isDark ? 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)' : 'linear-gradient(135deg, #2e4a3d 0%, #8b4513 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                fontSize: { xs: '2rem', md: '2.5rem' },
+                fontSize: { xs: '1.75rem', md: '2rem' },
               }}
             >
               {currentSection.subtitle}
