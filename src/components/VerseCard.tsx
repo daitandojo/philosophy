@@ -22,7 +22,7 @@ interface VerseCardProps {
   showDetails?: boolean;
 }
 
-export default function VerseCard({ verse, showDetails = true }: VerseCardProps) {
+export default function VerseCard({ verse, showDetails = false }: VerseCardProps) {
   const [expanded, setExpanded] = useState(showDetails);
   const [liked, setLiked] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -78,30 +78,44 @@ export default function VerseCard({ verse, showDetails = true }: VerseCardProps)
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Box sx={{ flex: 1 }}>
-            <Typography
-              variant="h5"
-              sx={{
-                fontFamily: '"Vazir", "Tahoma", sans-serif',
-                direction: 'rtl',
-                textAlign: 'right',
-                mb: 1,
-                color: 'text.primary',
-                lineHeight: 1.8,
-              }}
-            >
-              {verse.persianText}
-            </Typography>
+            <Collapse in={!expanded}>
+              <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
+                {verse.englishTranslation}
+              </Typography>
+            </Collapse>
             
-            <Typography
-              variant="body1"
-              sx={{
-                fontStyle: 'italic',
-                color: 'text.secondary',
-                mb: 2,
-              }}
-            >
-              {verse.transliteration}
-            </Typography>
+            <Collapse in={expanded}>
+              <Box>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontFamily: '"Vazir", "Tahoma", sans-serif',
+                    direction: 'rtl',
+                    textAlign: 'right',
+                    mb: 1,
+                    color: 'text.primary',
+                    lineHeight: 1.8,
+                  }}
+                >
+                  {verse.persianText}
+                </Typography>
+                
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontStyle: 'italic',
+                    color: 'text.secondary',
+                    mb: 2,
+                  }}
+                >
+                  {verse.transliteration}
+                </Typography>
+                
+                <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
+                  {verse.englishTranslation}
+                </Typography>
+              </Box>
+            </Collapse>
           </Box>
           
           <Box sx={{ display: 'flex', gap: 0.5 }}>
@@ -123,15 +137,6 @@ export default function VerseCard({ verse, showDetails = true }: VerseCardProps)
 
         <Collapse in={expanded}>
           <Stack spacing={2} sx={{ mt: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
-            <Box>
-              <Typography variant="subtitle2" color="primary" gutterBottom>
-                English Translation
-              </Typography>
-              <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-                {verse.englishTranslation}
-              </Typography>
-            </Box>
-
             {verse.summary && (
               <Box>
                 <Typography variant="subtitle2" color="secondary" gutterBottom>
