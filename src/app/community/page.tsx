@@ -158,7 +158,7 @@ export default function CommunityPage() {
       </Box>
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
-        <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)} variant="scrollable" scrollButtons="auto" centered>
+        <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)} variant="scrollable" scrollButtons="auto">
           <Tab icon={<CollectionsIcon />} iconPosition="start" label="Collections" />
           <Tab icon={<ForumIcon />} iconPosition="start" label="Discussions" />
           <Tab icon={<PeopleIcon />} iconPosition="start" label="Members" />
