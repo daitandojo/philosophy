@@ -21,7 +21,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import CloseIcon from '@mui/icons-material/Close';
 import { bookContent } from '@/lib/book-content';
-import { getBookImage } from '@/lib/book-images';
 import { useThemeMode } from '@/theme/ThemeRegistry';
 
 export default function ReadingPage() {
@@ -59,7 +58,6 @@ export default function ReadingPage() {
   }, [sectionId, router]);
 
   const currentSection = bookContent[currentSectionIndex];
-  const imageUrl = currentSection ? getBookImage(currentSection.id) : getBookImage('part1');
 
   const goToSection = (index: number) => {
     if (index >= 0 && index < bookContent.length) {
@@ -239,28 +237,12 @@ export default function ReadingPage() {
 
       {/* Main Content */}
       <Box sx={{ ml: { xs: 0, md: '280px' }, transition: 'margin 0.3s ease' }}>
-        {/* Hero Image */}
-        <Box
-          sx={{
-            position: 'relative',
-            height: { xs: 150, md: 250 },
-            overflow: 'hidden',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: 80,
-              background: `linear-gradient(to top, ${colors.bg}, transparent)`,
-            },
-          }}
-        >
-          <Box component="img" src={imageUrl} alt={currentSection.title} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        </Box>
-
         {/* Content */}
         <Container maxWidth="md" sx={{ py: 3, pb: 10 }}>
+          <Typography variant="overline" sx={{ color: colors.primary, letterSpacing: 3, fontWeight: 600 }}>
+            {currentSection.title}
+          </Typography>
+
           {currentSection.subtitle && (
             <Typography
               variant="h4"
@@ -268,7 +250,7 @@ export default function ReadingPage() {
               sx={{
                 fontWeight: 700,
                 mb: 3,
-                mt: 2,
+                mt: 0.5,
                 background: isDark ? 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)' : 'linear-gradient(135deg, #2e4a3d 0%, #8b4513 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
