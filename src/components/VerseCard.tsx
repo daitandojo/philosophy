@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Card,
   CardContent,
@@ -9,6 +9,7 @@ import {
   IconButton,
   Collapse,
   Stack,
+  CircularProgress,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
@@ -24,6 +25,47 @@ interface VerseCardProps {
 export default function VerseCard({ verse, showDetails = true }: VerseCardProps) {
   const [expanded, setExpanded] = useState(showDetails);
   const [liked, setLiked] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const playAudio = async () => {
+    if (playing) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      setPlaying(false);
+      return;
+    }
+
+    setPlaying(true);
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: verse.persianText, voiceType: 'persian' }),
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        audioRef.current = new Audio(url);
+        audioRef.current.onended = () => {
+          setPlaying(false);
+          URL.revokeObjectURL(url);
+        };
+        audioRef.current.onerror = () => {
+          setPlaying(false);
+        };
+        await audioRef.current.play();
+      } else {
+        setPlaying(false);
+      }
+    } catch (error) {
+      console.error('TTS error:', error);
+      setPlaying(false);
+    }
+  };
 
   return (
     <Card
@@ -66,8 +108,8 @@ export default function VerseCard({ verse, showDetails = true }: VerseCardProps)
             <IconButton size="small" onClick={() => setLiked(!liked)}>
               {liked ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
             </IconButton>
-            <IconButton size="small">
-              <VolumeUpIcon />
+            <IconButton size="small" onClick={playAudio}>
+              {playing ? <CircularProgress size={20} color="primary" /> : <VolumeUpIcon />}
             </IconButton>
             <IconButton
               size="small"
