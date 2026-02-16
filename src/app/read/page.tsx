@@ -77,7 +77,7 @@ export default function BookOverviewPage() {
       <Box
         sx={{
           position: 'relative',
-          py: { xs: 8, md: 12 },
+          py: { xs: 4, md: 6 },
           overflow: 'hidden',
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
         }}
