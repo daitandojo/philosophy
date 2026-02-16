@@ -33,7 +33,7 @@ export default function PhilosophersPage() {
     const matchesSearch = p.name.english.toLowerCase().includes(search.toLowerCase()) ||
       p.name.persian.includes(search) ||
       p.description.toLowerCase().includes(search.toLowerCase());
-    const matchesEra = !era || p.era === era;
+    const matchesEra = !era || p.life.era === era;
     const matchesSchool = !school || p.school.some(s => s.toLowerCase().includes(school.toLowerCase()));
     return matchesSearch && matchesEra && matchesSchool;
   });
@@ -130,9 +130,9 @@ export default function PhilosophersPage() {
                       {philosopher.name.persian.slice(0, 1)}
                     </Box>
                     <Chip
-                      label={eraLabels[philosopher.era]}
+                      label={eraLabels[philosopher.life.era]}
                       size="small"
-                      color={eraColors[philosopher.era]}
+                      color={eraColors[philosopher.life.era]}
                       variant="outlined"
                     />
                   </Box>

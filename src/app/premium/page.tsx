@@ -20,6 +20,8 @@ import StarIcon from '@mui/icons-material/Star';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import SchoolIcon from '@mui/icons-material/School';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 interface PricingTier {
   id: string;
@@ -88,6 +90,26 @@ const tiers: PricingTier[] = [
       '20% off merchandise',
     ],
   },
+  {
+    id: 'institution',
+    name: 'Institution',
+    price: { monthly: 499, yearly: 4990 },
+    description: 'For universities, libraries, and organizations',
+    icon: <AccountBalanceIcon />,
+    features: [
+      'Everything in Sage, plus:',
+      '10-1000+ user licenses',
+      'Single Sign-On (SSO)',
+      'Custom branding',
+      'Analytics dashboard',
+      'Bulk user management',
+      'Generous API access',
+      'Training sessions',
+      'Dedicated account manager',
+      'Custom content curation',
+      'White-label options',
+    ],
+  },
 ];
 
 export default function PremiumPage() {
@@ -122,7 +144,7 @@ export default function PremiumPage() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' },
           gap: 3,
           alignItems: 'stretch',
         }}
@@ -167,16 +189,24 @@ export default function PremiumPage() {
               </Typography>
 
               <Box sx={{ mb: 3 }}>
-                <Typography variant="h3" component="span">
-                  ${isYearly ? Math.round(tier.price.yearly / 12) : tier.price.monthly}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" component="span">
-                  /month
-                </Typography>
-                {isYearly && tier.price.yearly > 0 && (
-                  <Typography variant="caption" display="block" color="text.secondary">
-                    ${tier.price.yearly} billed yearly
+                {tier.id === 'institution' ? (
+                  <Typography variant="h4">
+                    Custom Pricing
                   </Typography>
+                ) : (
+                  <>
+                    <Typography variant="h3" component="span">
+                      ${isYearly ? Math.round(tier.price.yearly / 12) : tier.price.monthly}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" component="span">
+                      /month
+                    </Typography>
+                    {isYearly && tier.price.yearly > 0 && (
+                      <Typography variant="caption" display="block" color="text.secondary">
+                        ${tier.price.yearly} billed yearly
+                      </Typography>
+                    )}
+                  </>
                 )}
               </Box>
 
@@ -197,12 +227,13 @@ export default function PremiumPage() {
               </List>
 
               <Button
-                variant={tier.popular ? 'contained' : 'outlined'}
+                variant={tier.popular ? 'contained' : tier.id === 'institution' ? 'outlined' : 'outlined'}
                 fullWidth
                 size="large"
                 sx={{ mt: 3 }}
+                startIcon={tier.id === 'institution' ? <MenuBookIcon /> : undefined}
               >
-                {tier.id === 'free' ? 'Get Started' : tier.price.monthly === 0 ? 'Downgrade' : 'Subscribe'}
+                {tier.id === 'free' ? 'Get Started' : tier.price.monthly === 0 ? 'Downgrade' : tier.id === 'institution' ? 'Contact Sales' : 'Subscribe'}
               </Button>
             </CardContent>
           </Card>

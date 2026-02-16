@@ -28,12 +28,21 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import PeopleIcon from '@mui/icons-material/People';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import GroupsIcon from '@mui/icons-material/Groups';
+import SchoolIcon from '@mui/icons-material/School';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useThemeMode } from '@/theme/ThemeRegistry';
 
 const navItems = [
   { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
   { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
   { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
-  { label: 'Quiz', href: '/quiz', icon: <QuizIcon /> },
+  { label: 'Learn', href: '/learn', icon: <SchoolIcon /> },
+  { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
+  { label: 'Community', href: '/community', icon: <GroupsIcon /> },
   { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
   { label: 'Premium', href: '/premium', icon: <WorkspacePremiumIcon /> },
   { label: 'About', href: '/about', icon: <InfoIcon /> },
@@ -44,6 +53,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { mode, toggleTheme } = useThemeMode();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -163,6 +173,13 @@ export default function Navbar() {
             )}
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <LanguageSwitcher />
+              <IconButton
+                onClick={toggleTheme}
+                sx={{ color: 'text.primary' }}
+              >
+                {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
               <IconButton
                 component={Link}
                 href="/account"

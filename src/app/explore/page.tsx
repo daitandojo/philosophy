@@ -24,17 +24,19 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import VerseCard from '@/components/VerseCard';
+import { philosophers } from '@/lib/philosophers';
 import type { Verse } from '@/types';
 
 function ExploreContent() {
   const searchParams = useSearchParams();
-  const themeParam = searchParams.get('theme');
+  const philosopherParam = searchParams.get('philosopher');
   
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [theme, setTheme] = useState(themeParam || '');
+  const [theme, setTheme] = useState('');
   const [source, setSource] = useState('');
+  const [philosopher, setPhilosopher] = useState(philosopherParam || '');
   const [wisdomRange, setWisdomRange] = useState<number[]>([1, 10]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -48,6 +50,7 @@ function ExploreContent() {
         if (search) params.set('search', search);
         if (theme) params.set('theme', theme);
         if (source) params.set('source', source);
+        if (philosopher) params.set('philosopher', philosopher);
         params.set('minWisdom', wisdomRange[0].toString());
         params.set('maxWisdom', wisdomRange[1].toString());
         params.set('page', page.toString());
@@ -67,19 +70,19 @@ function ExploreContent() {
     };
 
     fetchVerses();
-  }, [search, theme, source, wisdomRange, page, semanticSearch]);
+  }, [search, theme, source, philosopher, wisdomRange, page, semanticSearch]);
 
   const themes = ['Love', 'Wisdom', 'Divine', 'Self-knowledge', 'Journey', 'Friendship', 'Peace', 'Transformation'];
-  const sources = ['Masnavi', 'Divan-e Shams', 'Fihi Ma Fihi', 'Mawlana Letters'];
+  const sources = ['Masnavi', 'Divan-e Shams', 'Fihi Ma Fihi', 'Mawlana Letters', 'Gulistan', 'Bustan', 'Divan-e Hafez', 'Shahnameh', 'Conference of the Birds', 'Ilahi-Nama', 'Walled Garden of Truth'];
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typo variant="h3" sx={{ mb: 4 }}>
-        Explore Rumi's Poetry
+        Explore Persian Wisdom
       </Typo>
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid size={{ xs: 12, md: 4 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <TextField
             fullWidth
             placeholder="Search verses..."
@@ -94,7 +97,22 @@ function ExploreContent() {
             }}
           />
         </Grid>
-        <Grid size={{ xs: 12, md: 4 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
+          <FormControl fullWidth>
+            <InputLabel>Philosopher</InputLabel>
+            <Select
+              value={philosopher}
+              label="Philosopher"
+              onChange={(e) => setPhilosopher(e.target.value)}
+            >
+              <MenuItem value="">All Philosophers</MenuItem>
+              {philosophers.map((p) => (
+                <MenuItem key={p.id} value={p.id}>{p.name.english}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid size={{ xs: 12, md: 3 }}>
           <FormControl fullWidth>
             <InputLabel>Theme</InputLabel>
             <Select
@@ -109,7 +127,7 @@ function ExploreContent() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid size={{ xs: 12, md: 4 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <FormControl fullWidth>
             <InputLabel>Source</InputLabel>
             <Select
@@ -154,18 +172,25 @@ function ExploreContent() {
       </Grid>
 
       <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+        {philosopher && (
+          <Chip
+            label={`Philosopher: ${philosophers.find(p => p.id === philosopher)?.name.english}`}
+            onDelete={() => setPhilosopher('')}
+            color="primary"
+          />
+        )}
         {theme && (
           <Chip
             label={`Theme: ${theme}`}
             onDelete={() => setTheme('')}
-            color="primary"
+            color="secondary"
           />
         )}
         {source && (
           <Chip
             label={`Source: ${source}`}
             onDelete={() => setSource('')}
-            color="secondary"
+            color="warning"
           />
         )}
       </Box>

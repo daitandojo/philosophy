@@ -1,7 +1,16 @@
 'use client';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
-const theme = createTheme({
+declare module '@mui/material/styles' {
+  interface Palette {
+    accent: Palette['primary'];
+  }
+  interface PaletteOptions {
+    accent?: PaletteOptions['primary'];
+  }
+}
+
+let theme = createTheme({
   palette: {
     primary: {
       main: '#8b4513',
@@ -14,6 +23,12 @@ const theme = createTheme({
       light: '#3d6b52',
       dark: '#1e3329',
       contrastText: '#ffffff',
+    },
+    accent: {
+      main: '#c9a962',
+      light: '#d4bc7d',
+      dark: '#b39a4f',
+      contrastText: '#1a1a1a',
     },
     background: {
       default: '#faf9f7',
@@ -77,16 +92,21 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: 'none' as const,
           fontWeight: 500,
           borderRadius: 8,
           padding: '10px 24px',
+          minHeight: 44,
+          minWidth: 44,
         },
         contained: {
           boxShadow: 'none',
           '&:hover': {
             boxShadow: '0 4px 12px rgba(139, 69, 19, 0.25)',
           },
+        },
+        outlined: {
+          minHeight: 44,
         },
       },
     },
@@ -118,6 +138,61 @@ const theme = createTheme({
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
         },
       },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            minHeight: 44,
+          },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          minHeight: 32,
+        },
+      },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 320,
+      sm: 375,
+      md: 768,
+      lg: 1024,
+      xl: 1440,
+    },
+  },
+});
+
+theme = responsiveFontSizes(theme);
+
+export const darkTheme = createTheme({
+  ...theme,
+  palette: {
+    ...theme.palette,
+    mode: 'dark',
+    primary: {
+      main: '#c9a962',
+      light: '#d4bc7d',
+      dark: '#a3864d',
+      contrastText: '#1a1a1a',
+    },
+    secondary: {
+      main: '#4a7c6a',
+      light: '#5d9482',
+      dark: '#3a6152',
+      contrastText: '#ffffff',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    text: {
+      primary: '#f5f5f5',
+      secondary: '#b0b0b0',
     },
   },
 });

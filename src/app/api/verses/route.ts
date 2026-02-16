@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     const minWisdom = searchParams.get('minWisdom');
     const maxWisdom = searchParams.get('maxWisdom');
     const source = searchParams.get('source');
+    const philosopher = searchParams.get('philosopher');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
     const search = searchParams.get('search');
@@ -51,6 +52,9 @@ export async function GET(request: NextRequest) {
       }
       if (source) {
         query.sourceWork = source;
+      }
+      if (philosopher) {
+        query.philosopher = philosopher;
       }
       if (search) {
         query.$text = { $search: search };

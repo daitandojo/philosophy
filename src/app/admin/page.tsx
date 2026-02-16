@@ -26,12 +26,19 @@ import {
   Alert,
   Tabs,
   Tab,
+  LinearProgress,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import PeopleIcon from '@mui/icons-material/People';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import ChatIcon from '@mui/icons-material/Chat';
+import Stack from '@mui/material/Stack';
 import { Verse, BlogPost } from '@/types';
+import { philosophers } from '@/lib/philosophers';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,6 +61,26 @@ export default function AdminPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [healthCheck, setHealthCheck] = useState<any>(null);
+  
+  // Analytics data
+  const analytics = {
+    totalUsers: 12543,
+    activeUsers: 3245,
+    totalVerses: 2450,
+    totalPhilosophers: philosophers.length,
+    premiumSubscribers: 856,
+    dailyActiveUsers: 1245,
+    weeklyGrowth: 12.5,
+    monthlyRevenue: 12450,
+    avgSessionDuration: '8m 24s',
+    topPhilosophers: [
+      { name: 'Rumi', views: 45000 },
+      { name: 'Hafez', views: 32000 },
+      { name: 'Saadi', views: 28000 },
+      { name: 'Attar', views: 15000 },
+      { name: 'Ibn Sina', views: 12000 },
+    ],
+  };
 
   useEffect(() => {
     fetchData();
@@ -93,6 +120,96 @@ export default function AdminPage() {
       <Typography variant="h3" sx={{ mb: 4 }}>
         Admin Dashboard
       </Typography>
+
+      {/* Analytics Overview */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Card>
+            <CardContent>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Box sx={{ bgcolor: 'primary.main', borderRadius: 2, p: 1.5 }}>
+                  <PeopleIcon sx={{ color: 'white' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4">{analytics.totalUsers.toLocaleString()}</Typography>
+                  <Typography variant="body2" color="text.secondary">Total Users</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Card>
+            <CardContent>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Box sx={{ bgcolor: 'success.main', borderRadius: 2, p: 1.5 }}>
+                  <TrendingUpIcon sx={{ color: 'white' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4">{analytics.activeUsers.toLocaleString()}</Typography>
+                  <Typography variant="body2" color="text.secondary">Active Users</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Card>
+            <CardContent>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Box sx={{ bgcolor: 'secondary.main', borderRadius: 2, p: 1.5 }}>
+                  <AutoStoriesIcon sx={{ color: 'white' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4">{analytics.totalVerses.toLocaleString()}</Typography>
+                  <Typography variant="body2" color="text.secondary">Total Verses</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Card>
+            <CardContent>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Box sx={{ bgcolor: 'warning.main', borderRadius: 2, p: 1.5 }}>
+                  <ChatIcon sx={{ color: 'white' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4">${analytics.monthlyRevenue.toLocaleString()}</Typography>
+                  <Typography variant="body2" color="text.secondary">Monthly Revenue</Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      {/* Top Philosophers */}
+      <Card sx={{ mb: 4 }}>
+        <CardHeader title="Most Viewed Philosophers" />
+        <CardContent>
+          <Stack spacing={2}>
+            {analytics.topPhilosophers.map((philosopher, index) => (
+              <Box key={philosopher.name}>
+                <Stack direction="row" justifyContent="space-between" sx={{ mb: 0.5 }}>
+                  <Typography variant="body2">
+                    {index + 1}. {philosopher.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {philosopher.views.toLocaleString()} views
+                  </Typography>
+                </Stack>
+                <LinearProgress 
+                  variant="determinate" 
+                  value={(philosopher.views / analytics.topPhilosophers[0].views) * 100}
+                  sx={{ height: 8, borderRadius: 4 }}
+                />
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Health Check Section */}
       <Card sx={{ mb: 4 }}>

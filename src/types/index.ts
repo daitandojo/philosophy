@@ -5,6 +5,7 @@ export interface Verse {
   englishTranslation: string;
   summary: string;
   sourceWork: string;
+  philosopher: string;
   themes: string[];
   wisdomScore: number;
   complexity: number;
@@ -23,18 +24,46 @@ export interface Philosopher {
   name: {
     persian: string;
     english: string;
+    alternative?: string[];
+    latin?: string;
   };
   life: {
     birth: number;
     death: number;
     birthPlace: string;
     deathPlace: string;
+    era: 'ancient' | 'classical' | 'golden-age' | 'modern';
   };
   school: string[];
   description: string;
   image?: string;
   quoteCount: number;
-  era: 'ancient' | 'classical' | 'golden-age' | 'modern';
+  influence: number;
+  verified: boolean;
+  influences?: string[];
+  influenced?: string[];
+  teachers?: string[];
+  students?: string[];
+}
+
+export interface Work {
+  id: string;
+  philosopherId: string;
+  title: {
+    persian: string;
+    english: string;
+    originalScript: string;
+  };
+  type: 'poetry' | 'prose' | 'treatise' | 'correspondence' | 'compilation';
+  year: number;
+  description: string;
+  significance: string;
+  structure?: {
+    books?: number;
+    chapters?: number;
+    verses?: number;
+  };
+  quoteCount: number;
 }
 
 export interface VerseVersion {

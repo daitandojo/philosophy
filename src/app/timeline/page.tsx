@@ -40,7 +40,7 @@ export default function TimelinePage() {
 
   const filteredEvents = selectedEra === 'all' 
     ? timelineEvents 
-    : timelineEvents.filter(e => e.philosopher.era === selectedEra);
+    : timelineEvents.filter(e => e.philosopher.life.era === selectedEra);
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>

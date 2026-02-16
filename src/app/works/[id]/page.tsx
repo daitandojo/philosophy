@@ -1,6 +1,7 @@
 'use client';
 import { use } from 'react';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -11,89 +12,56 @@ import {
   Button,
   Chip,
   Stack,
-  List,
-  ListItem,
-  ListItemText,
+  CircularProgress,
+  Divider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import HistoryIcon from '@mui/icons-material/History';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { philosophers } from '@/lib/philosophers';
+import type { Work, Chapter } from '@/lib/models/work';
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-const worksData: Record<string, {
-  id: string;
-  title: string;
-  persianTitle: string;
-  philosopher: string;
-  year: string;
-  type: string;
-  description: string;
-  significance: string;
-  chapters: { title: string; verses?: number }[];
-}> = {
-  'masnavi': {
-    id: 'masnavi',
-    title: 'Masnavi',
-    persianTitle: ' مثنوی معنوی',
-    philosopher: 'Rumi',
-    year: '1260-1273',
-    type: 'Poetry',
-    description: 'The Masnavi is a poetic collection of spiritual lessons and mystical tales. It consists of six books containing approximately 25,000 verses.',
-    significance: 'Considered the "Koran in Persian" - the most important work of Sufi literature',
-    chapters: [
-      { title: 'Book 1: The Man and the Bird', verses: 500 },
-      { title: 'Book 2: The King and the Handmaiden', verses: 600 },
-      { title: 'Book 3: The Mysterious House', verses: 400 },
-      { title: 'Book 4: The Three Fish', verses: 450 },
-      { title: 'Book 5: The Ascension', verses: 550 },
-      { title: 'Book 6: The Epilogue', verses: 400 },
-    ],
-  },
-  'divan-e-shams': {
-    id: 'divan-e-shams',
-    title: 'Divan-e Shams',
-    persianTitle: 'دیوان شمس',
-    philosopher: 'Rumi',
-    year: '1240s',
-    type: 'Poetry',
-    description: 'A collection of ghazals written in honor of Shams Tabrizi, Rumi\'s spiritual teacher and beloved friend.',
-    significance: 'Contains some of the most beautiful mystical poetry ever written',
-    chapters: [
-      { title: 'Ghazal 1-100' },
-      { title: 'Ghazal 101-200' },
-      { title: 'Ghazal 201-300' },
-      { title: 'Ghazal 301-400' },
-    ],
-  },
-  'gulistan': {
-    id: 'gulistan',
-    title: 'Gulistan',
-    persianTitle: 'گلستان',
-    philosopher: 'Saadi',
-    year: '1258',
-    type: 'Prose & Poetry',
-    description: 'The Rose Garden - a collection of stories and poetry dealing with moral conduct, governance, and Sufi mysticism.',
-    significance: 'One of the most influential works of Persian literature',
-    chapters: [
-      { title: 'Chapter 1: The Attributes of Kings' },
-      { title: 'Chapter 2: On the Ethics of Dervishes' },
-      { title: 'Chapter 3: On the Excellence of Contentment' },
-      { title: 'Chapter 4: On the Advantages of Silence' },
-      { title: 'Chapter 5: On Love and Youth' },
-      { title: 'Chapter 6: On Old Age' },
-      { title: 'Chapter 7: On the Education of Youth' },
-      { title: 'Chapter 8: On the Methods of Guiding' },
-    ],
-  },
-};
-
 export default function WorkDetailPage({ params }: PageProps) {
   const { id } = use(params);
-  const work = worksData[id];
+  const [work, setWork] = useState<Work | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWork = async () => {
+      try {
+        const response = await fetch(`/api/works/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setWork(data);
+        }
+      } catch (error) {
+        console.error('Error fetching work:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchWork();
+    }
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   if (!work) {
     return (
@@ -105,6 +73,8 @@ export default function WorkDetailPage({ params }: PageProps) {
       </Container>
     );
   }
+
+  const philosopher = philosophers.find(p => p.id === work.philosopherId);
 
   return (
     <Box>
@@ -130,26 +100,28 @@ export default function WorkDetailPage({ params }: PageProps) {
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
                 <Chip label={work.type} color="primary" />
-                <Chip label={work.year} variant="outlined" />
+                {work.year && <Chip label={work.year} variant="outlined" />}
               </Stack>
 
               <Typography variant="h2" sx={{ mb: 1 }}>
                 {work.title}
               </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  fontFamily: '"Vazir", serif',
-                  direction: 'rtl',
-                  color: 'text.secondary',
-                  mb: 2,
-                }}
-              >
-                {work.persianTitle}
-              </Typography>
+              {work.titlePersian && (
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontFamily: '"Vazir", serif',
+                    direction: 'rtl',
+                    color: 'text.secondary',
+                    mb: 2,
+                  }}
+                >
+                  {work.titlePersian}
+                </Typography>
+              )}
 
               <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-                by <Link href={`/philosophers/${work.philosopher.toLowerCase()}`} style={{ color: 'inherit' }}>{work.philosopher}</Link>
+                by <Link href={`/philosophers/${philosopher?.id || work.philosopherId}`} style={{ color: 'inherit' }}>{philosopher?.name.english || work.philosopherId}</Link>
               </Typography>
 
               <Typography variant="body1" sx={{ mb: 3, maxWidth: 600 }}>
@@ -162,16 +134,9 @@ export default function WorkDetailPage({ params }: PageProps) {
                   size="large"
                   startIcon={<AutoStoriesIcon />}
                   component={Link}
-                  href={`/explore?work=${work.id}`}
+                  href={`/explore?philosopher=${work.philosopherId}`}
                 >
                   Read Quotes
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  startIcon={<MenuBookIcon />}
-                >
-                  Full Text (Premium)
                 </Button>
               </Stack>
             </Grid>
@@ -181,11 +146,13 @@ export default function WorkDetailPage({ params }: PageProps) {
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2 }}>
                     <HistoryIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-                    Significance
+                    Tags
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {work.significance}
-                  </Typography>
+                  <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
+                    {work.tags?.map((tag) => (
+                      <Chip key={tag} label={tag} size="small" variant="outlined" />
+                    ))}
+                  </Stack>
                 </CardContent>
               </Card>
             </Grid>
@@ -195,25 +162,44 @@ export default function WorkDetailPage({ params }: PageProps) {
 
       {/* Chapters Section */}
       <Container maxWidth="lg" sx={{ mb: 6 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>Chapters / Sections</Typography>
-        <Grid container spacing={2}>
-          {work.chapters.map((chapter, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" sx={{ mb: 1 }}>
-                    {chapter.title}
-                  </Typography>
-                  {chapter.verses && (
-                    <Typography variant="body2" color="text.secondary">
-                      ~{chapter.verses} verses
+        <Typography variant="h4" sx={{ mb: 3 }}>Chapters</Typography>
+        
+        {work.chapters && work.chapters.length > 0 ? (
+          <Stack spacing={2}>
+            {work.chapters.map((chapter, index) => (
+              <Accordion key={index} sx={{ borderRadius: 2, overflow: 'hidden' }}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                    <Chip label={chapter.order} size="small" color="primary" />
+                    <Typography variant="h6">
+                      {chapter.title}
+                    </Typography>
+                    {chapter.titlePersian && (
+                      <Typography variant="body2" sx={{ fontFamily: '"Vazir", serif', color: 'text.secondary' }}>
+                        {chapter.titlePersian}
+                      </Typography>
+                    )}
+                  </Box>
+                </AccordionSummary>
+                <AccordionDetails>
+                  {chapter.summary && (
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
+                      {chapter.summary}
                     </Typography>
                   )}
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                  <Divider sx={{ my: 2 }} />
+                  <Typography variant="body1" sx={{ lineHeight: 2, whiteSpace: 'pre-wrap' }}>
+                    {chapter.content}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
+        ) : (
+          <Typography variant="body1" color="text.secondary">
+            No chapters available yet.
+          </Typography>
+        )}
       </Container>
     </Box>
   );

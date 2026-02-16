@@ -22,8 +22,9 @@ import PeopleIcon from '@mui/icons-material/People';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import GroupIcon from '@mui/icons-material/Group';
 import { useState } from 'react';
-import { getPhilosopherById, eraLabels, eraColors } from '@/lib/philosophers';
+import { getPhilosopherById, getWorksByPhilosopher, eraLabels, eraColors } from '@/lib/philosophers';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -46,17 +47,16 @@ function TabPanel({ children, value, index }: TabPanelProps) {
 export default function PhilosopherDetailPage({ params }: PageProps) {
   const { id } = use(params);
   const philosopher = getPhilosopherById(id);
+  const works = getWorksByPhilosopher(id);
   const [tabValue, setTabValue] = useState(0);
 
   if (!philosopher) {
     notFound();
   }
 
-  const works = [
-    { title: 'The Masnavi', year: '1260-1273', type: 'Poetry', description: 'The spiritual masterpiece of 25,000 verses' },
-    { title: 'Divan-e Shams', year: '1240s', type: 'Poetry', description: 'Collection of ghazals dedicated to Shams Tabrizi' },
-    { title: 'Fihi Ma Fihi', year: '1240s', type: 'Prose', description: 'Discourses on spiritual matters' },
-    { title: 'Maktubat', year: '1240s', type: 'Letters', description: 'Letters to disciples' },
+  const sampleQuotes = [
+    { text: 'بیا تا برایت ببینیم', translation: 'Come, let us see for you...', source: 'Masnavi' },
+    { text: 'اینکه می‌جویی، تو خودی', translation: 'What you seek is you yourself', source: 'Masnavi' },
   ];
 
   const keyTeachings = [
@@ -65,22 +65,6 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
     'The concept of annihilation (fana) and subsistence (baqa)',
     'The unity of all religions and paths to God',
     'Music and poetry as vehicles for spiritual transformation',
-  ];
-
-  const biography = {
-    earlyLife: `Born in 1207 in the ancient city of Balkh (in present-day Afghanistan), ${philosopher.name.english} came from a family of prominent scholars.`,
-    majorEvents: 'A transformative meeting with a wandering dervish sparked a profound spiritual awakening.',
-    legacy: `His teachings have influenced millions across the centuries and continue to resonate with seekers today.`,
-  };
-
-  const influences = {
-    influencedBy: ['Sanai', 'Attar of Nishapur', 'Ibn Arabi'],
-    influenced: ['Hafez', 'Jami', 'All subsequent Persian mystics'],
-  };
-
-  const sampleQuotes = [
-    { text: 'بیا تا برایت ببینیم', translation: 'Come, let us see for you...', source: 'Masnavi' },
-    { text: 'اینکه می‌جویی، تو خودی', translation: 'What you seek is you yourself', source: 'Masnavi' },
   ];
 
   return (
@@ -140,10 +124,13 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
               </Box>
 
               <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap', gap: 1 }}>
-                <Chip label={eraLabels[philosopher.era]} color={eraColors[philosopher.era]} />
+                <Chip label={eraLabels[philosopher.life.era]} color={eraColors[philosopher.life.era]} />
                 {philosopher.school.map((s) => (
                   <Chip key={s} label={s} variant="outlined" />
                 ))}
+                {philosopher.verified && (
+                  <Chip label="Verified" color="success" size="small" />
+                )}
               </Stack>
 
               <Typography variant="body1" sx={{ mb: 3, maxWidth: 600 }}>
@@ -191,6 +178,10 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
                       <Typography variant="body2" color="text.secondary">Quotes</Typography>
                       <Typography variant="h5">{philosopher.quoteCount}+</Typography>
                     </Box>
+                    <Box>
+                      <Typography variant="body2" color="text.secondary">Influence Score</Typography>
+                      <Typography variant="h5">{philosopher.influence}/100</Typography>
+                    </Box>
                   </Stack>
                 </CardContent>
               </Card>
@@ -199,22 +190,23 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
         </Container>
       </Box>
 
-      {/* Tabs Section */}
+      {/* Tabs Section - 6 Tabs as per EPIC0 */}
       <Container maxWidth="lg" sx={{ mb: 6 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)} variant="scrollable" scrollButtons="auto">
             <Tab icon={<HistoryEduIcon />} iconPosition="start" label="Overview" />
             <Tab icon={<ArticleIcon />} iconPosition="start" label="Biography" />
-            <Tab icon={<MenuBookIcon />} iconPosition="start" label="Works" />
+            <Tab icon={<MenuBookIcon />} iconPosition="start" label={`Works (${works.length})`} />
             <Tab icon={<AutoStoriesIcon />} iconPosition="start" label="Quotes" />
             <Tab icon={<PeopleIcon />} iconPosition="start" label="Relationships" />
+            <Tab icon={<GroupIcon />} iconPosition="start" label="Community" />
           </Tabs>
         </Box>
 
-        {/* Overview Tab */}
+        {/* Tab 1: Overview */}
         <TabPanel value={tabValue} index={0}>
           <Typography variant="h4" sx={{ mb: 2 }}>Key Teachings</Typography>
-          <Stack spacing={2}>
+          <Stack spacing={2} sx={{ mb: 4 }}>
             {keyTeachings.map((teaching, index) => (
               <Card key={index}>
                 <CardContent>
@@ -223,27 +215,39 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
               </Card>
             ))}
           </Stack>
+          
+          <Typography variant="h4" sx={{ mb: 2 }}>Why They Matter Today</Typography>
+          <Card>
+            <CardContent>
+              <Typography variant="body1">
+                {philosopher.name.english}'s teachings continue to resonate with millions around the world. 
+                Their insights into love, spirituality, and the human condition offer timeless wisdom 
+                for modern seekers. Whether you're looking for guidance on personal growth, 
+                spiritual enlightenment, or simply beautiful poetry, {philosopher.name.english.split(' ')[0]}'s 
+                works provide a rich source of inspiration.
+              </Typography>
+            </CardContent>
+          </Card>
         </TabPanel>
 
-        {/* Biography Tab */}
+        {/* Tab 2: Biography */}
         <TabPanel value={tabValue} index={1}>
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Typography variant="h5" sx={{ mb: 2 }}>Early Life</Typography>
+              <Typography variant="h5" sx={{ mb: 2 }}>Life Journey</Typography>
               <Typography variant="body1" paragraph>
-                {biography.earlyLife}
+                Born in {philosopher.life.birth} in {philosopher.life.birthPlace}, 
+                {philosopher.name.english} lived during the {eraLabels[philosopher.life.era].toLowerCase()}. 
+                {philosopher.description}
               </Typography>
-              <Typography variant="h5" sx={{ mb: 2, mt: 3 }}>Major Events</Typography>
+              <Typography variant="h5" sx={{ mb: 2, mt: 3 }}>Historical Context</Typography>
               <Typography variant="body1" paragraph>
-                {biography.majorEvents}
+                This was a pivotal period in Persian and Islamic intellectual history, 
+                marked by significant developments in philosophy, mysticism, and literature.
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Typography variant="h5" sx={{ mb: 2 }}>Legacy</Typography>
-              <Typography variant="body1" paragraph>
-                {biography.legacy}
-              </Typography>
-              <Card sx={{ mt: 3 }}>
+              <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2 }}>Timeline</Typography>
                   <Stack spacing={1}>
@@ -258,36 +262,76 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
                   </Stack>
                 </CardContent>
               </Card>
+              
+              <Card sx={{ mt: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2 }}>Schools of Thought</Typography>
+                  <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
+                    {philosopher.school.map((s) => (
+                      <Chip key={s} label={s} variant="outlined" />
+                    ))}
+                  </Stack>
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
         </TabPanel>
 
-        {/* Works Tab */}
+        {/* Tab 3: Works */}
         <TabPanel value={tabValue} index={2}>
           <Typography variant="h4" sx={{ mb: 2 }}>Major Works</Typography>
-          <Grid container spacing={2}>
-            {works.map((work, index) => (
-              <Grid size={{ xs: 12, sm: 6 }} key={index}>
-                <Card sx={{ height: '100%' }}>
-                  <CardContent>
-                    <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 1 }}>
-                      <Typography variant="h6">{work.title}</Typography>
-                      <Chip label={work.type} size="small" />
-                    </Stack>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {work.year}
-                    </Typography>
-                    <Typography variant="body2">
-                      {work.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          {works.length > 0 ? (
+            <Grid container spacing={2}>
+              {works.map((work) => (
+                <Grid size={{ xs: 12, sm: 6 }} key={work.id}>
+                  <Card sx={{ height: '100%' }}>
+                    <CardContent>
+                      <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 1 }}>
+                        <Typography variant="h6">{work.title.english}</Typography>
+                        <Chip label={work.type} size="small" />
+                      </Stack>
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          fontFamily: '"Vazir", serif', 
+                          direction: 'rtl', 
+                          mb: 1,
+                          color: 'text.secondary'
+                        }}
+                      >
+                        {work.title.persian}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                        {work.year}
+                      </Typography>
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        {work.description}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {work.significance}
+                      </Typography>
+                      {work.structure && (
+                        <Box sx={{ mt: 1 }}>
+                          <Typography variant="caption" color="text.secondary">
+                            {work.structure.books && `Books: ${work.structure.books} | `}
+                            {work.structure.chapters && `Chapters: ${work.structure.chapters} | `}
+                            {work.structure.verses && `Verses: ${work.structure.verses?.toLocaleString()}`}
+                          </Typography>
+                        </Box>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Typography variant="body1" color="text.secondary">
+              Works data coming soon. Check back for detailed information about {philosopher.name.english}'s writings.
+            </Typography>
+          )}
         </TabPanel>
 
-        {/* Quotes Tab */}
+        {/* Tab 4: Quotes */}
         <TabPanel value={tabValue} index={3}>
           <Typography variant="h4" sx={{ mb: 2 }}>Featured Quotes</Typography>
           <Stack spacing={2}>
@@ -325,70 +369,87 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
           </Button>
         </TabPanel>
 
-        {/* Relationships Tab */}
+        {/* Tab 5: Relationships */}
         <TabPanel value={tabValue} index={4}>
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h5" sx={{ mb: 2 }}>Influenced By</Typography>
               <Stack spacing={1}>
-                {influences.influencedBy.map((name) => (
-                  <Card key={name}>
-                    <CardContent sx={{ py: 1.5 }}>
-                      <Stack direction="row" alignItems="center" gap={2}>
-                        <Box
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: '50%',
-                            bgcolor: 'primary.main',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: '0.875rem',
-                          }}
-                        >
-                          {name.charAt(0)}
-                        </Box>
-                        <Button variant="text" component={Link} href={`/philosophers/${name.toLowerCase().replace(/[^a-z]/g, '-')}`}>
-                          {name}
-                        </Button>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                ))}
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers/sanai">
+                      Sanai
+                    </Button>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers/attar">
+                      Attar of Nishapur
+                    </Button>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers/ibn-arabi">
+                      Ibn Arabi
+                    </Button>
+                  </CardContent>
+                </Card>
               </Stack>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h5" sx={{ mb: 2 }}>Influenced</Typography>
               <Stack spacing={1}>
-                {influences.influenced.map((name) => (
-                  <Card key={name}>
-                    <CardContent sx={{ py: 1.5 }}>
-                      <Stack direction="row" alignItems="center" gap={2}>
-                        <Box
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: '50%',
-                            bgcolor: 'secondary.main',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: '0.875rem',
-                          }}
-                        >
-                          {name.charAt(0)}
-                        </Box>
-                        <Button variant="text" component={Link} href={`/philosophers/${name.toLowerCase().replace(/[^a-z]/g, '-')}`}>
-                          {name}
-                        </Button>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                ))}
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers/hafez">
+                      Hafez
+                    </Button>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers/jami">
+                      Jami
+                    </Button>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent sx={{ py: 1.5 }}>
+                    <Button variant="text" component={Link} href="/philosophers">
+                      Many subsequent Persian mystics
+                    </Button>
+                  </CardContent>
+                </Card>
               </Stack>
+            </Grid>
+          </Grid>
+        </TabPanel>
+
+        {/* Tab 6: Community */}
+        <TabPanel value={tabValue} index={5}>
+          <Typography variant="h4" sx={{ mb: 2 }}>Community</Typography>
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2 }}>Recent Annotations</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Community annotations will appear here. Be the first to add an annotation!
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2 }}>Popular Discussions</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Join the discussion about {philosopher.name.english}'s philosophy.
+                  </Typography>
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
         </TabPanel>
