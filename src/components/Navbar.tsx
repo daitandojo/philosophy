@@ -121,7 +121,7 @@ export default function Navbar() {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between', minHeight: '64px !important' }}>
             {isMobile && (
               <IconButton
                 color="inherit"
@@ -141,7 +141,7 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 textDecoration: 'none',
-                flexGrow: isMobile ? 1 : 0,
+                flexShrink: 0,
               }}
             >
               <Typography
@@ -161,16 +161,20 @@ export default function Navbar() {
             </Box>
 
             {!isMobile && (
-              <Box sx={{ display: 'flex', gap: 1, ml: 4 }}>
+              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'nowrap', overflow: 'hidden', ml: 4 }}>
                 {navItems.map((item) => (
                   <Button
                     key={item.href}
                     component={Link}
                     href={item.href}
-                    startIcon={item.icon}
+                    startIcon={<Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>{item.icon}</Box>}
                     sx={{
                       color: pathname === item.href ? 'primary.main' : 'text.primary',
                       fontWeight: pathname === item.href ? 600 : 400,
+                      fontSize: '0.8rem',
+                      px: 1,
+                      minWidth: 'auto',
+                      whiteSpace: 'nowrap',
                     }}
                   >
                     {item.label}
@@ -179,7 +183,7 @@ export default function Navbar() {
               </Box>
             )}
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
               <LanguageSwitcher />
               <IconButton
                 onClick={toggleTheme}
