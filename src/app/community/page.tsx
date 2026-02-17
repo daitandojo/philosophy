@@ -147,16 +147,29 @@ export default function CommunityPage() {
   const [discussionCategory, setDiscussionCategory] = useState('all');
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
-          {t.community.title}
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          {t.community.subtitle}
-        </Typography>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          py: { xs: 4, md: 6 },
+          textAlign: 'center',
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+            Connect
+          </Typography>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 2 }}>
+            {t.community.title}
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300 }}>
+            {t.community.subtitle}
+          </Typography>
+        </Container>
       </Box>
 
+      <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
         <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)} variant="scrollable" scrollButtons="auto">
           <Tab icon={<CollectionsIcon />} iconPosition="start" label="Collections" />
@@ -369,5 +382,6 @@ export default function CommunityPage() {
         </Box>
       )}
     </Container>
+    </Box>
   );
 }

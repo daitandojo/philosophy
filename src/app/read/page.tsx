@@ -97,7 +97,6 @@ export default function BookOverviewPage() {
                   color: 'white',
                   fontWeight: 300,
                   mb: 2,
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
                 }}
               >
                 {t.work.title}
