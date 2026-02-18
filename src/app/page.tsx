@@ -296,35 +296,34 @@ export default function Home() {
                       '&:hover': { transform: 'scale(1.02)' },
                     }}
                   >
-                    <Box sx={{ position: 'absolute', inset: 0 }}>
+                    <Box sx={{ position: 'absolute', inset: 0, opacity: 0.9 }}>
                       <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
                     </Box>
                     <Box
                       sx={{
                         position: 'absolute',
                         inset: 0,
-                        bgcolor: 'rgba(26, 58, 42, 0.75)',
+                        bgcolor: 'rgba(26, 58, 42, 0.4)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                        alignItems: 'center',
                         p: 2,
-                        textAlign: 'center',
                       }}
                     >
                       <Typography
                         sx={{
                           fontFamily: '"Vazir", "Noto Naskh Arabic", serif',
-                          fontSize: '1.15rem',
-                          color: 'white',
+                          fontSize: '0.9rem',
+                          color: 'rgba(255,255,255,0.85)',
                           fontStyle: 'italic',
                           lineHeight: 1.5,
-                          mb: 1,
+                          mb: 0.5,
+                          textAlign: 'left',
                         }}
                       >
                         "{quote.text}"
                       </Typography>
-                      <Typography sx={{ fontSize: '0.85rem', color: '#c9a962', fontWeight: 500 }}>
+                      <Typography sx={{ fontSize: '0.75rem', color: 'rgba(201, 169, 98, 0.8)', fontWeight: 400 }}>
                         — {quote.philosopher}
                       </Typography>
                     </Box>
