@@ -205,133 +205,98 @@ export default function Home() {
                     },
                   },
                 }}
-                sx={{ mb: 4, maxWidth: 500 }}
+                sx={{ mb: 3, maxWidth: 500 }}
               />
-            </Grid>
 
-            <Grid size={{ xs: 12, md: 5 }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 1.5,
-                }}
-              >
+              {/* Subtle Navigation Buttons */}
+              <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap sx={{ mb: 4 }}>
                 {[
-                  { icon: <AutoStoriesIcon />, label: 'Explore verses', href: '/explore', desc: 'Browse wisdom' },
-                  { icon: <ChatIcon />, label: 'Chat', href: '/chat', desc: 'Talk with philosophers' },
-                  { icon: <SchoolIcon />, label: 'Learn', href: '/learn', desc: 'Guided paths' },
-                  { icon: <ForumIcon />, label: 'Discourses', href: '/discourse', desc: 'Join discussions' },
-                  { icon: <GroupsIcon />, label: 'Community', href: '/community', desc: 'Connect with others' },
+                  { label: 'Explore', href: '/explore' },
+                  { label: 'Chat', href: '/chat' },
+                  { label: 'Learn', href: '/learn' },
+                  { label: 'Discourses', href: '/discourse' },
+                  { label: 'Community', href: '/community' },
                 ].map((item, idx) => (
-                  <Box
+                  <Button
                     key={idx}
                     component={Link}
                     href={item.href}
+                    size="small"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: 2,
-                      borderRadius: 3,
-                      bgcolor: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      textDecoration: 'none',
-                      color: 'white',
-                      transition: 'all 0.3s ease',
+                      color: 'rgba(255,255,255,0.6)',
+                      fontSize: '0.8rem',
+                      px: 2,
+                      py: 0.5,
+                      borderRadius: 2,
                       '&:hover': {
-                        bgcolor: 'rgba(255,255,255,0.15)',
-                        borderColor: 'rgba(201, 169, 98, 0.5)',
-                        transform: 'translateX(8px)',
+                        color: 'white',
+                        bgcolor: 'rgba(255,255,255,0.1)',
                       },
                     }}
                   >
-                    <Box
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 2,
-                        bgcolor: 'rgba(201, 169, 98, 0.2)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#c9a962',
-                        '& svg': { fontSize: 20 },
-                      }}
-                    >
-                      {item.icon}
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography sx={{ fontWeight: 600, fontSize: '1rem', lineHeight: 1.2 }}>
-                        {item.label}
-                      </Typography>
-                      <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
-                        {item.desc}
-                      </Typography>
-                    </Box>
-                    <ArrowForwardIcon sx={{ color: 'rgba(255,255,255,0.4)', fontSize: 18 }} />
-                  </Box>
+                    {item.label}
+                  </Button>
                 ))}
-              </Box>
+              </Stack>
             </Grid>
-          </Grid>
 
-          {/* Featured Quotes - Full Width Below Search & Buttons */}
-          <Box sx={{ mt: 4 }}>
-            <Grid container spacing={2}>
-              {[
-                { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
-                { text: 'What you seek is seeking you.', philosopher: 'Rumi', image: '/images/quote-seek-seeking.png' },
-                { text: 'When you do things from your soul, you feel a river moving in you, a joy.', philosopher: 'Rumi', image: '/images/quote-river-joy.png' },
-              ].map((quote, idx) => (
-                <Grid size={{ xs: 12, md: 4 }} key={idx}>
-                  <Box
-                    sx={{
-                      position: 'relative',
-                      height: 150,
-                      borderRadius: 3,
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      transition: 'transform 0.3s ease',
-                      '&:hover': { transform: 'scale(1.02)' },
-                    }}
-                  >
-                    <Box sx={{ position: 'absolute', inset: 0, opacity: 0.9 }}>
-                      <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
-                    </Box>
+            {/* Quote Tiles - Right Side */}
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Grid container spacing={1.5}>
+                {[
+                  { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
+                  { text: 'What you seek is seeking you.', philosopher: 'Rumi', image: '/images/quote-seek-seeking.png' },
+                  { text: 'When you do things from your soul, you feel a river moving in you, a joy.', philosopher: 'Rumi', image: '/images/quote-river-joy.png' },
+                ].map((quote, idx) => (
+                  <Grid size={12} key={idx}>
                     <Box
                       sx={{
-                        position: 'absolute',
-                        inset: 0,
-                        bgcolor: 'rgba(26, 58, 42, 0.4)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        p: 2,
+                        position: 'relative',
+                        height: 120,
+                        borderRadius: 2,
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'transform 0.3s ease',
+                        '&:hover': { transform: 'scale(1.02)' },
                       }}
                     >
-                      <Typography
+                      <Box sx={{ position: 'absolute', inset: 0, opacity: 0.9 }}>
+                        <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
+                      </Box>
+                      <Box
                         sx={{
-                          fontFamily: '"Vazir", "Noto Naskh Arabic", serif',
-                          fontSize: '0.9rem',
-                          color: 'rgba(255,255,255,0.85)',
-                          fontStyle: 'italic',
-                          lineHeight: 1.5,
-                          mb: 0.5,
-                          textAlign: 'left',
+                          position: 'absolute',
+                          inset: 0,
+                          bgcolor: 'rgba(26, 58, 42, 0.4)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          p: 1.5,
                         }}
                       >
-                        "{quote.text}"
-                      </Typography>
-                      <Typography sx={{ fontSize: '0.75rem', color: 'rgba(201, 169, 98, 0.8)', fontWeight: 400 }}>
-                        — {quote.philosopher}
-                      </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: '"Vazir", "Noto Naskh Arabic", serif',
+                            fontSize: '0.8rem',
+                            color: 'rgba(255,255,255,0.85)',
+                            fontStyle: 'italic',
+                            lineHeight: 1.4,
+                            mb: 0.5,
+                            textAlign: 'left',
+                          }}
+                        >
+                          "{quote.text}"
+                        </Typography>
+                        <Typography sx={{ fontSize: '0.65rem', color: 'rgba(201, 169, 98, 0.8)', fontWeight: 400 }}>
+                          — {quote.philosopher}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                </Grid>
-              ))}
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
-          </Box>
+          </Grid>
         </Container>
         <SectionDivider color="#c9a962" height={50} />
       </Box>
