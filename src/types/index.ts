@@ -14,7 +14,15 @@ export interface Verse {
   imageUrl?: string;
   calligraphyUrl?: string;
   audioUrl?: string;
+  audioProvider?: 'tts' | 'human' | 'hybrid';
+  audioDuration?: number;
+  audioLanguage?: string;
   versions: VerseVersion[];
+  relatedVerseIds?: string[];
+  viewCount?: number;
+  likeCount?: number;
+  isFeatured?: boolean;
+  isVerified?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -77,6 +85,17 @@ export interface VerseVersion {
   updatedAt: Date;
 }
 
+export interface ReadingHistoryItem {
+  verseId: string;
+  viewedAt: Date;
+  completionPercentage: number;
+}
+
+export interface FavoriteVerse {
+  verseId: string;
+  addedAt: Date;
+}
+
 export interface User {
   _id: string;
   name: string;
@@ -84,6 +103,10 @@ export interface User {
   image?: string;
   role: 'user' | 'admin' | 'moderator';
   preferences: UserPreferences;
+  readingHistory?: ReadingHistoryItem[];
+  favoriteVerses?: FavoriteVerse[];
+  recentlyViewedPhilosophers?: string[];
+  recentlyViewedWorks?: string[];
   createdAt: Date;
 }
 
@@ -120,9 +143,22 @@ export interface BlogPost {
   _id: string;
   userId: string;
   title: string;
+  slug?: string;
+  excerpt?: string;
   content: string;
+  coverImage?: string;
+  author?: string;
+  category?: 'politics' | 'technology' | 'spirituality' | 'society' | 'philosophy' | 'ethics';
+  tags?: string[];
+  readingTime?: number;
   linkedVerseIds: string[];
   published: boolean;
+  publishedAt?: Date;
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
   createdAt: Date;
   updatedAt: Date;
 }

@@ -30,6 +30,12 @@ import TempleBuddhistIcon from '@mui/icons-material/TempleBuddhist';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Image from 'next/image';
 import { useI18n } from '@/i18n';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 interface Lesson {
   _id: string;
@@ -278,19 +284,11 @@ export default function LearnPage() {
           position: 'relative',
           overflow: 'hidden',
           flexShrink: 0,
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.04,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23c9a962' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px',
-          },
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.06} />
+        <FloatingMotif variant="arcs" color="#c9a962" size={80} top="10%" left="5%" opacity={0.1} />
+        <FloatingMotif variant="celestial" color="#c9a962" size={60} bottom="15%" right="10%" opacity={0.1} />
         <Container maxWidth="md">
           <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
             {t.learn.journey}

@@ -31,6 +31,12 @@ import Image from 'next/image';
 import { useI18n } from '@/i18n';
 import { philosophers, eraColors, eraLabels } from '@/lib/philosophers';
 import type { Philosopher } from '@/types';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 const philosopherImages: Record<string, string> = {
   rumi: '/images/philosopher-rumi.png',
@@ -98,6 +104,11 @@ export default function PhilosophersPage() {
           overflow: 'hidden',
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <CornerDecoration position="top-left" color="#c9a962" size={100} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
+        <FloatingMotif variant="stars" color="#c9a962" size={80} top="10%" right="10%" opacity={0.1} />
+        <FloatingMotif variant="geometric" color="#c9a962" size={60} bottom="15%" left="15%" opacity={0.1} />
         {/* Background Image */}
         <Box
           sx={{

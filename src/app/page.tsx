@@ -26,6 +26,13 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useI18n } from '@/i18n';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  BackgroundCircles,
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 const features = [
   {
@@ -94,6 +101,14 @@ export default function Home() {
           pt: { xs: 6, md: 10 },
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <BackgroundCircles color="#c9a962" count={4} opacity={0.04} />
+        <CornerDecoration position="top-left" color="#c9a962" size={120} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={120} />
+        <FloatingMotif variant="celestial" color="#c9a962" size={80} top="10%" left="5%" opacity={0.12} />
+        <FloatingMotif variant="geometric" color="#c9a962" size={60} top="20%" right="10%" opacity={0.1} />
+        <FloatingMotif variant="floral" color="#c9a962" size={70} bottom="15%" left="10%" opacity={0.1} />
+        <FloatingMotif variant="waves" color="#c9a962" size={80} bottom="20%" right="5%" opacity={0.08} />
         {/* Background Image */}
         <Box
           sx={{
@@ -300,6 +315,7 @@ export default function Home() {
             </Grid>
           </Grid>
         </Container>
+        <SectionDivider color="#c9a962" height={50} />
       </Box>
 
       {/* Features Grid */}

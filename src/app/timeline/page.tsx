@@ -17,6 +17,12 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { philosophers, eraLabels, eraColors } from '@/lib/philosophers';
 import { useI18n } from '@/i18n';
 import Image from 'next/image';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 const philosopherImages: Record<string, string> = {
   rumi: '/images/philosopher-rumi.png',
@@ -98,6 +104,9 @@ export default function TimelinePage() {
           flexShrink: 0,
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <FloatingMotif variant="stars" color="#c9a962" size={70} top="10%" right="10%" opacity={0.1} />
+        <FloatingMotif variant="waves" color="#c9a962" size={60} bottom="15%" left="10%" opacity={0.1} />
         {/* Background Image */}
         <Box
           sx={{

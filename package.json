@@ -20,6 +20,7 @@
     "@mui/x-date-pickers": "^8.27.0",
     "deepseek-sdk": "^1.0.0",
     "dotenv": "^17.3.1",
+    "framer-motion": "^12.34.2",
     "mongodb": "^7.1.0",
     "mongoose": "^9.2.1",
     "next": "16.1.6",

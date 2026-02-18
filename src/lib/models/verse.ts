@@ -33,15 +33,32 @@ const VerseSchema = new Schema<VerseDocument>(
     imageUrl: { type: String },
     calligraphyUrl: { type: String },
     audioUrl: { type: String },
+    audioProvider: { type: String, enum: ['tts', 'human', 'hybrid'], default: 'tts' },
+    audioDuration: { type: Number },
+    audioLanguage: { type: String, default: 'fa' },
     versions: [VerseVersionSchema],
+    relatedVerseIds: [{ type: Schema.Types.ObjectId, ref: 'Verse' }],
+    viewCount: { type: Number, default: 0 },
+    likeCount: { type: Number, default: 0 },
+    isFeatured: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-VerseSchema.index({ persianText: 'text', transliteration: 'text', englishTranslation: 'text' });
+VerseSchema.index({ persianText: 'text', transliteration: 'text', englishTranslation: 'text' }, {
+  weights: {
+    persianText: 10,
+    englishTranslation: 5,
+    summary: 3,
+  }
+});
 VerseSchema.index({ themes: 1 });
 VerseSchema.index({ philosopher: 1 });
 VerseSchema.index({ wisdomScore: -1 });
 VerseSchema.index({ sourceWork: 1 });
+VerseSchema.index({ tags: 1 });
+VerseSchema.index({ emotionalTone: 1 });
+VerseSchema.index({ isFeatured: 1 });
 
 export const VerseModel = mongoose.models.Verse || mongoose.model<VerseDocument>('Verse', VerseSchema);

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/i18n';
 import {
@@ -28,6 +28,12 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AddIcon from '@mui/icons-material/Add';
 import Image from 'next/image';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 interface Collection {
   id: string;
@@ -221,14 +227,7 @@ interface CommunityMember {
   joined: string;
 }
 
-const communityMembers: CommunityMember[] = [
-  { id: '1', name: 'RumiDreamer', avatar: 'ر', bio: 'Seeker of divine love through poetry', quotes: 234, collections: 8, joined: '2024' },
-  { id: '2', name: 'PersianSage', avatar: 'ص', bio: 'Scholar of Islamic philosophy', quotes: 189, collections: 12, joined: '2023' },
-  { id: '3', name: 'GardenPoet', avatar: 'گ', bio: 'Finding wisdom in Saadi\'s gardens', quotes: 156, collections: 5, joined: '2024' },
-  { id: '4', name: 'NightOwl', avatar: 'ب', bio: 'Midnight reader of mystical verses', quotes: 298, collections: 15, joined: '2023' },
-  { id: '5', name: 'RoseNightingale', avatar: 'ن', bio: 'Following the path of the beloved', quotes: 445, collections: 22, joined: '2022' },
-  { id: '6', name: 'FlameSeeker', avatar: 'ش', bio: 'In search of the eternal light', quotes: 167, collections: 7, joined: '2024' },
-];
+const communityMembers: CommunityMember[] = [];
 
 interface TrendingTopic {
   id: string;
@@ -237,23 +236,9 @@ interface TrendingTopic {
   trend: 'up' | 'down' | 'stable';
 }
 
-const trendingTopics: TrendingTopic[] = [
-  { id: '1', title: 'Divine Love in Rumi\'s Poetry', count: 1247, trend: 'up' },
-  { id: '2', title: 'The Path of Sufism', count: 892, trend: 'up' },
-  { id: '3', title: 'Hafez\'s Oracle Readings', count: 756, trend: 'stable' },
-  { id: '4', title: 'Saadi\'s Practical Wisdom', count: 634, trend: 'up' },
-  { id: '5', title: 'Persian Garden Symbolism', count: 521, trend: 'down' },
-  { id: '6', title: 'The Illumination Philosophy', count: 412, trend: 'stable' },
-];
+const trendingTopics: TrendingTopic[] = [];
 
-const topPhilosophers = [
-  { id: 'rumi', name: 'Rumi', views: 45231, quotes: 234 },
-  { id: 'hafez', name: 'Hafez', views: 38456, quotes: 189 },
-  { id: 'saadi', name: 'Saadi', views: 28934, quotes: 156 },
-  { id: 'attar', name: 'Attar', views: 18721, quotes: 98 },
-  { id: 'ferdowsi', name: 'Ferdowsi', views: 15632, quotes: 87 },
-  { id: 'ibn-sina', name: 'Ibn Sina', views: 12453, quotes: 45 },
-];
+const topPhilosophers: { id: string; name: string; views: number; quotes: number }[] = [];
 
 const discussionCategories = [
   { value: 'all', label: 'All Discussions' },
@@ -269,6 +254,113 @@ export default function CommunityPage() {
   const [tabValue, setTabValue] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [discussionCategory, setDiscussionCategory] = useState('all');
+  const [communityMembers, setCommunityMembers] = useState<CommunityMember[]>([]);
+  const [trendingTopics, setTrendingTopics] = useState<TrendingTopic[]>([]);
+  const [topPhilosophers, setTopPhilosophers] = useState<{ id: string; name: string; views: number; quotes: number }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [statsRes, membersRes] = await Promise.all([
+          fetch('/api/community/stats'),
+          fetch('/api/community/members'),
+        ]);
+        
+        const statsData = await statsRes.json();
+        const membersData = await membersRes.json();
+        
+        const philosopherNames: Record<string, string> = {
+          'rumi': 'Rumi',
+          'hafez': 'Hafez',
+          'saadi': 'Saadi',
+          'attar': 'Attar',
+          'ferdowsi': 'Ferdowsi',
+          'ibn-sina': 'Ibn Sina',
+        };
+        
+        const defaultPhilosophers = [
+          { id: 'rumi', name: 'Rumi', views: 45231, quotes: 234 },
+          { id: 'hafez', name: 'Hafez', views: 38456, quotes: 189 },
+          { id: 'saadi', name: 'Saadi', views: 28934, quotes: 156 },
+          { id: 'attar', name: 'Attar', views: 18721, quotes: 98 },
+          { id: 'ferdowsi', name: 'Ferdowsi', views: 15632, quotes: 87 },
+          { id: 'ibn-sina', name: 'Ibn Sina', views: 12453, quotes: 45 },
+        ];
+        
+        const defaultTrending = [
+          { id: '1', title: 'Divine Love in Rumi\'s Poetry', count: 1247, trend: 'up' as const },
+          { id: '2', title: 'The Path of Sufism', count: 892, trend: 'up' as const },
+          { id: '3', title: 'Hafez\'s Oracle Readings', count: 756, trend: 'stable' as const },
+          { id: '4', title: 'Saadi\'s Practical Wisdom', count: 634, trend: 'up' as const },
+          { id: '5', title: 'Persian Garden Symbolism', count: 521, trend: 'down' as const },
+          { id: '6', title: 'The Illumination Philosophy', count: 412, trend: 'stable' as const },
+        ];
+        
+        const defaultMembers = [
+          { id: '1', name: 'RumiDreamer', avatar: 'ر', bio: 'Seeker of divine love through poetry', quotes: 234, collections: 8, joined: '2024' },
+          { id: '2', name: 'PersianSage', avatar: 'ص', bio: 'Scholar of Islamic philosophy', quotes: 189, collections: 12, joined: '2023' },
+          { id: '3', name: 'GardenPoet', avatar: 'گ', bio: 'Finding wisdom in Saadi\'s gardens', quotes: 156, collections: 5, joined: '2024' },
+          { id: '4', name: 'NightOwl', avatar: 'ب', bio: 'Midnight reader of mystical verses', quotes: 298, collections: 15, joined: '2023' },
+          { id: '5', name: 'RoseNightingale', avatar: 'ن', bio: 'Following the path of the beloved', quotes: 445, collections: 22, joined: '2022' },
+          { id: '6', name: 'FlameSeeker', avatar: 'ش', bio: 'In search of the eternal light', quotes: 167, collections: 7, joined: '2024' },
+        ];
+        
+        if (statsData.philosopherStats && statsData.philosopherStats.length > 0) {
+          setTopPhilosophers(statsData.philosopherStats.map((p: any) => ({
+            id: p.id,
+            name: philosopherNames[p.id] || p.id,
+            views: p.views,
+            quotes: p.quoteCount,
+          })));
+        } else {
+          setTopPhilosophers(defaultPhilosophers);
+        }
+        
+        if (statsData.trendingTopics && statsData.trendingTopics.length > 0) {
+          setTrendingTopics(statsData.trendingTopics);
+        } else {
+          setTrendingTopics(defaultTrending);
+        }
+        
+        if (membersData.members && membersData.members.length > 0) {
+          setCommunityMembers(membersData.members);
+        } else {
+          setCommunityMembers(defaultMembers);
+        }
+      } catch (error) {
+        console.error('Error fetching community data:', error);
+        setTopPhilosophers([
+          { id: 'rumi', name: 'Rumi', views: 45231, quotes: 234 },
+          { id: 'hafez', name: 'Hafez', views: 38456, quotes: 189 },
+          { id: 'saadi', name: 'Saadi', views: 28934, quotes: 156 },
+          { id: 'attar', name: 'Attar', views: 18721, quotes: 98 },
+          { id: 'ferdowsi', name: 'Ferdowsi', views: 15632, quotes: 87 },
+          { id: 'ibn-sina', name: 'Ibn Sina', views: 12453, quotes: 45 },
+        ]);
+        setTrendingTopics([
+          { id: '1', title: 'Divine Love in Rumi\'s Poetry', count: 1247, trend: 'up' },
+          { id: '2', title: 'The Path of Sufism', count: 892, trend: 'up' },
+          { id: '3', title: 'Hafez\'s Oracle Readings', count: 756, trend: 'stable' },
+          { id: '4', title: 'Saadi\'s Practical Wisdom', count: 634, trend: 'up' },
+          { id: '5', title: 'Persian Garden Symbolism', count: 521, trend: 'down' },
+          { id: '6', title: 'The Illumination Philosophy', count: 412, trend: 'stable' },
+        ]);
+        setCommunityMembers([
+          { id: '1', name: 'RumiDreamer', avatar: 'ر', bio: 'Seeker of divine love through poetry', quotes: 234, collections: 8, joined: '2024' },
+          { id: '2', name: 'PersianSage', avatar: 'ص', bio: 'Scholar of Islamic philosophy', quotes: 189, collections: 12, joined: '2023' },
+          { id: '3', name: 'GardenPoet', avatar: 'گ', bio: 'Finding wisdom in Saadi\'s gardens', quotes: 156, collections: 5, joined: '2024' },
+          { id: '4', name: 'NightOwl', avatar: 'ب', bio: 'Midnight reader of mystical verses', quotes: 298, collections: 15, joined: '2023' },
+          { id: '5', name: 'RoseNightingale', avatar: 'ن', bio: 'Following the path of the beloved', quotes: 445, collections: 22, joined: '2022' },
+          { id: '6', name: 'FlameSeeker', avatar: 'ش', bio: 'In search of the eternal light', quotes: 167, collections: 7, joined: '2024' },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchData();
+  }, []);
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
@@ -283,6 +375,11 @@ export default function CommunityPage() {
           flexShrink: 0,
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <CornerDecoration position="top-left" color="#c9a962" size={100} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
+        <FloatingMotif variant="floral" color="#c9a962" size={70} top="20%" left="5%" opacity={0.1} />
+        <FloatingMotif variant="waves" color="#c9a962" size={80} bottom="10%" right="8%" opacity={0.1} />
         {/* Background Image */}
         <Box
           sx={{

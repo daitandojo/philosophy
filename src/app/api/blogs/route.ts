@@ -7,13 +7,22 @@ export async function GET(request: NextRequest) {
     await connectDB();
     const { searchParams } = new URL(request.url);
     const published = searchParams.get('published');
+    const slug = searchParams.get('slug');
 
     const query: Record<string, any> = {};
     if (published !== null) query.published = published === 'true';
+    if (slug) query.slug = slug;
 
-    const blogs = await BlogPostModel.find(query)
-      .populate('userId', 'name image')
-      .sort({ createdAt: -1 });
+    let blogs;
+    if (slug) {
+      blogs = await BlogPostModel.find(query)
+        .populate('userId', 'name image')
+        .limit(1);
+    } else {
+      blogs = await BlogPostModel.find(query)
+        .populate('userId', 'name image')
+        .sort({ publishedAt: -1, createdAt: -1 });
+    }
 
     return NextResponse.json(blogs);
   } catch (error) {

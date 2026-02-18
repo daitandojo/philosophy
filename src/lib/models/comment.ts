@@ -1,24 +1,33 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
-import type { Comment } from '@/types';
 
-export interface CommentDocument extends Omit<Comment, '_id' | 'userId' | 'verseId' | 'parentCommentId'>, Document {
-  userId: Types.ObjectId;
-  verseId: Types.ObjectId;
-  parentCommentId?: Types.ObjectId;
+export interface IComment extends Document {
+  userId: string;
+  verseId?: string;
+  discussionId?: string;
+  parentCommentId?: string;
+  content: string;
+  likes: string[];
+  isEdited: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const CommentSchema = new Schema<CommentDocument>(
+const CommentSchema = new Schema<IComment>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    verseId: { type: Schema.Types.ObjectId, ref: 'Verse', required: true },
-    parentCommentId: { type: Schema.Types.ObjectId, ref: 'Comment' },
+    userId: { type: String, required: true },
+    verseId: { type: String },
+    discussionId: { type: String },
+    parentCommentId: { type: String },
     content: { type: String, required: true },
-    likes: { type: Number, default: 0 },
+    likes: [{ type: String }],
+    isEdited: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-CommentSchema.index({ verseId: 1 });
+CommentSchema.index({ verseId: 1, createdAt: -1 });
+CommentSchema.index({ discussionId: 1, createdAt: -1 });
+CommentSchema.index({ parentCommentId: 1 });
 CommentSchema.index({ userId: 1 });
 
-export const CommentModel = mongoose.models.Comment || mongoose.model<CommentDocument>('Comment', CommentSchema);
+export const CommentModel = mongoose.models.Comment || mongoose.model<IComment>('Comment', CommentSchema);

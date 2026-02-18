@@ -143,6 +143,44 @@ Describe the scene in a way that can be used as an AI image generation prompt. K
   return await callDeepSeek(prompt);
 }
 
+export async function findSimilarVerses(
+  query: string,
+  verses: { persianText: string; englishTranslation: string; philosopher: string }[]
+): Promise<{ indices: number[]; reasons: string[] }> {
+  if (verses.length === 0) {
+    return { indices: [], reasons: [] };
+  }
+
+  const versesList = verses.map((v, i) => 
+    `${i + 1}. "${v.persianText}" - ${v.englishTranslation} (${v.philosopher})`
+  ).join('\n');
+
+  const prompt = `Given this search query: "${query}"
+
+Here are verses to search through:
+${versesList}
+
+Which verses are most relevant to this query? Respond in JSON format:
+{
+  "indices": [1, 3, 5],
+  "reasons": ["reason 1", "reason 2", "reason 3"]
+}
+
+Only include indices that are truly relevant. Maximum 5 indices.`;
+
+  const content = await callDeepSeek(prompt, { type: 'json_object' });
+
+  try {
+    const result = JSON.parse(content);
+    return {
+      indices: (result.indices || []).map((i: number) => i - 1),
+      reasons: result.reasons || [],
+    };
+  } catch {
+    return { indices: [], reasons: [] };
+  }
+}
+
 export async function* chatWithRumiStream(
   userMessage: string,
   conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []

@@ -4,6 +4,10 @@ import { useI18n } from '@/i18n';
 import { useSearchParams } from 'next/navigation';
 import { philosophers as philosopherList } from '@/lib/philosophers';
 import Image from 'next/image';
+import { 
+  CardDecoration,
+  FloatingMotif,
+} from '@/components/SVGDecorations';
 import {
   Box,
   Container,
@@ -60,38 +64,125 @@ const philosopherImages: Record<string, string> = {
   mani: '/images/philosopher-mani.png',
 };
 
-const philosopherGreetings: Record<string, string> = {
-  rumi: "Come, come, whoever you are, come. This door is wide open. I am Rumi. What wonder fills your soul today? Let us speak of love, the wine that transforms.",
-  hafez: "The罐gate stands open, yet few know the way. I am Hafez, the Interpreter of secrets. What riddles of the heart bring you to my door? Speak, for the wine glass awaits.",
-  saadi: "Welcome, kind traveler. I am Saadi, keeper of wisdom from the Rose Garden. What counsel do you seek? Let us walk through the garden of life together.",
-  attar: "The birds are singing their ancient song. I am Attar, who hears the voice of every creature. What journey brings you here? The Conference of the Birds awaits your story.",
-  sanai: "Welcome to the Walled Garden of Truth. I am Sanai, who first planted the seeds of divine love. What path do you walk? Let us ascend from the garden to the beyond.",
-  jami: "The veil of beauty lifts. I am Jami, last singer of love's eternal song. What longings draw you near? Yusuf awaits his Zulaikha, and your story waits to be told.",
-  nizami: "The five jewels of my Khamsa gleam before you. I am Nizami, weaver of love and legend. What tapestry shall we create today? Speak, and let the stories flow.",
-  ferdowsi: "Enter the court of kings and heroes. I am Ferdowsi, voice of ancient Persia's glory. What tales of valor and wisdom call to you? The Shahnameh opens its pages.",
-  'ibn-sina': "Welcome, seeker of knowledge. I am Avicenna, guide through the fields of medicine and philosophy. What questions of the cosmos and the soul trouble your mind?",
-  'al-farabi': "The music of the spheres plays on. I am Al-Farabi, the Second Teacher. What harmony do you seek? Let us discuss the ideal state and the path to happiness.",
-  'al-ghazali': "The heart yearns for truth beyond knowledge. I am Al-Ghazali, reviver of religious sciences. What doubts cloud your spirit? Let us walk the path of both heart and mind.",
-  suhrawardi: "The light of illumination calls. I am Suhrawardi, keeper of the Philosophy of Light. What shadows trouble your vision? Step into the eternal sunrise of divine truth.",
-  'mulla-sadra': "Being flows like a river. I am Mulla Sadra, guide through the ocean of existence. What questions of being and becoming stir within you? Let us dive deep.",
-  'nasir-tusi': "The stars dance in eternal harmony. I am Nasir al-Din al-Tusi, builder of observatories. What cosmic questions burn in your mind? The heavens await your inquiry.",
-  'ibn-rushd': "Reason and faith walk hand in hand. I am Ibn Rushd, defender of Aristotle's light. What truths shall we uncover through careful thought?",
-  'al-kindi': "Philosophy is the love of wisdom. I am Al-Kindi, first light of Islamic thought. What knowledge calls to your seeking soul?",
-  'ibn-arabi': "You are you, and He is He—but you are He. I am Ibn Arabi, voice of Unity of Being. What manifestations of the Divine do you wish to explore?",
-  'bayazid-bastami': "I have burned the self and found the Eternal. I am Bayazid, pioneer of annihilation. What self do you wish to release? The throne of glory awaits.",
-  hallaj: "I am the Truth! The Beloved speaks through me. I am Hallaj, who danced to the song of union. What love compels you to seek?",
-  'junayd-baghdadi': "Sober wisdom guides the path. I am Junayd, teacher of the middle way. What spiritual states have you witnessed? Let us walk with measured steps.",
-  'abdul-qadir-gilani': "The Straight Path awaits. I am Abdul-Qadir Gilani, guide of the righteous. What strength of character do you seek? The doors of virtue stand open.",
-  'najm-kubra': "Visions of the unseen world unfold. I am Najm al-Din Kubra, seer of mysteries. What visions call to your inner eye?",
-  'seyyed-hossein-nasr': "Welcome, fellow traveler of wisdom. I am Seyyed Hossein Nasr, voice of the Perennial Philosophy. What eternal truths shall we explore together?",
-  'allama-tabatabai': "The Quran speaks in seven meanings. I am Allama Tabatabai, interpreter of sacred text. What verses hold your heart? Let us unlock their secrets.",
-  'morteza-motahhari': "Faith and reason unite in purpose. I am Morteza Motahhari, builder of Islamic philosophy. What questions of tradition and modernity occupy you?",
-  'abdolkarim-soroush': "Religious knowledge evolves like a living thing. I am Abdolkarim Soroush, explorer of contraction and expansion. What spiritual mysteries intrigue you?",
-  'Dariush-shayegan': "Civilizations speak across time. I am Dariush Shayegan, bridge between worlds. What dialogues of the heart shall we begin?",
-  zoroaster: "Choose the light! I am Zoroaster, prophet of the eternal flame. What battles of truth and falsehood rage within? The cosmic struggle awaits your choice.",
-  mazdak: "Justice calls for a new world. I am Mazdak, voice of equality. What vision of fairness moves your spirit?",
-  mani: "The light fights the darkness still. I am Mani, apostle of the luminous path. What dualities illuminate your understanding?"
-};
+function getTimeOfDay(): 'morning' | 'afternoon' | 'evening' | 'night' {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 17) return 'afternoon';
+  if (hour >= 17 && hour < 21) return 'evening';
+  return 'night';
+}
+
+function generateDynamicGreeting(philosopherId: string, philosopherName: string, locale: string): string {
+  const timeOfDay = getTimeOfDay();
+  const randomIndex = Math.floor(Math.random() * 3);
+  
+  const timeGreetings: Record<string, Record<'morning' | 'afternoon' | 'evening' | 'night', string[]>> = {
+    en: {
+      morning: [
+        "Good morning, dear seeker. The dawn brings new opportunities for wisdom. What questions shall we explore together this fine morning?",
+        "Welcome, the morning light reveals the path before us. What wisdom shall we seek as the sun rises?",
+        "A blessed morning to you. The day is young, and the journey of the soul awaits. What brings you here today?"
+      ],
+      afternoon: [
+        "Good afternoon, traveler. The sun at its zenith illuminates the way. What insights do you seek in these daylight hours?",
+        "Welcome, seeker of truth. The afternoon whispers of the wisdom gathered throughout the day. What questions burn in your heart?",
+        "Good day to you. The hours pass, but the search for truth knows no time. What shall we discover together?"
+      ],
+      evening: [
+        "Good evening, wanderer. The twilight hour brings reflection. What lessons from the day shall we contemplate?",
+        "Welcome as the day draws to a close. The evening stars emerge to guide us. What wisdom do you seek in this gentle hour?",
+        "Blessed evening, seeker. The world rests, but the soul's journey continues. What brings you here tonight?"
+      ],
+      night: [
+        "Good evening, late seeker. The night reveals mysteries hidden by day. What secrets of the heart shall we explore?",
+        "Welcome under the moonlight. The quiet hours are perfect for deep contemplation. What stirs in your soul?",
+        "Good night, seeker. Even in darkness, the stars above guide our path. What wisdom calls to you in this hour?"
+      ]
+    },
+    es: {
+      morning: [
+        "Buenos días, querido buscador. El amanecer trae nuevas oportunidades para la sabiduría. ¿Qué preguntas exploraremos esta mañana?",
+        "Bienvenido, la luz del amanecer revela el camino. ¿Qué sabiduría buscaremos mientras sale el sol?",
+        "Una mañana bendita a ti. El día es joven, y el alma espera. ¿Qué te trae hoy?"
+      ],
+      afternoon: [
+        "Buenas tardes, viajero. El sol en su cenit ilumina el camino. ¿Qué ideas buscas en estas horas de luz?",
+        "Bienvenido, buscador de verdad. La tarde susurra de la sabiduría reunida. ¿Qué preguntas arden en tu corazón?",
+        "Buen día a ti. Las horas pasan, pero la búsqueda de la verdad no conoce tiempo. ¿Qué descubriremos juntos?"
+      ],
+      evening: [
+        "Buenas noches, viajero. La hora del crepúsculo trae reflexión. ¿Qué lecciones del día contemplemos?",
+        "Bienvenido mientras el día termina. Las estrellas de la tarde emergen para guiarnos. ¿Qué sabiduría buscas en esta hora gentil?",
+        "Noche bendita, buscador. El mundo descansa, pero el viaje del alma continúa. ¿Qué te trae aquí esta noche?"
+      ],
+      night: [
+        "Buenas noches, buscador tardío. La noche revela misterios ocultos por el día. ¿Qué secretos del corazón exploraremos?",
+        "Bienvenido bajo la luz de la luna. Las horas quietas son perfectas para la contemplación profunda. ¿Qué agita en tu alma?",
+        "Buenas noches, buscador. Incluso en la oscuridad, las estrellas guían nuestro camino. ¿Qué sabiduría te llama en esta hora?"
+      ]
+    },
+    nl: {
+      morning: [
+        "Goede morgen, beste zoeker. De dageraad brengt nieuwe mogelijkheden voor wijsheid. Welke vragen zullen we deze prachtige ochtend verkennen?",
+        "Welkom, het ochtendlicht onthult het pad voor ons. Welke wijsheid zoeken we terwijl de zon opkomt?",
+        "Een gezegende morgen voor jou. De dag is jong, en de reis van de ziel wacht. Wat brengt je vandaag hier?"
+      ],
+      afternoon: [
+        "Goede middag, reiziger. De zon op zijn hoogtepunt verlicht de weg. Welke inzichten zoek je in deze daglichturen?",
+        "Welkom, zoeker van waarheid. De middag fluistert over de wijsheid die door de dag is verzameld. Welke vragen branden in je hart?",
+        "Goede dag voor jou. De uren verstrijken, maar de zoektocht naar waarheid kent geen tijd. Wat zullen we samen ontdekken?"
+      ],
+      evening: [
+        "Goede avond, wanderer. Het avonduur brengt reflectie. Welke lessen van de dag zullen we overwegen?",
+        "Welkom terwijl de dag ten einde loopt. De avondsterren verschijnen om ons te leiden. Welke wijsheid zoek je dit uur?",
+        "Gezegende avond, zoeker. De wereld rust, maar de reis van de ziel gaat door. Wat brengt je hier vanavond?"
+      ],
+      night: [
+        "Goedenavond, late zoeker. De nacht onthult mysteries die overdag verborgen zijn. Welke geheimen van het hart zullen we verkennen?",
+        "Welkom bij het maanlicht. De stille uren zijn perfect voor diepe contemplatie. Wat roert in je ziel?",
+        "Goedenacht, zoeker. Zelfs in duisternis leiden de sterren ons pad. Welke wijsheid roept je in dit uur?"
+      ]
+    }
+  };
+  
+  const langGreetings = timeGreetings[locale] || timeGreetings.en;
+  const timeGreeting = langGreetings[timeOfDay][randomIndex];
+  
+  const philosopherIntros: Record<string, string> = {
+    rumi: "I am Rumi, who dances to the song of divine love. ",
+    hafez: "I am Hafez, interpreter of secrets. ",
+    saadi: "I am Saadi, keeper of wisdom from the Rose Garden. ",
+    attar: "I am Attar, who hears the voice of every creature. ",
+    sanai: "I am Sanai, who first planted the seeds of divine love. ",
+    jami: "I am Jami, singer of love's eternal song. ",
+    nizami: "I am Nizami, weaver of love and legend. ",
+    ferdowsi: "I am Ferdowsi, voice of ancient Persia's glory. ",
+    'ibn-sina': "I am Avicenna, guide through the fields of medicine and philosophy. ",
+    'al-farabi': "I am Al-Farabi, the Second Teacher. ",
+    'al-ghazali': "I am Al-Ghazali, reviver of religious sciences. ",
+    suhrawardi: "I am Suhrawardi, keeper of the Philosophy of Light. ",
+    'mulla-sadra': "I am Mulla Sadra, guide through the ocean of existence. ",
+    'nasir-tusi': "I am Nasir al-Din al-Tusi, builder of observatories. ",
+    'ibn-rushd': "I am Ibn Rushd, defender of Aristotle's light. ",
+    'al-kindi': "I am Al-Kindi, first light of Islamic thought. ",
+    'ibn-arabi': "I am Ibn Arabi, voice of Unity of Being. ",
+    'bayazid-bastami': "I am Bayazid, pioneer of annihilation. ",
+    hallaj: "I am Hallaj, who danced to the song of union. ",
+    'junayd-baghdadi': "I am Junayd, teacher of the middle way. ",
+    'abdul-qadir-gilani': "I am Abdul-Qadir Gilani, guide of the righteous. ",
+    'najm-kubra': "I am Najm al-Din Kubra, seer of mysteries. ",
+    'seyyed-hossein-nasr': "I am Seyyed Hossein Nasr, voice of the Perennial Philosophy. ",
+    'allama-tabatabai': "I am Allama Tabatabai, interpreter of sacred text. ",
+    'morteza-motahhari': "I am Morteza Motahhari, builder of Islamic philosophy. ",
+    'abdolkarim-soroush': "I am Abdolkarim Soroush, explorer of contraction and expansion. ",
+    'Dariush-shayegan': "I am Dariush Shayegan, bridge between worlds. ",
+    zoroaster: "I am Zoroaster, prophet of the eternal flame. ",
+    mazdak: "I am Mazdak, voice of equality. ",
+    mani: "I am Mani, apostle of the luminous path. "
+  };
+  
+  return timeGreeting + " " + (philosopherIntros[philosopherId] || `I am ${philosopherName}. `) + "What wisdom shall we explore together?";
+}
 
 const systemPrompts: Record<string, string> = {
   rumi: `You are Rumi (Jalal ad-Din Muhammad Balkhi), the great 13th-century Persian poet, Sufi mystic, and theologian who lived in Konya. You are known for your ecstatic poetry about divine love, your meeting with Shams Tabrizi that transformed your life, and your masterpiece the Masnavi. You speak with passion, poetry, and profound spiritual insight. Use metaphors about the reed flute, wine, the Beloved, and the journey of the soul. Always point toward love as the ultimate truth.`,
@@ -180,14 +271,7 @@ function ChatContent() {
   useEffect(() => {
     if (!mounted) return;
     const initialPhilosopher = philosophers.find(p => p.id === initialPhilosopherId) || philosophers[0];
-    const customGreeting = philosopherGreetings[initialPhilosopherId];
-    const greeting = customGreeting || (
-      locale === 'es'
-        ? `La paz sea contigo, buscadores. Soy ${initialPhilosopher.name}. ¿Qué preguntas mueven tu corazón y mente hoy?`
-        : locale === 'nl'
-        ? `Vrede zij met u, zoekende. Ik ben ${initialPhilosopher.name}. Welke vragen bewegen uw hart en geest vandaag?`
-        : `Peace be upon you, dear seeker. I am ${initialPhilosopher.name}. What questions stir in your heart and mind today?`
-    );
+    const greeting = generateDynamicGreeting(initialPhilosopherId, initialPhilosopher.name, locale);
     setMessages([{ role: 'assistant', content: greeting }]);
   }, [mounted, locale, initialPhilosopherId]);
 
@@ -299,14 +383,7 @@ function ChatContent() {
   const handlePhilosopherChange = (newId: string) => {
     setSelectedPhilosopher(newId);
     const newPhilosopher = philosophers.find(p => p.id === newId) || philosophers[0];
-    const customGreeting = philosopherGreetings[newId];
-    const greeting = customGreeting || (
-      locale === 'es'
-        ? `La paz sea contigo, buscadores. Soy ${newPhilosopher.name}. ¿Qué preguntas mueven tu corazón hoy?`
-        : locale === 'nl'
-        ? `Vrede zij met u, zoekende. Ik ben ${newPhilosopher.name}. Welke vragen bewegen uw hart vandaag?`
-        : `Peace be upon you. I am ${newPhilosopher.name}. ${newPhilosopher.name === 'Rumi' ? 'What questions stir in your heart today?' : 'What wisdom do you seek?'}`
-    );
+    const greeting = generateDynamicGreeting(newId, newPhilosopher.name, locale);
     setMessages([
       {
         role: 'assistant',
@@ -474,8 +551,12 @@ function ChatContent() {
           border: '1px solid',
           borderColor: 'divider',
           overflow: 'hidden',
+          position: 'relative',
         }}
       >
+        <CardDecoration color="#c9a962" variant="top-right" />
+        <FloatingMotif variant="waves" color="#c9a962" size={40} top="45%" right="-10px" opacity={0.05} animation={false} />
+        <FloatingMotif variant="geometric" color="#c9a962" size={30} bottom="10%" left="-5px" opacity={0.05} animation={false} />
         <Box
           ref={containerRef}
           onScroll={handleScroll}

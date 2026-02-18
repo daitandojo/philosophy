@@ -29,6 +29,12 @@ import VerseCard from '@/components/VerseCard';
 import { philosophers } from '@/lib/philosophers';
 import type { Verse } from '@/types';
 import Image from 'next/image';
+import { 
+  HeroPattern, 
+  FloatingMotif, 
+  SectionDivider,
+  CornerDecoration,
+} from '@/components/SVGDecorations';
 
 const LIKED_VERSES_KEY = 'hikmatia_liked_verses';
 
@@ -103,13 +109,17 @@ function ExploreContent() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          py: { xs: 2, md: 3 },
-          textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
+          py: { xs: 6, md: 8 },
           flexShrink: 0,
         }}
       >
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <CornerDecoration position="top-left" color="#c9a962" size={100} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
+        <FloatingMotif variant="geometric" color="#c9a962" size={70} top="15%" right="8%" opacity={0.1} />
+        <FloatingMotif variant="celestial" color="#c9a962" size={60} bottom="20%" left="10%" opacity={0.1} />
         {/* Background Image */}
         <Box
           sx={{

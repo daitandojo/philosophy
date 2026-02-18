@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
 import {
   Box,
   Container,
@@ -38,6 +39,8 @@ import type { Verse } from '@/types';
 
 export default function VersePage() {
   const params = useParams();
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const [verse, setVerse] = useState<Verse | null>(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
@@ -470,25 +473,41 @@ export default function VersePage() {
         {/* Comment Input */}
         <Card sx={{ mb: 3 }}>
           <CardContent>
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              placeholder="Share your thoughts on this verse..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              sx={{ mb: 2 }}
-            />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleSubmitComment}
-                disabled={!newComment.trim() || commentsLoading}
-              >
-                {commentsLoading ? 'Posting...' : 'Post Comment'}
-              </Button>
-            </Box>
+            {status === 'authenticated' ? (
+              <>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  placeholder="Share your thoughts on this verse..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                    onClick={handleSubmitComment}
+                    disabled={!newComment.trim() || commentsLoading}
+                  >
+                    {commentsLoading ? 'Posting...' : 'Post Comment'}
+                  </Button>
+                </Box>
+              </>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 3 }}>
+                <Typography variant="body1" color="text.secondary" gutterBottom>
+                  Please sign in to join the discussion
+                </Typography>
+                <Button 
+                  variant="contained" 
+                  onClick={() => signIn('google', { callbackUrl: `/verses/${params.id}` })}
+                >
+                  Sign in with Google
+                </Button>
+              </Box>
+            )}
           </CardContent>
         </Card>
 
