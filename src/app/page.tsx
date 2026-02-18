@@ -272,6 +272,63 @@ export default function Home() {
                     <ArrowForwardIcon sx={{ color: 'rgba(255,255,255,0.4)', fontSize: 18 }} />
                   </Box>
                 ))}
+
+                <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                  <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', mb: 1.5, letterSpacing: 1 }}>
+                    Featured Wisdom
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1.5 }}>
+                    {[
+                      { text: 'The wound is where the Light enters', philosopher: 'Rumi', img: '/images/quote-wound-light.png' },
+                      { text: 'What you seek is seeking you', philosopher: 'Rumi', img: '/images/quote-seek-seeking.png' },
+                      { text: 'A river moving in you, a joy', philosopher: 'Rumi', img: '/images/quote-river-joy.png' },
+                    ].map((quote, idx) => (
+                      <Box
+                        key={idx}
+                        sx={{
+                          flex: 1,
+                          position: 'relative',
+                          height: 80,
+                          borderRadius: 2,
+                          overflow: 'hidden',
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease',
+                          '&:hover': { transform: 'scale(1.03)' },
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            opacity: 0.4,
+                          }}
+                        >
+                          <Image src={quote.img} alt="" fill style={{ objectFit: 'cover' }} />
+                        </Box>
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            bgcolor: 'rgba(26, 58, 42, 0.7)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            p: 1,
+                            textAlign: 'center',
+                          }}
+                        >
+                          <Typography sx={{ fontSize: '0.7rem', color: 'white', fontStyle: 'italic', lineHeight: 1.3 }}>
+                            "{quote.text}"
+                          </Typography>
+                          <Typography sx={{ fontSize: '0.6rem', color: '#c9a962', mt: 0.5 }}>
+                            — {quote.philosopher}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
               </Box>
             </Grid>
           </Grid>
