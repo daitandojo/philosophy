@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, useCallback, useMemo, Suspense } from 'rea
 import { useI18n } from '@/i18n';
 import { useSearchParams } from 'next/navigation';
 import { philosophers as philosopherList } from '@/lib/philosophers';
+import Image from 'next/image';
 import {
   Box,
   Container,
@@ -21,23 +22,76 @@ import {
   Tooltip,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import ChatBubble from '@mui/icons-material/ChatBubble';
 import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
+const philosopherImages: Record<string, string> = {
+  rumi: '/images/philosopher-rumi.png',
+  hafez: '/images/philosopher-hafez.png',
+  saadi: '/images/philosopher-saadi.png',
+  attar: '/images/philosopher-attar.png',
+  sanai: '/images/philosopher-sanai.png',
+  jami: '/images/philosopher-jami.png',
+  nizami: '/images/philosopher-nizami.png',
+  ferdowsi: '/images/philosopher-ferdowsi.png',
+  'ibn-sina': '/images/philosopher-ibn-sina.png',
+  'al-farabi': '/images/philosopher-al-farabi.png',
+  'al-kindi': '/images/philosopher-al-kindi.png',
+  'al-ghazali': '/images/philosopher-al-ghazali.png',
+  suhrawardi: '/images/philosopher-suhrawardi.png',
+  'mulla-sadra': '/images/philosopher-mulla-sadra.png',
+  'nasir-tusi': '/images/philosopher-nasir-tusi.png',
+  'ibn-rushd': '/images/philosopher-ibn-rushd.png',
+  'ibn-arabi': '/images/philosopher-ibn-arabi.png',
+  'bayazid-bastami': '/images/philosopher-bayazid-bastami.png',
+  hallaj: '/images/philosopher-hallaj.png',
+  'junayd-baghdadi': '/images/philosopher-junayd-baghdadi.png',
+  'abdul-qadir-gilani': '/images/philosopher-abdul-qadir-gilani.png',
+  'najm-kubra': '/images/philosopher-najm-kubra.png',
+  'seyyed-hossein-nasr': '/images/philosopher-seyyed-hossein-nasr.png',
+  'allama-tabatabai': '/images/philosopher-allama-tabatabai.png',
+  'morteza-motahhari': '/images/philosopher-morteza-motahhari.png',
+  'abdolkarim-soroush': '/images/philosopher-abdolkarim-soroush.png',
+  'Dariush-shayegan': '/images/philosopher-Dariush-shayegan.png',
+  zoroaster: '/images/philosopher-zoroaster.png',
+  mazdak: '/images/philosopher-mazdak.png',
+  mani: '/images/philosopher-mani.png',
+};
 
-interface ChatPhilosopher {
-  id: string;
-  name: string;
-  persianName: string;
-  systemPrompt: string;
-}
+const philosopherGreetings: Record<string, string> = {
+  rumi: "Come, come, whoever you are, come. This door is wide open. I am Rumi. What wonder fills your soul today? Let us speak of love, the wine that transforms.",
+  hafez: "The罐gate stands open, yet few know the way. I am Hafez, the Interpreter of secrets. What riddles of the heart bring you to my door? Speak, for the wine glass awaits.",
+  saadi: "Welcome, kind traveler. I am Saadi, keeper of wisdom from the Rose Garden. What counsel do you seek? Let us walk through the garden of life together.",
+  attar: "The birds are singing their ancient song. I am Attar, who hears the voice of every creature. What journey brings you here? The Conference of the Birds awaits your story.",
+  sanai: "Welcome to the Walled Garden of Truth. I am Sanai, who first planted the seeds of divine love. What path do you walk? Let us ascend from the garden to the beyond.",
+  jami: "The veil of beauty lifts. I am Jami, last singer of love's eternal song. What longings draw you near? Yusuf awaits his Zulaikha, and your story waits to be told.",
+  nizami: "The five jewels of my Khamsa gleam before you. I am Nizami, weaver of love and legend. What tapestry shall we create today? Speak, and let the stories flow.",
+  ferdowsi: "Enter the court of kings and heroes. I am Ferdowsi, voice of ancient Persia's glory. What tales of valor and wisdom call to you? The Shahnameh opens its pages.",
+  'ibn-sina': "Welcome, seeker of knowledge. I am Avicenna, guide through the fields of medicine and philosophy. What questions of the cosmos and the soul trouble your mind?",
+  'al-farabi': "The music of the spheres plays on. I am Al-Farabi, the Second Teacher. What harmony do you seek? Let us discuss the ideal state and the path to happiness.",
+  'al-ghazali': "The heart yearns for truth beyond knowledge. I am Al-Ghazali, reviver of religious sciences. What doubts cloud your spirit? Let us walk the path of both heart and mind.",
+  suhrawardi: "The light of illumination calls. I am Suhrawardi, keeper of the Philosophy of Light. What shadows trouble your vision? Step into the eternal sunrise of divine truth.",
+  'mulla-sadra': "Being flows like a river. I am Mulla Sadra, guide through the ocean of existence. What questions of being and becoming stir within you? Let us dive deep.",
+  'nasir-tusi': "The stars dance in eternal harmony. I am Nasir al-Din al-Tusi, builder of observatories. What cosmic questions burn in your mind? The heavens await your inquiry.",
+  'ibn-rushd': "Reason and faith walk hand in hand. I am Ibn Rushd, defender of Aristotle's light. What truths shall we uncover through careful thought?",
+  'al-kindi': "Philosophy is the love of wisdom. I am Al-Kindi, first light of Islamic thought. What knowledge calls to your seeking soul?",
+  'ibn-arabi': "You are you, and He is He—but you are He. I am Ibn Arabi, voice of Unity of Being. What manifestations of the Divine do you wish to explore?",
+  'bayazid-bastami': "I have burned the self and found the Eternal. I am Bayazid, pioneer of annihilation. What self do you wish to release? The throne of glory awaits.",
+  hallaj: "I am the Truth! The Beloved speaks through me. I am Hallaj, who danced to the song of union. What love compels you to seek?",
+  'junayd-baghdadi': "Sober wisdom guides the path. I am Junayd, teacher of the middle way. What spiritual states have you witnessed? Let us walk with measured steps.",
+  'abdul-qadir-gilani': "The Straight Path awaits. I am Abdul-Qadir Gilani, guide of the righteous. What strength of character do you seek? The doors of virtue stand open.",
+  'najm-kubra': "Visions of the unseen world unfold. I am Najm al-Din Kubra, seer of mysteries. What visions call to your inner eye?",
+  'seyyed-hossein-nasr': "Welcome, fellow traveler of wisdom. I am Seyyed Hossein Nasr, voice of the Perennial Philosophy. What eternal truths shall we explore together?",
+  'allama-tabatabai': "The Quran speaks in seven meanings. I am Allama Tabatabai, interpreter of sacred text. What verses hold your heart? Let us unlock their secrets.",
+  'morteza-motahhari': "Faith and reason unite in purpose. I am Morteza Motahhari, builder of Islamic philosophy. What questions of tradition and modernity occupy you?",
+  'abdolkarim-soroush': "Religious knowledge evolves like a living thing. I am Abdolkarim Soroush, explorer of contraction and expansion. What spiritual mysteries intrigue you?",
+  'Dariush-shayegan': "Civilizations speak across time. I am Dariush Shayegan, bridge between worlds. What dialogues of the heart shall we begin?",
+  zoroaster: "Choose the light! I am Zoroaster, prophet of the eternal flame. What battles of truth and falsehood rage within? The cosmic struggle awaits your choice.",
+  mazdak: "Justice calls for a new world. I am Mazdak, voice of equality. What vision of fairness moves your spirit?",
+  mani: "The light fights the darkness still. I am Mani, apostle of the luminous path. What dualities illuminate your understanding?"
+};
 
 const systemPrompts: Record<string, string> = {
   rumi: `You are Rumi (Jalal ad-Din Muhammad Balkhi), the great 13th-century Persian poet, Sufi mystic, and theologian who lived in Konya. You are known for your ecstatic poetry about divine love, your meeting with Shams Tabrizi that transformed your life, and your masterpiece the Masnavi. You speak with passion, poetry, and profound spiritual insight. Use metaphors about the reed flute, wine, the Beloved, and the journey of the soul. Always point toward love as the ultimate truth.`,
@@ -72,6 +126,19 @@ const systemPrompts: Record<string, string> = {
   mani: `You are Mani, the founder of Manichaeism, a major religion that spread between the 3rd and 7th centuries. Known as "The Apostle of Light." Speak about the dualism of light and darkness, and the soul's journey to liberation.`,
 };
 
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+interface ChatPhilosopher {
+  id: string;
+  name: string;
+  persianName: string;
+  systemPrompt: string;
+  image: string;
+}
+
 const philosophers: ChatPhilosopher[] = philosopherList
   .filter(p => systemPrompts[p.id])
   .map(p => ({
@@ -79,6 +146,7 @@ const philosophers: ChatPhilosopher[] = philosopherList
     name: p.name.english,
     persianName: p.name.persian,
     systemPrompt: systemPrompts[p.id],
+    image: philosopherImages[p.id] || '',
   }));
 
 export default function ChatPage() {
@@ -96,24 +164,30 @@ export default function ChatPage() {
 function ChatContent() {
   const { t, locale, mounted } = useI18n();
   const searchParams = useSearchParams();
-  const philosopherParam = searchParams.get('philosopher');
+  const philosopherParam = searchParams?.get('philosopher');
   
-  const initialPhilosopherId = philosopherParam && philosophers.some(p => p.id === philosopherParam) 
-    ? philosopherParam 
-    : philosophers[0].id;
+  const initialPhilosopherId = philosopherParam || philosophers[0].id;
   
   const [selectedPhilosopher, setSelectedPhilosopher] = useState(initialPhilosopherId);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [streamingContent, setStreamingContent] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
 
   useEffect(() => {
     if (!mounted) return;
     const initialPhilosopher = philosophers.find(p => p.id === initialPhilosopherId) || philosophers[0];
-    const greeting = locale === 'es'
-      ? `La paz sea contigo, buscadores. Soy ${initialPhilosopher.name}. ¿Qué preguntas mueven tu corazón y mente hoy?`
-      : locale === 'nl'
-      ? `Vrede zij met u, zoekende. Ik ben ${initialPhilosopher.name}. Welke vragen bewegen uw hart en geest vandaag?`
-      : `Peace be upon you, dear seeker. I am ${initialPhilosopher.name}. What questions stir in your heart and mind today?`;
+    const customGreeting = philosopherGreetings[initialPhilosopherId];
+    const greeting = customGreeting || (
+      locale === 'es'
+        ? `La paz sea contigo, buscadores. Soy ${initialPhilosopher.name}. ¿Qué preguntas mueven tu corazón y mente hoy?`
+        : locale === 'nl'
+        ? `Vrede zij met u, zoekende. Ik ben ${initialPhilosopher.name}. Welke vragen bewegen uw hart en geest vandaag?`
+        : `Peace be upon you, dear seeker. I am ${initialPhilosopher.name}. What questions stir in your heart and mind today?`
+    );
     setMessages([{ role: 'assistant', content: greeting }]);
   }, [mounted, locale, initialPhilosopherId]);
 
@@ -124,11 +198,6 @@ function ChatContent() {
       </Box>
     );
   }
-  const [loading, setLoading] = useState(false);
-  const [streamingContent, setStreamingContent] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -230,11 +299,14 @@ function ChatContent() {
   const handlePhilosopherChange = (newId: string) => {
     setSelectedPhilosopher(newId);
     const newPhilosopher = philosophers.find(p => p.id === newId) || philosophers[0];
-    const greeting = locale === 'es'
-      ? `La paz sea contigo, buscadores. Soy ${newPhilosopher.name}. ¿Qué preguntas mueven tu corazón hoy?`
-      : locale === 'nl'
-      ? `Vrede zij met u, zoekende. Ik ben ${newPhilosopher.name}. Welke vragen bewegen uw hart vandaag?`
-      : `Peace be upon you. I am ${newPhilosopher.name}. ${newPhilosopher.name === 'Rumi' ? 'What questions stir in your heart today?' : 'What wisdom do you seek?'}`;
+    const customGreeting = philosopherGreetings[newId];
+    const greeting = customGreeting || (
+      locale === 'es'
+        ? `La paz sea contigo, buscadores. Soy ${newPhilosopher.name}. ¿Qué preguntas mueven tu corazón hoy?`
+        : locale === 'nl'
+        ? `Vrede zij met u, zoekende. Ik ben ${newPhilosopher.name}. Welke vragen bewegen uw hart vandaag?`
+        : `Peace be upon you. I am ${newPhilosopher.name}. ${newPhilosopher.name === 'Rumi' ? 'What questions stir in your heart today?' : 'What wisdom do you seek?'}`
+    );
     setMessages([
       {
         role: 'assistant',
@@ -346,10 +418,35 @@ function ChatContent() {
         px: { xs: 1, sm: 2 },
       }}
     >
-      <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
-        <Typography variant="h4">
-          {t.chat.title}
-        </Typography>
+      <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Box
+            sx={{
+              position: 'relative',
+              width: 64,
+              height: 64,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '3px solid #c9a962',
+              boxShadow: '0 4px 14px rgba(139, 69, 19, 0.3)',
+            }}
+          >
+            <Image
+              src={philosopher.image}
+              alt={philosopher.name}
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </Box>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 600, color: '#1a3a2a' }}>
+              {philosopher.name}
+            </Typography>
+            <Typography variant="caption" sx={{ color: '#8b4513', fontFamily: 'Vazirmatn' }}>
+              {philosopher.persianName}
+            </Typography>
+          </Box>
+        </Box>
         <FormControl size="small" sx={{ minWidth: 200 }}>
           <InputLabel>{t.chat.selectPhilosopher}</InputLabel>
           <Select
@@ -401,9 +498,15 @@ function ChatContent() {
               }}
             >
               {message.role === 'assistant' && (
-                <Avatar sx={{ mr: 1, bgcolor: 'primary.main', width: 36, height: 36, fontSize: '0.9rem' }}>
-                  {getAvatarLetter(philosopher)}
-                </Avatar>
+                <Box sx={{ mr: 1, width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+                  <Image
+                    src={philosopher.image}
+                    alt={philosopher.name}
+                    width={36}
+                    height={36}
+                    style={{ objectFit: 'cover' }}
+                  />
+                </Box>
               )}
               <Paper
                 sx={{
@@ -442,9 +545,15 @@ function ChatContent() {
                 alignItems: 'flex-start',
               }}
             >
-              <Avatar sx={{ mr: 1, bgcolor: 'primary.main', width: 36, height: 36, fontSize: '0.9rem' }}>
-                {getAvatarLetter(philosopher)}
-              </Avatar>
+              <Box sx={{ mr: 1, width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+                <Image
+                  src={philosopher.image}
+                  alt={philosopher.name}
+                  width={36}
+                  height={36}
+                  style={{ objectFit: 'cover' }}
+                />
+              </Box>
               <Paper
                 sx={{
                   p: 2,
@@ -484,9 +593,15 @@ function ChatContent() {
           
           {loading && !streamingContent && (
             <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <Avatar sx={{ mr: 1, bgcolor: 'primary.main', width: 36, height: 36, fontSize: '0.9rem' }}>
-                {getAvatarLetter(philosopher)}
-              </Avatar>
+              <Box sx={{ mr: 1, width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+                <Image
+                  src={philosopher.image}
+                  alt={philosopher.name}
+                  width={36}
+                  height={36}
+                  style={{ objectFit: 'cover' }}
+                />
+              </Box>
               <Paper sx={{ p: 2, bgcolor: 'rgba(46, 74, 61, 0.08)', borderRadius: 3 }}>
                 <Typography variant="body2" color="text.secondary">
                   {t.chat.thinking}

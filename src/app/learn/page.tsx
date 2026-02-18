@@ -28,6 +28,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import TempleBuddhistIcon from '@mui/icons-material/TempleBuddhist';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import Image from 'next/image';
 import { useI18n } from '@/i18n';
 
 interface Lesson {
@@ -48,6 +49,7 @@ interface LearningPath {
   lessons: Lesson[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime: number;
+  image?: string;
 }
 
 const learningPaths: LearningPath[] = [
@@ -68,6 +70,7 @@ const learningPaths: LearningPath[] = [
       { _id: '5', title: 'Darius and the Moral Empire', content: 'The political philosophy of the Behistun inscription.', verseIds: [] },
     ],
     difficulty: 'beginner',
+    image: '/images/learn-ancient.png',
     estimatedTime: 60,
   },
   // Part 2: Revelation and Reason
@@ -87,6 +90,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'intermediate',
     estimatedTime: 90,
+    image: '/images/learn-islamic.png',
   },
   // Part 3: Illumination and Mysticism
   {
@@ -104,6 +108,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'advanced',
     estimatedTime: 60,
+    image: '/images/learn-illumination.png',
   },
   {
     _id: 'rumi-mysticism',
@@ -121,6 +126,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'beginner',
     estimatedTime: 75,
+    image: '/images/learn-wisdom-love.png',
   },
   {
     _id: 'ibn-arabi',
@@ -137,6 +143,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'advanced',
     estimatedTime: 60,
+    image: '/images/learn-wisdom-love.png',
   },
   // Part 4: The Great Synthesis
   {
@@ -154,6 +161,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'advanced',
     estimatedTime: 75,
+    image: '/images/learn-illumination.png',
   },
   // Part 5: Poetry and Ethics
   {
@@ -171,6 +179,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'beginner',
     estimatedTime: 45,
+    image: '/images/learn-wisdom-love.png',
   },
   {
     _id: 'hafez-mysticism',
@@ -188,6 +197,7 @@ const learningPaths: LearningPath[] = [
     ],
     difficulty: 'intermediate',
     estimatedTime: 60,
+    image: '/images/learn-wisdom-love.png',
   },
   {
     _id: 'ferdowsi-epic',
@@ -258,36 +268,64 @@ export default function LearnPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          py: { xs: 6, md: 10 },
+          py: { xs: 2, md: 3 },
           textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          flexShrink: 0,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.04,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23c9a962' fill-opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px',
+          },
         }}
       >
         <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
             {t.learn.journey}
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 2 }}>
+          <Typography variant="h4" sx={{ color: 'white', fontWeight: 300, mb: 1 }}>
             {t.learn.title}
           </Typography>
-          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, mb: 4 }}>
+          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
             {t.learn.subtitle}
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="lg" sx={{ py: 2, flex: 1, overflow: 'hidden' }}>
+        <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         {/* Era Filter Tabs */}
-        <Box sx={{ mb: 4, borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ mb: 4, borderBottom: 1, borderColor: 'rgba(201, 169, 98, 0.15)' }}>
           <Tabs 
             value={selectedEra} 
             onChange={(_, v) => setSelectedEra(v)}
             variant="scrollable"
             scrollButtons="auto"
+            sx={{
+              '& .MuiTabs-indicator': {
+                bgcolor: '#c9a962',
+                height: 3,
+                borderRadius: '3px 3px 0 0',
+              },
+              '& .MuiTab-root': {
+                color: 'text.secondary',
+                '&.Mui-selected': {
+                  color: '#c9a962',
+                },
+              },
+            }}
           >
             {eras.map((era) => (
               <Tab 
@@ -311,23 +349,61 @@ export default function LearnPage() {
                   height: '100%', 
                   display: 'flex', 
                   flexDirection: 'column',
+                  background: 'linear-gradient(180deg, rgba(26, 58, 42, 0.02) 0%, rgba(255,255,255,1) 100%)',
+                  border: '1px solid rgba(201, 169, 98, 0.15)',
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-4px)',
-                    boxShadow: 4,
+                    boxShadow: '0 12px 32px rgba(139, 69, 19, 0.15)',
+                    borderColor: 'rgba(201, 169, 98, 0.4)',
                   },
                 }}
               >
+                {/* Path Image Header */}
+                {path.image && (
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 120,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Image
+                      src={path.image}
+                      alt={path.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(180deg, rgba(26,58,42,0.3) 0%, rgba(26,58,42,0) 100%)',
+                      }}
+                    />
+                  </Box>
+                )}
                 <CardContent sx={{ flex: 1 }}>
                   {path.subtitle && (
-                    <Typography variant="caption" color="primary" sx={{ fontWeight: 600, letterSpacing: 1 }}>
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        fontWeight: 600, 
+                        letterSpacing: 1,
+                        color: '#c9a962',
+                        textTransform: 'uppercase',
+                      }}
+                    >
                       {path.subtitle}
                     </Typography>
                   )}
-                  <Typography variant="h5" component="div" sx={{ mt: 1, mb: 1 }}>
+                  <Typography variant="h5" component="div" sx={{ mt: 1, mb: 1, fontWeight: 600 }}>
                     {path.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
                     {path.description}
                   </Typography>
                   
@@ -335,18 +411,24 @@ export default function LearnPage() {
                     <Chip 
                       size="small" 
                       label={path.difficulty.charAt(0).toUpperCase() + path.difficulty.slice(1)} 
-                      color={getDifficultyColor(path.difficulty) as any}
+                      sx={{
+                        bgcolor: path.difficulty === 'beginner' ? 'rgba(46, 74, 61, 0.1)' : path.difficulty === 'intermediate' ? 'rgba(201, 169, 98, 0.1)' : 'rgba(114, 47, 55, 0.1)',
+                        color: path.difficulty === 'beginner' ? '#2e4a3d' : path.difficulty === 'intermediate' ? '#8b4513' : '#722F37',
+                        fontWeight: 500,
+                      }}
                     />
                     <Chip 
                       size="small" 
-                      icon={<TimerIcon />}
+                      icon={<TimerIcon sx={{ fontSize: '1rem !important' }} />}
                       label={`${path.estimatedTime} ${t.learn.minutes}`}
                       variant="outlined"
+                      sx={{ borderColor: 'rgba(201, 169, 98, 0.2)', color: 'text.secondary' }}
                     />
                     <Chip 
                       size="small" 
                       label={getEraLabel(path.era)}
                       variant="outlined"
+                      sx={{ borderColor: 'rgba(201, 169, 98, 0.2)', color: 'text.secondary' }}
                     />
                   </Stack>
 
@@ -445,6 +527,7 @@ export default function LearnPage() {
               </Box>
             </Grid>
           </Grid>
+        </Box>
         </Box>
       </Container>
     </Box>

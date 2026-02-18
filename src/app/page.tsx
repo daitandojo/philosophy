@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -18,178 +18,178 @@ import SearchIcon from '@mui/icons-material/Search';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ChatIcon from '@mui/icons-material/Chat';
 import SchoolIcon from '@mui/icons-material/School';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Image from 'next/image';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import GroupsIcon from '@mui/icons-material/Groups';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import VerseCard from '@/components/VerseCard';
-import HeroImage from '@/components/HeroImage';
-import SplashScreen from '@/components/SplashScreen';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useI18n } from '@/i18n';
-import type { Verse } from '@/types';
 
 const features = [
   {
-    icon: <AutoStoriesIcon sx={{ fontSize: 40 }} />,
-    title: 'Explore the Wisdom',
-    description: 'Browse timeless verses from great Persian philosophers with translations and AI-powered insights.',
+    icon: <AutoStoriesIcon sx={{ fontSize: 32 }} />,
+    title: 'Explore Wisdom',
+    description: 'Browse timeless verses from Rumi, Hafez, Saadi and other Persian philosophers',
     href: '/explore',
+    color: '#722F37',
   },
   {
-    icon: <ChatIcon sx={{ fontSize: 40 }} />,
+    icon: <ChatIcon sx={{ fontSize: 32 }} />,
     title: 'Chat with Philosophers',
-    description: 'Experience AI-powered conversations with Rumi, Hafez, Saadi, and other great minds.',
+    description: 'Have AI-powered conversations with the great minds of Persia',
     href: '/chat',
+    color: '#8b4513',
   },
   {
-    icon: <SchoolIcon sx={{ fontSize: 40 }} />,
+    icon: <SchoolIcon sx={{ fontSize: 32 }} />,
     title: 'Guided Learning',
-    description: 'Follow structured learning paths designed for beginners to advanced scholars.',
+    description: 'Follow structured paths from beginner to advanced scholar',
     href: '/learn',
+    color: '#2e4a3d',
+  },
+  {
+    icon: <TimelineIcon sx={{ fontSize: 32 }} />,
+    title: 'Historical Timeline',
+    description: 'Journey through 2,500 years of Persian philosophical history',
+    href: '/timeline',
+    color: '#c9a962',
+  },
+  {
+    icon: <GroupsIcon sx={{ fontSize: 32 }} />,
+    title: 'Community',
+    description: 'Connect with fellow seekers of wisdom',
+    href: '/community',
+    color: '#3d6b52',
+  },
+  {
+    icon: <MenuBookIcon sx={{ fontSize: 32 }} />,
+    title: 'Read the Works',
+    description: 'Explore complete texts of major philosophical works',
+    href: '/read',
+    color: '#722F37',
   },
 ];
 
-const sampleVerses: Verse[] = [
-  {
-    _id: '1',
-    persianText: 'ای陌生人، تو خود را بشناس، خود را، آنجا که عشق آغاز می‌شود، تو را صدا می‌زنند.',
-    transliteration: "Ey Gharib, to khod ra beshnas, khod ra, anja ke 'eshq aghaz mishavad, to ra seda mizanand.",
-    englishTranslation: 'O stranger, know yourself. Where love begins, there you will be called.',
-    summary: 'Rumi speaks of self-knowledge as the pathway to divine love. The journey inward leads to the source of all being.',
-    sourceWork: 'Masnavi',
-    philosopher: 'rumi',
-    themes: ['Self-knowledge', 'Love', 'Divine'],
-    wisdomScore: 9,
-    complexity: 7,
-    tags: ['wisdom', 'love', 'spiritual'],
-    versions: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: '2',
-    persianText: 'آنچه را می‌جویی، تو خودی. از خود بیرون نرو؛ درون خود فرورو و همه چیز را بیاب.',
-    transliteration: 'Anj ra ke juyi, to khodi. Az khod biroon naro; darun khod fururo va hame chiz ra beyaab.',
-    englishTranslation: 'What you seek is you yourself. Do not go outside; descend into yourself and find everything.',
-    summary: 'Rumi emphasizes that true wisdom lies within us. The search for meaning should be an inward journey.',
-    sourceWork: 'Masnavi',
-    philosopher: 'rumi',
-    themes: ['Self-discovery', 'Inner journey', 'Wisdom'],
-    wisdomScore: 10,
-    complexity: 6,
-    tags: ['wisdom', 'spiritual', 'journey'],
-    versions: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: '3',
-    persianText: 'در طلبِ وصالِ یار، هر دم بکش جان را، که این نفس، تمامِ هستیِ من است.',
-    transliteration: 'Dar talab-e visal-e yar, har dam bokash jan ra, ke in nafas, tamam-e hasti-e man ast.',
-    englishTranslation: 'In longing for the beloved, sacrifice your soul each moment, for this breath is the entirety of my existence.',
-    summary: 'Rumi expresses the intensity of divine longing, where each breath is an offering to the beloved.',
-    sourceWork: 'Divan-e Shams',
-    philosopher: 'rumi',
-    themes: ['Love', 'Longing', 'Sufism'],
-    wisdomScore: 9,
-    complexity: 8,
-    tags: ['love', 'passion', 'divine'],
-    versions: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
+const famousQuotes = [
+  { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
+  { text: 'What you seek is seeking you.', philosopher: 'Rumi', image: '/images/quote-seek-seeking.png' },
+  { text: 'When you do things from your soul, you feel a river moving in you, a joy.', philosopher: 'Rumi', image: '/images/quote-river-joy.png' },
 ];
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [showSplash, setShowSplash] = useState(true);
-  const [fadeIn, setFadeIn] = useState(false);
   const { t } = useI18n();
 
-  const handleSplashComplete = () => {
-    setShowSplash(false);
-    setTimeout(() => setFadeIn(true), 100);
-  };
-
-  const features = [
-    {
-      icon: <AutoStoriesIcon sx={{ fontSize: 40 }} />,
-      title: t.home.exploreVerses,
-      description: t.home.subtitle,
-      href: '/explore',
-    },
-    {
-      icon: <ChatIcon sx={{ fontSize: 40 }} />,
-      title: t.chat.title,
-      description: t.home.chatWithPhilosophers,
-      href: '/chat',
-    },
-    {
-      icon: <SchoolIcon sx={{ fontSize: 40 }} />,
-      title: t.philosophers.title,
-      description: t.home.beginJourney,
-      href: '/learn',
-    },
-  ];
-
   return (
-    <Box>
-      {/* Splash Screen */}
-      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
-
-      {/* Main Content - Full page fade in */}
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      {/* Hero Section */}
       <Box
         sx={{
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 1.5s ease-in',
+          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          pb: { xs: 8, md: 12 },
+          pt: { xs: 6, md: 10 },
         }}
       >
-        <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 4, md: 6 } }}>
+        {/* Background Image */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.15,
+          }}
+        >
+          <Image
+            src="/images/home-hero.png"
+            alt="Persian wisdom"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </Box>
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <Grid container spacing={4} alignItems="center">
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Typography
-                variant="h2"
-                sx={{
-                  fontSize: { xs: '1.75rem', md: '2.5rem' },
-                  fontWeight: 700,
-                  mb: 2,
-                  background: 'linear-gradient(135deg, #8b4513 0%, #2e4a3d 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                variant="overline"
+                sx={{ 
+                  color: 'rgba(201, 169, 98, 0.9)', 
+                  letterSpacing: 4, 
+                  mb: 2, 
+                  display: 'block',
+                  fontSize: '0.875rem',
                 }}
               >
-                {t.home.welcome}
+                Persian Philosophy & Wisdom
               </Typography>
+              
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  fontWeight: 300,
+                  color: 'white',
+                  mb: 3,
+                  lineHeight: 1.2,
+                }}
+              >
+                Discover the
+                <Box component="span" sx={{ display: 'block', fontWeight: 700 }}>
+                  Timeless Wisdom
+                </Box>
+                of Persia
+              </Typography>
+
               <Typography
                 variant="h6"
                 sx={{
-                  color: 'text.secondary',
+                  color: 'rgba(255,255,255,0.8)',
+                  fontWeight: 300,
                   mb: 4,
-                  fontWeight: 400,
+                  maxWidth: 500,
                   lineHeight: 1.6,
                 }}
               >
                 {t.home.subtitle}
               </Typography>
-              
+
               <TextField
                 fullWidth
-                placeholder="Search verses, themes, or topics..."
+                placeholder="Search verses, philosophers, or themes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon color="action" />
+                      <SearchIcon sx={{ color: 'rgba(255,255,255,0.7)' }} />
                     </InputAdornment>
                   ),
                   sx: {
-                    bgcolor: 'background.paper',
+                    bgcolor: 'rgba(255,255,255,0.1)',
                     borderRadius: 3,
+                    color: 'white',
                     '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'rgba(139, 69, 19, 0.2)',
+                      borderColor: 'rgba(255,255,255,0.2)',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(255,255,255,0.4)',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#c9a962',
+                    },
+                    '& input::placeholder': {
+                      color: 'rgba(255,255,255,0.7)',
                     },
                   },
                 }}
-                sx={{ mb: 3 }}
+                sx={{ mb: 4, maxWidth: 500 }}
               />
 
               <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
@@ -199,7 +199,16 @@ export default function Home() {
                   component={Link}
                   href="/explore"
                   endIcon={<ArrowForwardIcon />}
-                  sx={{ px: 4 }}
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    bgcolor: '#c9a962',
+                    color: '#1a1a1a',
+                    fontWeight: 600,
+                    '&:hover': {
+                      bgcolor: '#d4bc7d',
+                    },
+                  }}
                 >
                   {t.home.exploreVerses}
                 </Button>
@@ -209,53 +218,151 @@ export default function Home() {
                   component={Link}
                   href="/chat"
                   startIcon={<ChatIcon />}
-                  sx={{ px: 4 }}
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    borderColor: 'rgba(255,255,255,0.5)',
+                    color: 'white',
+                    '&:hover': {
+                      borderColor: 'white',
+                      bgcolor: 'rgba(255,255,255,0.1)',
+                    },
+                  }}
                 >
-                  {t.home.chatWithPhilosophers}
+                  Chat
                 </Button>
               </Stack>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: { xs: 'none', md: 'flex' },
+                  flexDirection: 'column',
+                  gap: 2,
                 }}
               >
-                <HeroImage />
+                {famousQuotes.map((quote, idx) => (
+                  <Card
+                    key={idx}
+                    sx={{
+                      background: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(201, 169, 98, 0.3)',
+                      borderRadius: 3,
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}
+                  >
+                    {/* Background Image */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        opacity: 0.25,
+                      }}
+                    >
+                      <Image
+                        src={quote.image}
+                        alt=""
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </Box>
+                    <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: 'white',
+                          fontStyle: 'italic',
+                          mb: 1,
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        "{quote.text}"
+                      </Typography>
+                      <Chip
+                        label={`— ${quote.philosopher}`}
+                        size="small"
+                        sx={{
+                          bgcolor: 'rgba(201, 169, 98, 0.2)',
+                          color: '#c9a962',
+                          fontWeight: 500,
+                        }}
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
               </Box>
             </Grid>
           </Grid>
         </Container>
+      </Box>
 
-      {/* Features Section */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Typography variant="h3" sx={{ mb: 4, textAlign: 'center' }}>
-          {t.home.experiencePersianWisdom}
+      {/* Features Grid */}
+      <Container maxWidth="lg" sx={{ py: 8 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            textAlign: 'center',
+            mb: 1,
+            fontWeight: 300,
+          }}
+        >
+          Explore Hikmatia
         </Typography>
-        <Grid container spacing={4}>
-          {features.map((feature) => (
-            <Grid size={{ xs: 12, md: 4 }} key={feature.href}>
+        <Typography
+          variant="body1"
+          sx={{
+            textAlign: 'center',
+            color: 'text.secondary',
+            mb: 6,
+            maxWidth: 600,
+            mx: 'auto',
+          }}
+        >
+          Your gateway to 2,500 years of Persian philosophical wisdom
+        </Typography>
+
+        <Grid container spacing={3}>
+          {features.map((feature, idx) => (
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
               <Card
                 component={Link}
                 href={feature.href}
                 sx={{
                   height: '100%',
                   textDecoration: 'none',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 12px 32px rgba(139, 69, 19, 0.15)',
+                    transform: 'translateY(-4px)',
+                    boxShadow: `0 8px 24px ${feature.color}20`,
+                    borderColor: feature.color,
                   },
                 }}
               >
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Box sx={{ color: 'primary.main', mb: 2 }}>
+                <CardContent>
+                  <Box
+                    sx={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: 2,
+                      bgcolor: `${feature.color}15`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mb: 2,
+                      color: feature.color,
+                    }}
+                  >
                     {feature.icon}
                   </Box>
-                  <Typography variant="h5" gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                     {feature.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -268,105 +375,67 @@ export default function Home() {
         </Grid>
       </Container>
 
-      {/* Featured Verses */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Typography variant="h3">
-            Featured Verses
-          </Typography>
-          <Button
-            component={Link}
-            href="/explore"
-            endIcon={<ArrowForwardIcon />}
-          >
-            View All
-          </Button>
-        </Box>
-        
-        <Stack spacing={2}>
-          {sampleVerses.map((verse) => (
-            <VerseCard key={verse._id} verse={verse} showDetails={false} />
-          ))}
-        </Stack>
-      </Container>
-
-      {/* Themes Section */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>
-          Explore by Theme
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
-          {['Love', 'Wisdom', 'Divine', 'Self-knowledge', 'Journey', 'Friendship', 'Peace', 'Transformation'].map((theme) => (
-            <Chip
-              key={theme}
-              label={theme}
-              component={Link}
-              href={`/explore?theme=${theme}`}
-              clickable
-              sx={{
-                px: 2,
-                py: 3,
-                fontSize: '1rem',
-                bgcolor: 'rgba(46, 74, 61, 0.1)',
-                color: 'secondary.main',
-                '&:hover': {
-                  bgcolor: 'rgba(46, 74, 61, 0.2)',
-                },
-              }}
-            />
-          ))}
-        </Box>
-      </Container>
-
-      {/* Call to Action */}
-      <Box
-        sx={{
-          py: 8,
-          background: 'linear-gradient(135deg, #2e4a3d 0%, #3d6b52 100%)',
-          color: 'white',
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <Typography variant="h3" sx={{ mb: 2, color: 'white' }}>
-            {t.home.beginJourney}
-          </Typography>
-          <Typography variant="h6" sx={{ mb: 4, color: 'rgba(255,255,255,0.8)' }}>
-            {t.home.subtitle}
-          </Typography>
-          <Stack direction="row" spacing={2} justifyContent="center">
-            <Button
-              variant="contained"
-              size="large"
-              component={Link}
-              href="/explore"
-              sx={{
-                bgcolor: 'white',
-                color: 'secondary.main',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.9)',
-                },
-              }}
-            >
-              {t.common.start}
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              sx={{
-                borderColor: 'white',
-                color: 'white',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.1)',
-                },
-              }}
-            >
-              {t.common.learnMore}
-            </Button>
-          </Stack>
+      {/* Stats Section */}
+      <Box sx={{ bgcolor: 'rgba(46, 74, 61, 0.08)', py: 8 }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            {[
+              { number: '2,500+', label: 'Years of Philosophy' },
+              { number: '50+', label: 'Great Philosophers' },
+              { number: '10,000+', label: 'Verses & Quotes' },
+              { number: '∞', label: 'Wisdom to Discover' },
+            ].map((stat, idx) => (
+              <Grid size={{ xs: 6, md: 3 }} key={idx}>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      fontWeight: 700,
+                      color: 'primary.main',
+                      mb: 1,
+                    }}
+                  >
+                    {stat.number}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    {stat.label}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
       </Box>
-      </Box>
+
+      {/* Call to Action */}
+      <Container maxWidth="md" sx={{ py: 8, textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          Begin Your Journey
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Join thousands of seekers exploring the depths of Persian wisdom
+        </Typography>
+        <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap" useFlexGap>
+          <Button
+            variant="contained"
+            size="large"
+            component={Link}
+            href="/learn"
+            startIcon={<SchoolIcon />}
+          >
+            Start Learning
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            component={Link}
+            href="/philosophers"
+            startIcon={<AutoAwesomeIcon />}
+          >
+            Meet the Philosophers
+          </Button>
+        </Stack>
+      </Container>
     </Box>
   );
 }

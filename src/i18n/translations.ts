@@ -199,8 +199,8 @@ export const translations = {
       bookmark: 'Bookmark',
     },
     work: {
-      title: 'Works',
-      subtitle: 'Major works of Persian philosophy',
+      title: 'Read the Works',
+      subtitle: 'Journey through 2,500 years of Persian philosophical wisdom',
       author: 'Author',
       year: 'Year',
       genre: 'Genre',
@@ -439,8 +439,8 @@ export const translations = {
       bookmark: 'Guardar',
     },
     work: {
-      title: 'Obras',
-      subtitle: 'Obras principales de la filosofía persa',
+      title: 'Lee las Obras',
+      subtitle: 'Un viaje a través de 2500 años de sabiduría filosófica persa',
       author: 'Autor',
       year: 'Año',
       genre: 'Género',
@@ -650,8 +650,8 @@ export const translations = {
       category: 'Categorie',
     },
     work: {
-      title: 'Werken',
-      subtitle: 'Belangrijkste werken van Perzische filosofie',
+      title: 'Lees de Werken',
+      subtitle: 'Een reis door 2500 jaar Perzische filosofische wijsheid',
       author: 'Auteur',
       year: 'Jaar',
       genre: 'Genre',

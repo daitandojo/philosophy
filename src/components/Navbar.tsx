@@ -31,14 +31,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import LanguageSwitcher from './LanguageSwitcher';
+import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeRegistry';
-import { useI18n } from '@/i18n';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { t } = useI18n();
   const theme = useTheme();
   const [isMobile, setIsMobile] = useState(false);
   const { mode, toggleTheme } = useThemeMode();
@@ -53,16 +51,15 @@ export default function Navbar() {
   }, [theme]);
 
   const navItems = [
-    { label: t.navigation.explore, href: '/explore', icon: <AutoStoriesIcon /> },
-    { label: t.navigation.history, href: '/read', icon: <MenuBookIcon /> },
-    { label: t.navigation.philosophers, href: '/philosophers', icon: <PeopleIcon /> },
-    { label: t.navigation.timeline, href: '/timeline', icon: <TimelineIcon /> },
-    { label: t.navigation.learn, href: '/learn', icon: <SchoolIcon /> },
+    { label: 'Explore', href: '/explore', icon: <AutoStoriesIcon /> },
+    { label: 'History', href: '/read', icon: <MenuBookIcon /> },
+    { label: 'Philosophers', href: '/philosophers', icon: <PeopleIcon /> },
+    { label: 'Timeline', href: '/timeline', icon: <TimelineIcon /> },
+    { label: 'Learn', href: '/learn', icon: <SchoolIcon /> },
     { label: 'Discourses', href: '/discourse', icon: <LightbulbIcon /> },
-    { label: t.navigation.community, href: '/community', icon: <GroupsIcon /> },
-    { label: t.navigation.chat, href: '/chat', icon: <ChatIcon /> },
-    { label: t.navigation.premium, href: '/premium', icon: <WorkspacePremiumIcon /> },
-    { label: t.navigation.about, href: '/about', icon: <InfoIcon /> },
+    { label: 'Community', href: '/community', icon: <GroupsIcon /> },
+    { label: 'Chat', href: '/chat', icon: <ChatIcon /> },
+    { label: 'About', href: '/about', icon: <InfoIcon /> },
   ];
 
   const handleDrawerToggle = () => {
@@ -79,6 +76,26 @@ export default function Navbar() {
         height: '100%',
       }}
     >
+      <Box
+        sx={{
+          position: 'relative',
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          border: '3px solid',
+          borderColor: 'secondary.main',
+          mx: 'auto',
+          mb: 1,
+        }}
+      >
+        <Image
+          src="/images/navbar-logo.png"
+          alt="Hikmatia"
+          fill
+          style={{ objectFit: 'cover' }}
+        />
+      </Box>
       <Typography 
         variant="h5" 
         sx={{ 
@@ -141,7 +158,7 @@ export default function Navbar() {
             }}
           >
             <ListItemText 
-              primary={t.navigation.account} 
+              primary="Account" 
               primaryTypographyProps={{
                 sx: { 
                   fontFamily: '"Vazir", serif',
@@ -163,17 +180,21 @@ export default function Navbar() {
         elevation={1}
         sx={{ 
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          background: 'rgba(252, 251, 249, 0.95)',
+          backgroundColor: 'background.paper',
           backdropFilter: 'blur(10px)',
-          borderBottom: '2px solid #c9a962',
+          borderBottom: '2px solid',
+          borderColor: 'divider',
         }}
       >
-        <Container maxWidth="xl">
+        <Container maxWidth={false} disableGutters>
           <Toolbar 
-            disableGutters 
             sx={{ 
-              justifyContent: 'space-between', 
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
               minHeight: '64px !important',
+              px: { xs: 1, sm: 2, md: 3 },
             }}
           >
             {isMobile && (
@@ -182,7 +203,7 @@ export default function Navbar() {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{ color: '#8b4513' }}
+                sx={{ color: 'text.primary' }}
               >
                 <MenuIcon />
               </IconButton>
@@ -196,23 +217,27 @@ export default function Navbar() {
                 alignItems: 'center',
                 textDecoration: 'none',
                 flexShrink: 0,
+                gap: 1,
+                ml: 1,
               }}
             >
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', mr: 0.5 }}>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontFamily: '"Vazir", serif',
-                    fontWeight: 700,
-                    color: '#8b4513',
-                    letterSpacing: '0.05em',
-                    lineHeight: 1.1,
-                    fontSize: '0.7rem',
-                  }}
-                >
-                  حکمتیا
-                </Typography>
-                <Box sx={{ width: 20, height: 1.5, background: '#c9a962', borderRadius: 0.5, mt: 0.3 }} />
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid',
+                  borderColor: 'secondary.main',
+                }}
+              >
+                <Image
+                  src="/images/navbar-logo.png"
+                  alt="Hikmatia"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
               </Box>
               <Typography
                 variant="h5"
@@ -220,30 +245,23 @@ export default function Navbar() {
                 sx={{
                   fontFamily: '"Vazir", serif',
                   fontWeight: 700,
-                  color: '#8b4513',
+                  color: 'primary.main',
                   letterSpacing: '0.02em',
+                  display: { xs: 'none', sm: 'block' },
                 }}
               >
                 Hikmatia
               </Typography>
-              <Box
-                sx={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: '50%',
-                  backgroundColor: '#c9a962',
-                  ml: 1,
-                }}
-              />
             </Box>
 
             {!isMobile && (
               <Box sx={{ 
                 display: 'flex', 
-                gap: 0.5, 
+                gap: 1, 
+                justifyContent: 'center',
+                flex: 1,
+                px: 2,
                 overflow: 'auto',
-                ml: 3,
-                mr: 2,
                 scrollbarWidth: 'none',
                 '&::-webkit-scrollbar': { display: 'none' },
               }}>
@@ -254,23 +272,24 @@ export default function Navbar() {
                     href={item.href}
                     startIcon={item.icon}
                     sx={{
-                      color: pathname === item.href ? '#8b4513' : 'text.primary',
+                      color: pathname === item.href ? 'primary.main' : 'text.secondary',
                       fontWeight: pathname === item.href ? 600 : 400,
-                      fontSize: '0.85rem',
-                      px: 1.5,
+                      fontSize: '0.75rem',
+                      px: 1.25,
+                      py: 0.75,
                       minWidth: 'auto',
                       whiteSpace: 'nowrap',
                       fontFamily: '"Vazir", serif',
                       borderRadius: 1,
                       transition: 'all 0.2s ease',
                       '&:hover': {
-                        color: '#8b4513',
-                        backgroundColor: 'rgba(139, 69, 19, 0.06)',
+                        color: 'primary.main',
+                        backgroundColor: 'action.hover',
                       },
                       '& .MuiButton-startIcon': {
                         color: 'inherit',
-                        mr: 0.5,
-                        fontSize: '1.1rem',
+                        mr: 0.25,
+                        fontSize: '1rem',
                       },
                     }}
                   >
@@ -280,14 +299,15 @@ export default function Navbar() {
               </Box>
             )}
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexShrink: 0 }}>
-              <LanguageSwitcher />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0, mr: 1 }}>
+              <Box sx={{ width: 1, height: 24, bgcolor: 'divider', mx: 0.5 }} />
               <IconButton
                 onClick={toggleTheme}
+                size="small"
                 sx={{ 
-                  color: '#8b4513',
+                  color: 'text.primary',
                   '&:hover': {
-                    backgroundColor: 'rgba(139, 69, 19, 0.08)',
+                    backgroundColor: 'action.hover',
                   }
                 }}
               >
@@ -296,17 +316,18 @@ export default function Navbar() {
               <IconButton
                 component={Link}
                 href="/account"
+                size="small"
                 sx={{ 
-                  color: '#fff',
-                  backgroundColor: '#8b4513',
-                  borderRadius: 2,
-                  p: 1,
+                  color: 'primary.contrastText',
+                  backgroundColor: 'primary.main',
+                  borderRadius: 1.5,
+                  p: 0.75,
                   '&:hover': {
-                    backgroundColor: '#a0522d',
+                    backgroundColor: 'primary.dark',
                   }
                 }}
               >
-                <PersonIcon />
+                <PersonIcon fontSize="small" />
               </IconButton>
             </Box>
           </Toolbar>

@@ -6,6 +6,7 @@ import {
   Box,
   Container,
   Typography as Typo,
+  Typography,
   Grid,
   TextField,
   InputAdornment,
@@ -13,20 +14,23 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Slider,
   Chip,
   Stack,
   Pagination,
   CircularProgress,
-  FormControlLabel,
-  Switch,
-  Typography,
+  Card,
+  CardContent,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import VerseCard from '@/components/VerseCard';
 import { philosophers } from '@/lib/philosophers';
 import type { Verse } from '@/types';
+import Image from 'next/image';
+
+const LIKED_VERSES_KEY = 'hikmatia_liked_verses';
 
 function ExploreContent() {
   const { t } = useI18n();
@@ -39,10 +43,29 @@ function ExploreContent() {
   const [theme, setTheme] = useState('');
   const [source, setSource] = useState('');
   const [philosopher, setPhilosopher] = useState(philosopherParam || '');
-  const [wisdomRange, setWisdomRange] = useState<number[]>([1, 10]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [semanticSearch, setSemanticSearch] = useState(false);
+  const [showLikedOnly, setShowLikedOnly] = useState(false);
+  const [likedVerses, setLikedVerses] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(LIKED_VERSES_KEY);
+      return saved ? new Set(JSON.parse(saved)) : new Set();
+    }
+    return new Set();
+  });
+
+  const toggleLike = (verseId: string) => {
+    setLikedVerses(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(verseId)) {
+        newSet.delete(verseId);
+      } else {
+        newSet.add(verseId);
+      }
+      localStorage.setItem(LIKED_VERSES_KEY, JSON.stringify([...newSet]));
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const fetchVerses = async () => {
@@ -53,11 +76,8 @@ function ExploreContent() {
         if (theme) params.set('theme', theme);
         if (source) params.set('source', source);
         if (philosopher) params.set('philosopher', philosopher);
-        params.set('minWisdom', wisdomRange[0].toString());
-        params.set('maxWisdom', wisdomRange[1].toString());
         params.set('page', page.toString());
-        params.set('limit', '10');
-        if (semanticSearch) params.set('semantic', 'true');
+        params.set('limit', '20');
 
         const response = await fetch(`/api/verses?${params}`);
         const data = await response.json();
@@ -72,35 +92,58 @@ function ExploreContent() {
     };
 
     fetchVerses();
-  }, [search, theme, source, philosopher, wisdomRange, page, semanticSearch]);
+  }, [search, theme, source, philosopher, page]);
 
   const themes = ['Love', 'Wisdom', 'Divine', 'Self-knowledge', 'Journey', 'Friendship', 'Peace', 'Transformation'];
   const sources = ['Masnavi', 'Divan-e Shams', 'Fihi Ma Fihi', 'Mawlana Letters', 'Gulistan', 'Bustan', 'Divan-e Hafez', 'Shahnameh', 'Conference of the Birds', 'Ilahi-Nama', 'Walled Garden of Truth'];
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          py: { xs: 4, md: 6 },
+          py: { xs: 2, md: 3 },
           textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          flexShrink: 0,
         }}
       >
+        {/* Background Image */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.1,
+          }}
+        >
+          <Image
+            src="/images/explore-hero.png"
+            alt="Persian wisdom"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </Box>
         <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
             Persian Wisdom
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 2 }}>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 1, fontSize: { xs: '2rem', md: '3rem' } }}>
             {t.explore.title}
           </Typography>
-          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300 }}>
+          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>
             {t.explore.subtitle}
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 2, flex: 1, overflow: 'hidden' }}>
+        <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid size={{ xs: 12, md: 3 }}>
           <TextField
@@ -162,55 +205,78 @@ function ExploreContent() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Typo gutterBottom>Wisdom Score Range: {wisdomRange[0]} - {wisdomRange[1]}</Typo>
-          <Slider
-            value={wisdomRange}
-            onChange={(_, newValue) => setWisdomRange(newValue as number[])}
-            valueLabelDisplay="auto"
-            min={1}
-            max={10}
-          />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={semanticSearch}
-                onChange={(e) => setSemanticSearch(e.target.checked)}
-                icon={<AutoAwesomeIcon />}
-              />
-            }
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <AutoAwesomeIcon color="primary" fontSize="small" />
-                <Typo>AI Semantic Search (finds conceptually similar verses)</Typo>
-              </Box>
-            }
-          />
-        </Grid>
       </Grid>
+
+      {/* Liked filter toggle */}
+      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
+        <ToggleButtonGroup
+          value={showLikedOnly ? 'liked' : 'all'}
+          exclusive
+          onChange={(_, value) => setShowLikedOnly(value === 'liked')}
+          size="small"
+          sx={{
+            '& .MuiToggleButton-root': {
+              border: '1px solid rgba(139, 69, 19, 0.3)',
+              color: '#5a5a5a',
+              '&.Mui-selected': {
+                bgcolor: 'rgba(139, 69, 19, 0.1)',
+                color: '#8b4513',
+                borderColor: '#8b4513',
+              },
+            },
+          }}
+        >
+          <ToggleButton value="all">
+            All Verses
+          </ToggleButton>
+          <ToggleButton value="liked" sx={{ gap: 1 }}>
+            <FavoriteIcon sx={{ fontSize: 16 }} />
+            Liked Only
+          </ToggleButton>
+        </ToggleButtonGroup>
+
+        {showLikedOnly && (
+          <Typo variant="body2" sx={{ color: 'text.secondary' }}>
+            {verses.filter(v => likedVerses.has(v._id)).length} liked verse{verses.filter(v => likedVerses.has(v._id)).length !== 1 ? 's' : ''}
+          </Typo>
+        )}
+      </Box>
 
       <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
         {philosopher && (
           <Chip
-            label={`Philosopher: ${philosophers.find(p => p.id === philosopher)?.name.english}`}
+            label={philosophers.find(p => p.id === philosopher)?.name.english}
             onDelete={() => setPhilosopher('')}
-            color="primary"
+            sx={{
+              bgcolor: 'rgba(26, 58, 42, 0.15)',
+              color: '#1a3a2a',
+              fontWeight: 500,
+              border: '1px solid rgba(26, 58, 42, 0.3)',
+            }}
           />
         )}
         {theme && (
           <Chip
-            label={`Theme: ${theme}`}
+            label={theme}
             onDelete={() => setTheme('')}
-            color="secondary"
+            sx={{
+              bgcolor: 'rgba(139, 69, 19, 0.15)',
+              color: '#8b4513',
+              fontWeight: 500,
+              border: '1px solid rgba(139, 69, 19, 0.3)',
+            }}
           />
         )}
         {source && (
           <Chip
-            label={`Source: ${source}`}
+            label={source}
             onDelete={() => setSource('')}
-            color="warning"
+            sx={{
+              bgcolor: 'rgba(201, 169, 98, 0.2)',
+              color: '#8b4513',
+              fontWeight: 500,
+              border: '1px solid rgba(201, 169, 98, 0.4)',
+            }}
           />
         )}
       </Box>
@@ -227,11 +293,19 @@ function ExploreContent() {
         </Box>
       ) : (
         <>
-          <Stack spacing={2}>
-            {verses.map((verse) => (
-              <VerseCard key={verse._id} verse={verse} />
-            ))}
-          </Stack>
+          <Grid container spacing={3}>
+            {verses
+              .filter(verse => !showLikedOnly || likedVerses.has(verse._id))
+              .map((verse) => (
+                <Grid size={{ xs: 12, md: 6 }} key={verse._id}>
+                  <VerseCard 
+                    verse={verse} 
+                    isLiked={likedVerses.has(verse._id)}
+                    onToggleLike={() => toggleLike(verse._id)}
+                  />
+                </Grid>
+              ))}
+          </Grid>
           
           {totalPages > 1 && (
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
@@ -239,13 +313,22 @@ function ExploreContent() {
                 count={totalPages}
                 page={page}
                 onChange={(_, newPage) => setPage(newPage)}
-                color="primary"
+                sx={{
+                  '& .MuiPaginationItem-root': {
+                    color: '#8b4513',
+                    borderColor: 'rgba(139, 69, 19, 0.2)',
+                  },
+                  '& .MuiPaginationItem-root.Mui-selected': {
+                    bgcolor: 'rgba(139, 69, 19, 0.1)',
+                  },
+                }}
               />
             </Box>
           )}
         </>
       )}
-    </Container>
+        </Box>
+      </Container>
     </Box>
   );
 }

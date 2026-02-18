@@ -155,6 +155,74 @@ let theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(139, 69, 19, 0.3)',
+            borderWidth: 1,
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(139, 69, 19, 0.5)',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#8b4513',
+            borderWidth: 2,
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 8,
+          border: '1px solid rgba(139, 69, 19, 0.2)',
+          boxShadow: '0 4px 20px rgba(139, 69, 19, 0.15)',
+          backgroundImage: 'none',
+          backgroundColor: '#faf9f7',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"IBM Plex Sans", sans-serif',
+          '&:hover': {
+            backgroundColor: 'rgba(139, 69, 19, 0.08)',
+          },
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(139, 69, 19, 0.15)',
+            '&:hover': {
+              backgroundColor: 'rgba(139, 69, 19, 0.2)',
+            },
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(139, 69, 19, 0.3)',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(139, 69, 19, 0.5)',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#8b4513',
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused': {
+            color: '#8b4513',
+          },
+        },
+      },
+    },
   },
   breakpoints: {
     values: {

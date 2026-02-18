@@ -1,0 +1,890 @@
+[
+  {
+    "author": "Mulla Sadra (Sadr ad-Din Muhammad Shirazi)",
+    "persian": "الوجود أشرف من الماهیة — هستی از چیستی برتر است",
+    "english_translation": "Existence is nobler than essence — being is superior to mere definition.",
+    "categories": ["philosophy", "existence", "ontology", "wisdom"],
+    "wisdom_scale": 10,
+    "theme": "The primacy of existence over abstract essence as the foundation of reality"
+  },
+  {
+    "author": "Mulla Sadra (Sadr ad-Din Muhammad Shirazi)",
+    "persian": "حرکت جوهری آن است که همه چیز در ذات خود در سفر است",
+    "english_translation": "Substantial motion means that everything in its very essence is on a journey.",
+    "categories": ["philosophy", "change", "cosmos", "transformation"],
+    "wisdom_scale": 10,
+    "theme": "All of existence is in perpetual motion and transformation at its very core"
+  },
+  {
+    "author": "Mulla Sadra (Sadr ad-Din Muhammad Shirazi)",
+    "persian": "عقل و عشق و شهود سه پایه‌ی معرفت‌اند و بدون هر سه، دانش ناقص است",
+    "english_translation": "Reason, love, and intuition are the three pillars of knowledge — without all three, knowing is incomplete.",
+    "categories": ["knowledge", "reason", "love", "intuition"],
+    "wisdom_scale": 10,
+    "theme": "Complete knowledge requires the integration of reason, love, and direct intuition"
+  },
+  {
+    "author": "Mulla Sadra (Sadr ad-Din Muhammad Shirazi)",
+    "persian": "هر که نفس خود را شناخت، رب خود را شناخت",
+    "english_translation": "Whoever knows their own soul knows their Lord.",
+    "categories": ["self-knowledge", "spirituality", "divine", "philosophy"],
+    "wisdom_scale": 10,
+    "theme": "Self-knowledge as the most direct path to knowledge of the divine"
+  },
+  {
+    "author": "Suhrawardi (Shahab ad-Din Yahya ibn Habash ibn Amirak al-Suhrawardi)",
+    "persian": "نور بر نور است و تاریکی پرده‌ای است که انسان خود بر خود می‌اندازد",
+    "english_translation": "Light upon light — and darkness is a veil that a person casts upon themselves.",
+    "categories": ["light", "darkness", "self", "spirituality"],
+    "wisdom_scale": 10,
+    "theme": "Darkness is not an external force but a self-imposed veil that obscures inner light"
+  },
+  {
+    "author": "Suhrawardi (Shahab ad-Din Yahya ibn Habash ibn Amirak al-Suhrawardi)",
+    "persian": "حکمت اشراق آن است که دانش از درون تابد، نه از بیرون آموخته شود",
+    "english_translation": "The philosophy of illumination holds that true knowledge shines from within, not learned from without.",
+    "categories": ["knowledge", "illumination", "intuition", "philosophy"],
+    "wisdom_scale": 10,
+    "theme": "True wisdom as an inner illumination rather than an externally acquired accumulation"
+  },
+  {
+    "author": "Suhrawardi (Shahab ad-Din Yahya ibn Habash ibn Amirak al-Suhrawardi)",
+    "persian": "روح آدمی از عالم نور است و به عالم نور باز خواهد گشت",
+    "english_translation": "The human soul belongs to the world of light and to the world of light it shall return.",
+    "categories": ["soul", "light", "origin", "eternity"],
+    "wisdom_scale": 9,
+    "theme": "The soul's luminous origin and its inevitable return to the divine realm of light"
+  },
+  {
+    "author": "Mir Damad (Muhammad Baqir ibn Muhammad Damad al-Husayni al-Astarabadi)",
+    "persian": "زمان مخلوق است اما حدوث دهری آن را از ابدیت جدا می‌کند",
+    "english_translation": "Time is created, but its temporal origination separates it from eternity.",
+    "categories": ["time", "philosophy", "eternity", "cosmology"],
+    "wisdom_scale": 9,
+    "theme": "The philosophical distinction between created time and uncreated eternity"
+  },
+  {
+    "author": "Mir Damad (Muhammad Baqir ibn Muhammad Damad al-Husayni al-Astarabadi)",
+    "persian": "هر چیزی که در زمان است، پایدار نیست / و هر چیزی که پایدار است، در زمان نیست",
+    "english_translation": "Everything that exists in time is impermanent / And everything that is permanent does not exist in time.",
+    "categories": ["impermanence", "eternity", "philosophy", "time"],
+    "wisdom_scale": 9,
+    "theme": "The mutual exclusivity of temporal existence and genuine permanence"
+  },
+  {
+    "author": "Fakhr al-Din al-Razi (Abu Abdallah Muhammad ibn Umar ibn al-Husayn al-Razi)",
+    "persian": "اگر همه عمر در تحصیل دانش گذرانی، باز هم در آغاز راهی",
+    "english_translation": "Even if you spend your entire life acquiring knowledge, you are still only at the beginning of the path.",
+    "categories": ["knowledge", "humility", "learning", "vastness"],
+    "wisdom_scale": 9,
+    "theme": "The infinite vastness of knowledge that renders all human learning just a beginning"
+  },
+  {
+    "author": "Fakhr al-Din al-Razi (Abu Abdallah Muhammad ibn Umar ibn al-Husayn al-Razi)",
+    "persian": "عقل چراغی است که اگر هوای نفس آن را نخاموشد، راه را روشن می‌کند",
+    "english_translation": "Reason is a lamp that, if the breath of ego does not extinguish it, illuminates the path.",
+    "categories": ["reason", "ego", "wisdom", "guidance"],
+    "wisdom_scale": 10,
+    "theme": "Reason as a divine lamp extinguished only by the ego's self-serving desires"
+  },
+  {
+    "author": "Fakhr al-Din al-Razi (Abu Abdallah Muhammad ibn Umar ibn al-Husayn al-Razi)",
+    "persian": "تکبر دیوار است میان انسان و حقیقت",
+    "english_translation": "Pride is a wall between a human being and the truth.",
+    "categories": ["pride", "humility", "truth", "wisdom"],
+    "wisdom_scale": 10,
+    "theme": "Arrogance as the impenetrable wall that blocks the mind from perceiving truth"
+  },
+  {
+    "author": "Khwaja Abdullah Ansari (Abu Ismail Abdullah ibn Muhammad al-Ansari al-Harawi)",
+    "persian": "الهی، به درگاهت آمدم با دستی پر از گناه و دلی پر از امید",
+    "english_translation": "O God, I have come to Your threshold with hands full of sin and a heart full of hope.",
+    "categories": ["spirituality", "hope", "repentance", "divine mercy"],
+    "wisdom_scale": 9,
+    "theme": "The paradox of approaching the divine with full acknowledgment of imperfection and full hope"
+  },
+  {
+    "author": "Khwaja Abdullah Ansari (Abu Ismail Abdullah ibn Muhammad al-Ansari al-Harawi)",
+    "persian": "الهی، تو را از تو می‌خواهم، نه از خود",
+    "english_translation": "O God, I seek You through You, not through myself.",
+    "categories": ["spirituality", "ego dissolution", "prayer", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "Seeking the divine only through the divine itself, transcending all self-reliance"
+  },
+  {
+    "author": "Khwaja Abdullah Ansari (Abu Ismail Abdullah ibn Muhammad al-Ansari al-Harawi)",
+    "persian": "بهترین کار آن است که برای خدا باشد و بدترین کار آن که برای خلق باشد",
+    "english_translation": "The best action is that which is done for God, and the worst is that which is done for people's approval.",
+    "categories": ["sincerity", "intention", "spirituality", "virtue"],
+    "wisdom_scale": 9,
+    "theme": "Purity of intention — doing for the divine rather than for human approval"
+  },
+  {
+    "author": "Shaykh Mahmud Shabistari (Mahmud ibn Abd al-Karim ibn Yahya Shabistari)",
+    "persian": "هر که آگه شد ز اسرار خودی / کافر و مؤمن یکی دید او همی",
+    "english_translation": "Whoever became aware of the secrets of selfhood / Saw the unbeliever and the believer as one.",
+    "categories": ["unity", "mysticism", "beyond religion", "self-knowledge"],
+    "wisdom_scale": 10,
+    "theme": "Deep self-knowledge dissolves all apparent religious and social divisions"
+  },
+  {
+    "author": "Shaykh Mahmud Shabistari (Mahmud ibn Abd al-Karim ibn Yahya Shabistari)",
+    "persian": "گلشن راز آن است که هر جا نگری / جمال دوست می‌بینی به هر ذری",
+    "english_translation": "The rose garden of mystery is such that wherever you look / You see the beauty of the Beloved in every particle.",
+    "categories": ["mysticism", "beauty", "divine", "perception"],
+    "wisdom_scale": 10,
+    "theme": "The awakened eye that perceives the divine beloved shining in every particle of creation"
+  },
+  {
+    "author": "Shaykh Mahmud Shabistari (Mahmud ibn Abd al-Karim ibn Yahya Shabistari)",
+    "persian": "خودی پندار و پندار خودی / در این آیینه بنگر تا کجایی",
+    "english_translation": "The ego is a fantasy and the fantasy is the ego / Look into this mirror to see where you truly are.",
+    "categories": ["ego", "illusion", "self-inquiry", "philosophy"],
+    "wisdom_scale": 10,
+    "theme": "The ego-self as pure illusion — a fantasy that mistakenly believes in its own solidity"
+  },
+  {
+    "author": "Abd al-Rahman Jami (already included but different quote)",
+    "persian": "هر که در این بزم ره یافت، مست از باده الست است",
+    "english_translation": "Whoever found a way into this gathering is drunk from the wine of the primordial covenant.",
+    "categories": ["mysticism", "divine covenant", "spirituality", "ecstasy"],
+    "wisdom_scale": 9,
+    "theme": "The mystical intoxication derived from the primordial covenant between the soul and the divine"
+  },
+  {
+    "author": "Ayn al-Qudat Hamadani (Abu al-Ma'ali Abd Allah ibn Muhammad ibn Ali al-Mayanaji)",
+    "persian": "عشق آتشی است که هر که را سوزاند، پاک کرد",
+    "english_translation": "Love is a fire that whoever it burns, it also purifies.",
+    "categories": ["love", "purification", "transformation", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "Love's fire as simultaneously destructive and purifying — burning away impurity"
+  },
+  {
+    "author": "Ayn al-Qudat Hamadani (Abu al-Ma'ali Abd Allah ibn Muhammad ibn Ali al-Mayanaji)",
+    "persian": "کسی که از عشق نگریخت، از خود گریخت / کسی که به عشق پناه برد، به خود پناه برد",
+    "english_translation": "Whoever fled from love fled from themselves / Whoever took refuge in love took refuge in themselves.",
+    "categories": ["love", "self", "truth", "courage"],
+    "wisdom_scale": 10,
+    "theme": "Love and the true self are identical — fleeing love is fleeing one's own deepest nature"
+  },
+  {
+    "author": "Ayn al-Qudat Hamadani (Abu al-Ma'ali Abd Allah ibn Muhammad ibn Ali al-Mayanaji)",
+    "persian": "هر که در عشق صادق است، جهان در پیش او ذره‌ای است",
+    "english_translation": "Whoever is sincere in love, the whole world is but a particle before them.",
+    "categories": ["love", "sincerity", "perspective", "transcendence"],
+    "wisdom_scale": 9,
+    "theme": "Sincere love grants a perspective before which the entire world shrinks to insignificance"
+  },
+  {
+    "author": "Yahya ibn Muadh al-Razi (Abu Zakariyya Yahya ibn Mu'adh al-Razi)",
+    "persian": "دوستی با کسی که خدا را دوست دارد، خود نوعی عبادت است",
+    "english_translation": "Friendship with one who loves God is itself a form of worship.",
+    "categories": ["friendship", "spirituality", "love", "devotion"],
+    "wisdom_scale": 9,
+    "theme": "The sacred dimension of friendship with those who are devoted to the divine"
+  },
+  {
+    "author": "Yahya ibn Muadh al-Razi (Abu Zakariyya Yahya ibn Mu'adh al-Razi)",
+    "persian": "قلب سالم آن است که نه از دنیا آکنده باشد، نه از ترس خالی",
+    "english_translation": "A sound heart is one that is neither filled with the world nor emptied of wholesome fear.",
+    "categories": ["heart", "balance", "spirituality", "detachment"],
+    "wisdom_scale": 9,
+    "theme": "The healthy heart as one that is balanced — neither worldly nor devoid of reverence"
+  },
+  {
+    "author": "Ahmad ibn Hanbal (Abu Abdallah Ahmad ibn Muhammad ibn Hanbal, of Persian descent)",
+    "persian": "صبر در برابر آنچه دوست نداری، از بزرگ‌ترین عبادات است",
+    "english_translation": "Patience in the face of what you dislike is among the greatest acts of worship.",
+    "categories": ["patience", "worship", "adversity", "virtue"],
+    "wisdom_scale": 9,
+    "theme": "Patient endurance of hardship as one of the highest forms of spiritual devotion"
+  },
+  {
+    "author": "Imam Muhammad al-Ghazali (secondary lesser-known quote)",
+    "persian": "ظلم سه گونه است: ظلم به خدا، ظلم به مردم، ظلم به خویشتن",
+    "english_translation": "Injustice is of three kinds: injustice to God, injustice to people, and injustice to oneself.",
+    "categories": ["justice", "ethics", "self", "spirituality"],
+    "wisdom_scale": 10,
+    "theme": "The three dimensions of injustice — toward the divine, toward others, and toward oneself"
+  },
+  {
+    "author": "Shams-i-Tabrizi (Shams al-Din Mohammad)",
+    "persian": "آنچه تو را از خود می‌رباید، همان است که به خودت باز می‌گرداند",
+    "english_translation": "That which robs you of yourself is the very thing that returns you to yourself.",
+    "categories": ["paradox", "love", "self-loss", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "The mystical paradox: losing the false self is the path to finding the true self"
+  },
+  {
+    "author": "Shams-i-Tabrizi (Shams al-Din Mohammad)",
+    "persian": "بزرگ‌ترین گناه آن است که بدانی و عمل نکنی",
+    "english_translation": "The greatest sin is to know and not to act.",
+    "categories": ["action", "knowledge", "ethics", "responsibility"],
+    "wisdom_scale": 10,
+    "theme": "Knowledge without action is the deepest form of moral failure and self-betrayal"
+  },
+  {
+    "author": "Shams-i-Tabrizi (Shams al-Din Mohammad)",
+    "persian": "هر که با تو نشیند و دلت را گرم کند، او آفتاب است نه آدم",
+    "english_translation": "Whoever sits with you and warms your heart is a sun, not merely a person.",
+    "categories": ["friendship", "warmth", "love", "gratitude"],
+    "wisdom_scale": 9,
+    "theme": "True companions who warm the heart are rare gifts as radiant as the sun"
+  },
+  {
+    "author": "Shams-i-Tabrizi (Shams al-Din Mohammad)",
+    "persian": "راه دور نیست؛ تو دوری",
+    "english_translation": "The path is not far; you are the one who is far.",
+    "categories": ["self-inquiry", "spiritual path", "proximity", "awareness"],
+    "wisdom_scale": 10,
+    "theme": "The divine is not distant — the only distance is the one we create through ignorance"
+  },
+  {
+    "author": "Shams-i-Tabrizi (Shams al-Din Mohammad)",
+    "persian": "اگر می‌خواهی بدانی خدا کجاست، به آینه نگاه کن",
+    "english_translation": "If you want to know where God is, look in the mirror.",
+    "categories": ["divinity", "self", "mysticism", "reflection"],
+    "wisdom_scale": 10,
+    "theme": "The divine presence found most immediately and fully in the depths of one's own being"
+  },
+  {
+    "author": "Sultan Walad (Baha' ud-Din Muhammad-i Walad, son of Rumi)",
+    "persian": "پدرم گفت: عشق درس نمی‌خواهد / خود راه خود را می‌شناسد",
+    "english_translation": "My father said: love needs no lesson / It knows its own way.",
+    "categories": ["love", "instinct", "wisdom", "teaching"],
+    "wisdom_scale": 9,
+    "theme": "Love as an innate, self-guiding force that needs no external instruction"
+  },
+  {
+    "author": "Sultan Walad (Baha' ud-Din Muhammad-i Walad, son of Rumi)",
+    "persian": "میراث پدر، نه زر است نه سیم / بلکه عشق و دانش و دل سلیم",
+    "english_translation": "A father's inheritance is not gold or silver / But love, knowledge, and a sound heart.",
+    "categories": ["legacy", "family", "values", "inheritance"],
+    "wisdom_scale": 9,
+    "theme": "The true inheritance from parent to child is love, wisdom, and moral soundness"
+  },
+  {
+    "author": "Khaqani Shirwani (lesser-known quote)",
+    "persian": "شعر من آیینه‌ای است که در آن روزگار خود را ببین",
+    "english_translation": "My poetry is a mirror — look into it and see your own age.",
+    "categories": ["poetry", "truth", "reflection", "art"],
+    "wisdom_scale": 9,
+    "theme": "Great poetry as a mirror that reflects not just beauty but the truth of the age"
+  },
+  {
+    "author": "Masud Sa'd Salman",
+    "persian": "زندان تن را، دل آزاد است / هر که دل آزاد داشت، آزاد است",
+    "english_translation": "The body may be in prison, but the heart is free / Whoever keeps the heart free is truly free.",
+    "categories": ["freedom", "inner life", "resilience", "captivity"],
+    "wisdom_scale": 10,
+    "theme": "Inner freedom of the heart as the only true freedom, beyond all physical captivity"
+  },
+  {
+    "author": "Masud Sa'd Salman",
+    "persian": "قلم من مرغی است که در قفس زندان آواز می‌خواند",
+    "english_translation": "My pen is a bird that sings in the cage of prison.",
+    "categories": ["poetry", "resilience", "art", "freedom"],
+    "wisdom_scale": 9,
+    "theme": "The indomitable creative spirit that sings and creates even in the depths of captivity"
+  },
+  {
+    "author": "Obeyd Zakani (Nizam al-Din Ubayd Allah Zakani Qazwini)",
+    "persian": "دنیا چنان است که هر که بیشتر می‌داند، بیشتر می‌داند که نمی‌داند",
+    "english_translation": "The world is such that whoever knows more, knows more how much they do not know.",
+    "categories": ["wisdom", "humility", "knowledge", "irony"],
+    "wisdom_scale": 10,
+    "theme": "The recursive humility of knowledge — the more one learns, the more one sees the infinite unknown"
+  },
+  {
+    "author": "Obeyd Zakani (Nizam al-Din Ubayd Allah Zakani Qazwini)",
+    "persian": "زاهد که نماز می‌کند و دل به دنیا دارد / آن نماز نماز نیست، آن ریا است",
+    "english_translation": "The ascetic who prays while his heart is attached to the world / That prayer is not prayer — it is hypocrisy.",
+    "categories": ["hypocrisy", "sincerity", "religion", "authenticity"],
+    "wisdom_scale": 9,
+    "theme": "Ritual without inner sincerity is hollow performance and the purest form of hypocrisy"
+  },
+  {
+    "author": "Obeyd Zakani (Nizam al-Din Ubayd Allah Zakani Qazwini)",
+    "persian": "عقل آدمی را بر زبانش می‌سنجند",
+    "english_translation": "A person's reason is measured by their tongue.",
+    "categories": ["speech", "wisdom", "character", "judgment"],
+    "wisdom_scale": 8,
+    "theme": "The quality of one's speech as the primary indicator of the quality of one's mind"
+  },
+  {
+    "author": "Abu'l-Faraj Runi",
+    "persian": "آن که می‌داند و می‌داند که می‌داند / اسب دانش را برانید",
+    "english_translation": "One who knows and knows that he knows / Ride the horse of knowledge.",
+    "categories": ["knowledge", "metacognition", "wisdom", "awareness"],
+    "wisdom_scale": 9,
+    "theme": "Conscious, self-aware mastery of knowledge as the highest level of learning"
+  },
+  {
+    "author": "Zahir al-Din Faryabi",
+    "persian": "مدح دشمن از دشمنی بدتر نیست / ذم دوست از دوستی بهتر بسیار",
+    "english_translation": "Praising an enemy is no better than enmity / Criticizing a friend is far better than false friendship.",
+    "categories": ["friendship", "honesty", "loyalty", "criticism"],
+    "wisdom_scale": 9,
+    "theme": "Honest criticism from a true friend is infinitely more valuable than flattery from any source"
+  },
+  {
+    "author": "Adib Sabir Tirmidhi",
+    "persian": "هر که را درد نبود، دارو نجست / هر که را زخم نبود، مرهم نخواست",
+    "english_translation": "Whoever has no pain, seeks no cure / Whoever has no wound, needs no balm.",
+    "categories": ["pain", "seeking", "growth", "awareness"],
+    "wisdom_scale": 8,
+    "theme": "Pain as the necessary condition that awakens the desire for healing and growth"
+  },
+  {
+    "author": "Suzani Samarqandi",
+    "persian": "دانا به یک کلمه دانا می‌شناسد / نادان به صد سخن هنوز نادان است",
+    "english_translation": "The wise recognizes the wise with a single word / The ignorant, after a hundred speeches, remains ignorant.",
+    "categories": ["wisdom", "recognition", "discernment", "knowledge"],
+    "wisdom_scale": 9,
+    "theme": "Wisdom instantly recognizes wisdom, while ignorance cannot perceive it even after long exposure"
+  },
+  {
+    "author": "Rashid Vatvat (Rashid ud-Din Muhammad ibn Muhammad Umari Balkhi)",
+    "persian": "سخن که از دل راست آید، به دل نشیند",
+    "english_translation": "Speech that comes from a sincere heart settles in the heart.",
+    "categories": ["sincerity", "communication", "heart", "authenticity"],
+    "wisdom_scale": 9,
+    "theme": "Only speech that originates in sincere feeling can truly reach and touch another's heart"
+  },
+  {
+    "author": "Rashid Vatvat (Rashid ud-Din Muhammad ibn Muhammad Umari Balkhi)",
+    "persian": "ادب در همه حال لازم است / که بی‌ادب محروم ماند از فیض خلق",
+    "english_translation": "Courtesy is required in all situations / For the discourteous remain deprived of the grace of creation.",
+    "categories": ["courtesy", "ethics", "virtue", "social wisdom"],
+    "wisdom_scale": 8,
+    "theme": "Courtesy and good manners as the key that unlocks the grace and goodwill of the world"
+  },
+  {
+    "author": "Nasir Khusraw (new quote not previously included)",
+    "persian": "مرد آن نیست که بسیار بگوید / مرد آن است که بسیار بداند",
+    "english_translation": "A man is not one who says much / A man is one who knows much.",
+    "categories": ["wisdom", "knowledge", "speech", "character"],
+    "wisdom_scale": 9,
+    "theme": "True manhood defined by depth of knowledge rather than volume of speech"
+  },
+  {
+    "author": "Abu Shukur Balkhi",
+    "persian": "نیکی آن است که بدون چشم داشت باشد / چون نیکی با چشم داشت، تجارت است",
+    "english_translation": "True goodness is that which expects nothing in return / For goodness with expectation is merely commerce.",
+    "categories": ["generosity", "altruism", "ethics", "virtue"],
+    "wisdom_scale": 10,
+    "theme": "Unconditional giving as the only genuine goodness — all other giving is mere transaction"
+  },
+  {
+    "author": "Abu Shukur Balkhi",
+    "persian": "هر که خوار است پیش خویش، خوار است پیش دیگران",
+    "english_translation": "Whoever is lowly in their own eyes is lowly in the eyes of others.",
+    "categories": ["self-respect", "dignity", "character", "wisdom"],
+    "wisdom_scale": 9,
+    "theme": "Self-respect as the foundation of the respect one receives from the world"
+  },
+  {
+    "author": "Gurgani (Fakhr ud-Din As'ad Gurgani)",
+    "persian": "عشق را قانون نبود، عاشق آزاد است / آزادی عاشق از قانون عشق است",
+    "english_translation": "Love has no law; the lover is free / And the lover's freedom comes from the very law of love.",
+    "categories": ["love", "freedom", "paradox", "law"],
+    "wisdom_scale": 9,
+    "theme": "The paradox that love's own law is the transcendence of all other laws"
+  },
+  {
+    "author": "Hakim Nasir al-Din Tusi (new quote)",
+    "persian": "آنکه راضی به قضاست، از همه چیز آسوده‌تر است",
+    "english_translation": "Whoever is content with fate is the most at peace with everything.",
+    "categories": ["acceptance", "contentment", "fate", "peace"],
+    "wisdom_scale": 9,
+    "theme": "Radical acceptance of fate as the path to deepest peace and equanimity"
+  },
+  {
+    "author": "Hafiz Ibrahim (Egyptian poet of Persian literary tradition)",
+    "persian": "زبان فصیح مردم را متحد می‌کند / زبان زشت، دشمنی می‌پراکند",
+    "english_translation": "Eloquent speech unites people / Foul speech spreads enmity.",
+    "categories": ["language", "unity", "speech", "community"],
+    "wisdom_scale": 8,
+    "theme": "The power of language to either unite communities or sow seeds of division and enmity"
+  },
+  {
+    "author": "Kamal ud-Din Ismail Isfahani",
+    "persian": "فکر کن پیش از آنکه بگویی / چرا که تیر از کمان رفته بازنگردد",
+    "english_translation": "Think before you speak / For the arrow that has left the bow does not return.",
+    "categories": ["speech", "deliberation", "wisdom", "regret"],
+    "wisdom_scale": 9,
+    "theme": "Words, once spoken, are irretrievable — thoughtfulness before speaking is essential"
+  },
+  {
+    "author": "Kamal ud-Din Ismail Isfahani",
+    "persian": "در دنیا آنچه ماند، نام نیک است / مال و جاه چون سایه ناپایدارند",
+    "english_translation": "In the world, what remains is a good name / Wealth and status are as fleeting as a shadow.",
+    "categories": ["legacy", "reputation", "impermanence", "virtue"],
+    "wisdom_scale": 9,
+    "theme": "A good name as the only form of worldly wealth that truly endures beyond death"
+  },
+  {
+    "author": "Nizam al-Din Awliya (Nizam ud-Din Muhammad ibn Ahmad al-Badayuni)",
+    "persian": "دل را نگاه دار که خانه خداست / هر چه در خانه خدا باشد، با اوست",
+    "english_translation": "Guard the heart, for it is the house of God / Whatever is in the house of God belongs with Him.",
+    "categories": ["heart", "spirituality", "divine", "purity"],
+    "wisdom_scale": 10,
+    "theme": "The human heart as the sacred dwelling place of the divine, deserving of the utmost care"
+  },
+  {
+    "author": "Nizam al-Din Awliya (Nizam ud-Din Muhammad ibn Ahmad al-Badayuni)",
+    "persian": "خدمت به خلق، خدمت به حق است",
+    "english_translation": "Service to creation is service to the Creator.",
+    "categories": ["service", "compassion", "divinity", "ethics"],
+    "wisdom_scale": 10,
+    "theme": "Every act of service to a fellow creature is simultaneously an act of worship of the divine"
+  },
+  {
+    "author": "Nizam al-Din Awliya (Nizam ud-Din Muhammad ibn Ahmad al-Badayuni)",
+    "persian": "اگر می‌خواهی به خدا برسی، از میان مردم برو",
+    "english_translation": "If you want to reach God, pass through the midst of people.",
+    "categories": ["service", "community", "spirituality", "path"],
+    "wisdom_scale": 10,
+    "theme": "The divine is reached not by withdrawing from humanity but by passing through and serving it"
+  },
+  {
+    "author": "Fakhr al-Din Iraqi (Ibrahim ibn Buzurgmihr ibn Abd al-Ghaffar Hamadani)",
+    "persian": "عشق آمد و شد خلاصه‌ی کائنات / در یک دل گنجید همه آفاق",
+    "english_translation": "Love came and became the essence of all existence / All horizons were contained within a single heart.",
+    "categories": ["love", "cosmos", "heart", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "Love as the concentrated essence of the universe, holding all creation in a single heart"
+  },
+  {
+    "author": "Fakhr al-Din Iraqi (Ibrahim ibn Buzurgmihr ibn Abd al-Ghaffar Hamadani)",
+    "persian": "دل من ز شوق تو گم شد در خود / چون بحر که در خود غرق شود",
+    "english_translation": "My heart lost itself in longing for you / Like the sea that drowns within itself.",
+    "categories": ["longing", "love", "self-loss", "mysticism"],
+    "wisdom_scale": 9,
+    "theme": "The heart consumed by longing loses itself as completely as an ocean drowning in itself"
+  },
+  {
+    "author": "Abu'l Majd Majdud Sana'i (new quote from Sanai)",
+    "persian": "خداوند را از راه عقل نتوان شناخت / که عشق کمربند اوست نه عقل",
+    "english_translation": "God cannot be known through reason alone / For love is His belt, not reason.",
+    "categories": ["love", "reason", "divine", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "Love rather than rational inquiry as the true means of approaching the divine mystery"
+  },
+  {
+    "author": "Jalal al-Din Dawwani (Muhammad ibn As'ad Dawwani)",
+    "persian": "فضیلت اخلاقی آن است که خوبی از روی اراده باشد، نه اجبار",
+    "english_translation": "Moral virtue is that goodness flows from free will, not compulsion.",
+    "categories": ["virtue", "free will", "ethics", "moral philosophy"],
+    "wisdom_scale": 10,
+    "theme": "Genuine virtue requires free choice — goodness under compulsion is not true virtue"
+  },
+  {
+    "author": "Jalal al-Din Dawwani (Muhammad ibn As'ad Dawwani)",
+    "persian": "سعادت نهایی آدمی در معرفت و محبت است",
+    "english_translation": "The ultimate happiness of a human being lies in knowledge and love.",
+    "categories": ["happiness", "knowledge", "love", "philosophy"],
+    "wisdom_scale": 10,
+    "theme": "The highest human flourishing achieved only through the integration of knowledge and love"
+  },
+  {
+    "author": "Qutb al-Din Shirazi (Mahmud ibn Mas'ud al-Kashi al-Shirazi)",
+    "persian": "طبیعت را با طبیعت درمان کن / که هر دردی را طبیعت داروست",
+    "english_translation": "Heal nature with nature / For nature is the cure for every pain.",
+    "categories": ["healing", "nature", "medicine", "wisdom"],
+    "wisdom_scale": 8,
+    "theme": "Nature as the ultimate physician whose remedies address the root of all ailments"
+  },
+  {
+    "author": "Qutb al-Din Shirazi (Mahmud ibn Mas'ud al-Kashi al-Shirazi)",
+    "persian": "جهان کتابی است که هر که دانا بود، خواند / و هر که نادان بود، ورق زد و گذشت",
+    "english_translation": "The world is a book that the wise person reads / And the ignorant person merely flips through and passes by.",
+    "categories": ["wisdom", "observation", "learning", "world"],
+    "wisdom_scale": 10,
+    "theme": "The world as a profound text readable only by those with the wisdom to perceive its meaning"
+  },
+  {
+    "author": "Ibn Yamin Faryumadi",
+    "persian": "دولت دنیا به دست ناکسان است / دولت عقبی به دست نیکوکاران",
+    "english_translation": "The fortune of this world is in the hands of the base / The fortune of the hereafter is in the hands of the virtuous.",
+    "categories": ["virtue", "justice", "worldliness", "faith"],
+    "wisdom_scale": 8,
+    "theme": "The irony that worldly fortune often belongs to the base while eternal fortune belongs to the virtuous"
+  },
+  {
+    "author": "Ibn Yamin Faryumadi",
+    "persian": "هر کجا دانشمندی است، آنجا وطن من است",
+    "english_translation": "Wherever a learned person exists, that is my homeland.",
+    "categories": ["knowledge", "belonging", "community", "wisdom"],
+    "wisdom_scale": 9,
+    "theme": "The homeland of the truly learned person is wherever wisdom and knowledge reside"
+  },
+  {
+    "author": "Khwaju Kermani (Mahmud ibn Ali Khwaju Kermani)",
+    "persian": "هر که دل داد به دنیا، دل گم کرد / هر که دل به حق داد، دل پر کرد",
+    "english_translation": "Whoever gave their heart to the world lost their heart / Whoever gave their heart to the divine found their heart full.",
+    "categories": ["detachment", "spirituality", "heart", "divine"],
+    "wisdom_scale": 9,
+    "theme": "Giving the heart to the world empties it, while giving it to the divine fills it completely"
+  },
+  {
+    "author": "Khwaju Kermani (Mahmud ibn Ali Khwaju Kermani)",
+    "persian": "در راه عشق نه وسعت راه است نه آسانی / که عشق راه خود می‌برد نه آدم راه عشق",
+    "english_translation": "On the path of love there is neither breadth nor ease / For love takes its own way; it is not man who takes the way of love.",
+    "categories": ["love", "surrender", "path", "mysticism"],
+    "wisdom_scale": 9,
+    "theme": "Love as the active agent that chooses its path — the lover is carried rather than walking freely"
+  },
+  {
+    "author": "Kamāl al-Dīn Mas'ūd Khujandi",
+    "persian": "آن که دل دارد به دل با دل سخن می‌گوید / و آن که دل ندارد، با هزار کلمه لال است",
+    "english_translation": "One who has heart speaks to the heart with the heart / And one who has no heart is mute despite a thousand words.",
+    "categories": ["heart", "communication", "authenticity", "wisdom"],
+    "wisdom_scale": 10,
+    "theme": "True communication is of heart to heart — without it, even a thousand words convey nothing"
+  },
+  {
+    "author": "Baba Faghani Shirazi",
+    "persian": "عشق بازی با آتش است، دست محتاط می‌برد",
+    "english_translation": "Love is playing with fire — a cautious hand draws back.",
+    "categories": ["love", "courage", "risk", "passion"],
+    "wisdom_scale": 8,
+    "theme": "True love demands reckless courage — caution is the enemy of genuine passion"
+  },
+  {
+    "author": "Bidel Dehlavi (Abu'l-Ma'ani Mirza Abd al-Qadir Bidel)",
+    "persian": "آنقدر پیچیده است راز هستی / که هر که فهمید، فهمید که نفهمید",
+    "english_translation": "The secret of existence is so complex / That whoever understood it, understood that they had not understood.",
+    "categories": ["existence", "mystery", "wisdom", "humility"],
+    "wisdom_scale": 10,
+    "theme": "The infinite complexity of existence that defeats every confident claim to understanding"
+  },
+  {
+    "author": "Bidel Dehlavi (Abu'l-Ma'ani Mirza Abd al-Qadir Bidel)",
+    "persian": "ما نیستیم و هستیم، هستیم و نیستیم / این معما را کسی نگشود که باشد",
+    "english_translation": "We are not and we are; we are and we are not / This riddle has been solved by no one who has existed.",
+    "categories": ["existence", "paradox", "philosophy", "mystery"],
+    "wisdom_scale": 10,
+    "theme": "The ultimate paradox of human existence — simultaneously being and non-being"
+  },
+  {
+    "author": "Bidel Dehlavi (Abu'l-Ma'ani Mirza Abd al-Qadir Bidel)",
+    "persian": "دل آیینه‌ای است که جز پاکیزگی در آن نمی‌نشیند",
+    "english_translation": "The heart is a mirror in which only purity can settle.",
+    "categories": ["heart", "purity", "mirror", "spirituality"],
+    "wisdom_scale": 9,
+    "theme": "The heart as a mirror that reflects only what matches its own quality — purity reflects purity"
+  },
+  {
+    "author": "Hatif Isfahani (Ahmad Hatif Isfahani)",
+    "persian": "یکی است و هیچ نیست جز او / وحدت اندر کثرت، کثرت اندر وحدت",
+    "english_translation": "There is only One and nothing exists but Him / Unity within multiplicity, multiplicity within unity.",
+    "categories": ["unity", "mysticism", "divinity", "philosophy"],
+    "wisdom_scale": 10,
+    "theme": "The fundamental mystical teaching of unity in multiplicity and multiplicity within unity"
+  },
+  {
+    "author": "Hatif Isfahani (Ahmad Hatif Isfahani)",
+    "persian": "از هر طرف که رفتم جز وحشت و تاریکی ندیدم / الا در آن راه که عشق بود چراغ",
+    "english_translation": "From every direction I traveled I saw nothing but desolation and darkness / Except on that path where love was the lamp.",
+    "categories": ["love", "guidance", "light", "path"],
+    "wisdom_scale": 10,
+    "theme": "Love as the only lamp illuminating the otherwise dark and desolate paths of life"
+  },
+  {
+    "author": "Sabzavari (Hadi ibn Mahdi Sabzavari)",
+    "persian": "وجود را درجاتی است و کمال آدمی در صعود از درجه‌ای به درجه‌ای است",
+    "english_translation": "Existence has degrees, and human perfection lies in ascending from one degree to another.",
+    "categories": ["existence", "perfection", "growth", "philosophy"],
+    "wisdom_scale": 9,
+    "theme": "Human perfection as a continuous process of ascending through ever-higher degrees of existence"
+  },
+  {
+    "author": "Sabzavari (Hadi ibn Mahdi Sabzavari)",
+    "persian": "خردمند آن است که در ظاهر می‌نگرد و باطن را می‌بیند",
+    "english_translation": "The wise person is one who looks at the outward and sees the inward.",
+    "categories": ["wisdom", "perception", "depth", "discernment"],
+    "wisdom_scale": 9,
+    "theme": "Wisdom as the capacity to perceive inner realities through outer appearances"
+  },
+  {
+    "author": "Mirza Ghalib (Mirza Asadullah Baig Khan, writing in Persian tradition)",
+    "persian": "ہستی کے مت فریب میں آ جاؤ اسد — هستی را فریب نخور که نیست‌انگاری هم خود هستی است",
+    "english_translation": "Do not be deceived by existence, Asad — for even non-existence is itself a form of existence.",
+    "categories": ["existence", "philosophy", "paradox", "wisdom"],
+    "wisdom_scale": 9,
+    "theme": "The philosophical paradox in which even nothingness is a mode of being"
+  },
+  {
+    "author": "Siraj ud-Din Ali Khan Arzu",
+    "persian": "زبان آدمی ترجمان اندیشه‌ی اوست / پس اندیشه را پاک کن که زبان پاک شود",
+    "english_translation": "A person's tongue is the translator of their thought / So purify thought and the tongue will be purified.",
+    "categories": ["thought", "speech", "purity", "wisdom"],
+    "wisdom_scale": 9,
+    "theme": "Purifying one's thoughts at the source as the most effective way to purify one's speech"
+  },
+  {
+    "author": "Muhammad Iqbal (Allama Iqbal, writing in Persian)",
+    "persian": "خودی را کن بلند آنقدر که ہر تقدیر سے پہلے / خدا بندے سے خود پوچھے بتا تیری رضا کیا ہے",
+    "english_translation": "Elevate your self to such heights that before every decree of fate / God Himself asks you: tell me, what is your wish?",
+    "categories": ["self", "dignity", "aspiration", "divine relationship"],
+    "wisdom_scale": 10,
+    "theme": "The elevation of the human self to a dignity so great that it enters into dialogue with the divine"
+  },
+  {
+    "author": "Muhammad Iqbal (Allama Iqbal, writing in Persian)",
+    "persian": "تو شاهین است، پرواز تو را نیست پایان / نشین بر نوک کوه و جهانی بنگر",
+    "english_translation": "You are an eagle — your flight has no end / Sit upon the mountain peak and behold the world.",
+    "categories": ["aspiration", "potential", "vision", "freedom"],
+    "wisdom_scale": 10,
+    "theme": "The unlimited potential of the human spirit, summoned to soar above all limitations"
+  },
+  {
+    "author": "Muhammad Iqbal (Allama Iqbal, writing in Persian)",
+    "persian": "ملت از نسبت با ارباب هنر زنده است / ورنه از نقش نگار و رنگ و بو زنده نه",
+    "english_translation": "A nation lives through its relationship with masters of art / Otherwise it does not live through mere colors and forms.",
+    "categories": ["culture", "art", "nation", "civilization"],
+    "wisdom_scale": 9,
+    "theme": "The spiritual life of a nation sustained only through its living relationship with art and creative genius"
+  },
+  {
+    "author": "Muhammad Iqbal (Allama Iqbal, writing in Persian)",
+    "persian": "زندگی در سینه‌ی هر ذره نهفته است / کیست کآن را باز جوید؟ مرد خودآگاه",
+    "english_translation": "Life is hidden in the breast of every particle / Who is it that seeks it out? The self-aware person.",
+    "categories": ["awareness", "life", "self-knowledge", "cosmos"],
+    "wisdom_scale": 9,
+    "theme": "The self-aware individual as the only one capable of perceiving the hidden life in all things"
+  },
+  {
+    "author": "Iraj Mirza (new quote)",
+    "persian": "دانا کسی است که از دیگران یاد گیرد / و نادان کسی که فقط از خود",
+    "english_translation": "The wise person is one who learns from others / The foolish one is he who learns only from himself.",
+    "categories": ["learning", "humility", "wisdom", "openness"],
+    "wisdom_scale": 9,
+    "theme": "Openness to learning from others as the mark of wisdom, versus self-enclosed ignorance"
+  },
+  {
+    "author": "Bahar (Mohammad-Taqi Bahar, Malek ush-Shu'ara)",
+    "persian": "ای وطن، ای مادر من، ای بهشت / من فدای خاک پاکت گشته‌ام",
+    "english_translation": "O homeland, O my mother, O paradise / I have sacrificed myself for your pure earth.",
+    "categories": ["patriotism", "sacrifice", "love", "homeland"],
+    "wisdom_scale": 8,
+    "theme": "Devotion to the homeland as the deepest expression of love and ultimate sacrifice"
+  },
+  {
+    "author": "Bahar (Mohammad-Taqi Bahar, Malek ush-Shu'ara)",
+    "persian": "بهار آزادی رسید و قفس شکست / مرغ دل از بند رها شد به سوی آشیان",
+    "english_translation": "The spring of freedom arrived and the cage broke / The bird of the heart was freed from its bonds, toward its nest.",
+    "categories": ["freedom", "liberation", "hope", "spring"],
+    "wisdom_scale": 9,
+    "theme": "Freedom as the spring season of the soul, releasing the imprisoned heart to its true home"
+  },
+  {
+    "author": "Nima Yushij (Ali Esfandiari, Father of Modern Persian Poetry)",
+    "persian": "آی آدم‌ها که بر ساحل نشسته شاد و خندانید / یک نفر در آب دارد می‌سپارد جان",
+    "english_translation": "O people sitting on the shore, happy and laughing / Someone is drowning in the water.",
+    "categories": ["empathy", "indifference", "social responsibility", "humanity"],
+    "wisdom_scale": 10,
+    "theme": "The moral indictment of those who celebrate at ease while others suffer and drown nearby"
+  },
+  {
+    "author": "Nima Yushij (Ali Esfandiari, Father of Modern Persian Poetry)",
+    "persian": "شعر آن است که زندگی را بازتاباند / نه آن که در برج عاج بنشیند",
+    "english_translation": "Poetry is that which reflects life / Not that which sits in an ivory tower.",
+    "categories": ["poetry", "authenticity", "social engagement", "art"],
+    "wisdom_scale": 9,
+    "theme": "True poetry as engaged with real life and human suffering, not withdrawn into aesthetic isolation"
+  },
+  {
+    "author": "Mehdi Akhavan-Sales",
+    "persian": "زمستان است و سرما / ولی دل گرم دارد هر که عشقی دارد",
+    "english_translation": "It is winter and cold / But whoever has love keeps a warm heart.",
+    "categories": ["love", "warmth", "resilience", "winter"],
+    "wisdom_scale": 9,
+    "theme": "Love as the inner fire that keeps the heart warm in the coldest and most desolate conditions"
+  },
+  {
+    "author": "Mehdi Akhavan-Sales",
+    "persian": "سلام ما را / پاسخ نداد کسی / که ما به راه گمشده‌ای رهسپار بودیم",
+    "english_translation": "No one answered our greeting / For we were travelers on a path that had been lost.",
+    "categories": ["alienation", "loneliness", "exile", "loss"],
+    "wisdom_scale": 8,
+    "theme": "The deep alienation of those whose path has been lost and whose greeting is met with silence"
+  },
+  {
+    "author": "Ghahraman (Shahriar Mandanipour, Persian literary tradition)",
+    "persian": "هر داستانی که نوشته می‌شود، داستان دیگری است که نوشته نمی‌شود",
+    "english_translation": "Every story that is written is another story that is not written.",
+    "categories": ["creativity", "choice", "narrative", "philosophy"],
+    "wisdom_scale": 9,
+    "theme": "Every creative choice entails an infinite field of unexplored possibilities"
+  },
+  {
+    "author": "Simin Behbahani (Simin Khalili)",
+    "persian": "بنشین که دنیا گل است و باغ است / اگر دیده‌ات باز باشد به دیدن",
+    "english_translation": "Sit, for the world is flower and garden / If your eyes are open to seeing.",
+    "categories": ["perception", "beauty", "mindfulness", "gratitude"],
+    "wisdom_scale": 9,
+    "theme": "The world reveals its beauty as a garden only to those who have open and receptive eyes"
+  },
+  {
+    "author": "Simin Behbahani (Simin Khalili)",
+    "persian": "زن بودن در این دیار / هم درد است و هم شرف",
+    "english_translation": "Being a woman in this land / Is both pain and honor.",
+    "categories": ["womanhood", "resilience", "dignity", "identity"],
+    "wisdom_scale": 9,
+    "theme": "The paradoxical experience of womanhood as simultaneously a site of oppression and profound dignity"
+  },
+  {
+    "author": "Simin Behbahani (Simin Khalili)",
+    "persian": "عشق یعنی که هر روز از نو بسازی / آنچه روزگار خراب کرده",
+    "english_translation": "Love means that every day you rebuild anew / What time has destroyed.",
+    "categories": ["love", "resilience", "renewal", "perseverance"],
+    "wisdom_scale": 10,
+    "theme": "Love as an act of daily rebuilding against all the destruction that time inevitably brings"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "خواهی نشوی رسوا، همرنگ جماعت شو",
+    "english_translation": "If you do not want to be disgraced, blend in with the crowd.",
+    "categories": ["conformity", "society", "pragmatism", "irony"],
+    "wisdom_scale": 6,
+    "theme": "The pragmatic — and ironic — social wisdom of conformity as a shield against disgrace"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "چاه مکن بهر کسی، اول خودت می‌افتی",
+    "english_translation": "Do not dig a pit for someone else — you will fall into it first.",
+    "categories": ["karma", "ethics", "consequence", "justice"],
+    "wisdom_scale": 10,
+    "theme": "The boomerang nature of malicious scheming — traps set for others ensnare their makers first"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "از آب گل‌آلود ماهی می‌گیرند",
+    "english_translation": "They catch fish in muddy water.",
+    "categories": ["opportunity", "pragmatism", "crisis", "wisdom"],
+    "wisdom_scale": 7,
+    "theme": "Those with cunning find opportunity precisely where others see only chaos and murkiness"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "عقل در پیری می‌رسد، جوانی می‌رود",
+    "english_translation": "Wisdom arrives in old age, but youth departs.",
+    "categories": ["wisdom", "youth", "aging", "irony"],
+    "wisdom_scale": 8,
+    "theme": "The painful irony that wisdom arrives precisely when the energy of youth to apply it has departed"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "مرده را باید بر تختِ نعش گذاشت، نه دلِ زنده را",
+    "english_translation": "It is the dead who should be placed on the bier, not the living heart.",
+    "categories": ["vitality", "resilience", "life", "hope"],
+    "wisdom_scale": 8,
+    "theme": "The living heart must resist all that would consign it to the passivity of death"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "خاموشی طلاست، سخن نقره",
+    "english_translation": "Silence is gold, speech is silver.",
+    "categories": ["silence", "speech", "wisdom", "restraint"],
+    "wisdom_scale": 8,
+    "theme": "The classical wisdom that silence is more precious than the finest speech"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "دیگ به دیگ می‌گوید: روت سیاه",
+    "english_translation": "The pot says to the pot: your face is black.",
+    "categories": ["hypocrisy", "projection", "self-awareness", "irony"],
+    "wisdom_scale": 9,
+    "theme": "The universal human tendency to see in others exactly the faults one most possesses oneself"
+  },
+  {
+    "author": "Persian Proverb (less common)",
+    "persian": "تا نباشد آتشی، دودی نخیزد",
+    "english_translation": "Without fire, no smoke can rise.",
+    "categories": ["cause and effect", "evidence", "truth", "wisdom"],
+    "wisdom_scale": 8,
+    "theme": "Every visible effect points to a hidden cause — where there is smoke, there is always fire"
+  },
+  {
+    "author": "Shams-i-Tabrizi (new quote)",
+    "persian": "همه می‌دانند که چگونه زندگی کنند / جز آنانی که واقعاً زندگی می‌کنند",
+    "english_translation": "Everyone knows how to live / Except those who are truly living.",
+    "categories": ["life", "authenticity", "paradox", "wisdom"],
+    "wisdom_scale": 10,
+    "theme": "The paradox that those who theorize most about life are often those least immersed in living it"
+  },
+  {
+    "author": "Shams-i-Tabrizi (new quote)",
+    "persian": "دوستی که در سختی نباشد، دوست نیست / سایه‌ای است که در آفتاب گم می‌شود",
+    "english_translation": "A friend who is absent in hardship is not a friend / They are a shadow that vanishes in sunlight.",
+    "categories": ["friendship", "loyalty", "adversity", "truth"],
+    "wisdom_scale": 10,
+    "theme": "True friendship is proven only in adversity — fair-weather friendship is as insubstantial as a shadow"
+  },
+  {
+    "author": "Mulla Sadra (new quote)",
+    "persian": "اتحاد عاقل و معقول، کمال وجود است",
+    "english_translation": "The union of the knower and the known is the perfection of existence.",
+    "categories": ["philosophy", "knowledge", "unity", "perfection"],
+    "wisdom_scale": 10,
+    "theme": "True knowing as a union where knower and known become one — the summit of intellectual existence"
+  },
+  {
+    "author": "Suhrawardi (new quote)",
+    "persian": "خرد اشراقی آن است که پیش از استدلال، دیدن باشد",
+    "english_translation": "Illuminative wisdom is that seeing comes before argumentation.",
+    "categories": ["intuition", "reason", "wisdom", "illumination"],
+    "wisdom_scale": 10,
+    "theme": "Direct intuitive vision as prior to and more fundamental than discursive rational argument"
+  },
+  {
+    "author": "Nima Yushij (new quote)",
+    "persian": "مرغ غم پای بند این دیار است / وای به حال آن که پای بند نیست",
+    "english_translation": "The bird of sorrow is bound to this land / Woe to those who are not bound — for they are truly lost.",
+    "categories": ["suffering", "belonging", "homeland", "paradox"],
+    "wisdom_scale": 9,
+    "theme": "The paradox that being bound to a suffering homeland is preferable to the rootlessness of exile"
+  },
+  {
+    "author": "Bidel Dehlavi (new quote)",
+    "persian": "عجب‌تر از عجب این است که آدمی می‌داند که خواهد مرد و در غفلت می‌زید",
+    "english_translation": "The strangest of strange things is that a person knows they will die and yet lives in heedlessness.",
+    "categories": ["mortality", "awareness", "heedlessness", "wisdom"],
+    "wisdom_scale": 10,
+    "theme": "The supreme human contradiction of knowing death is certain while living as though it will never come"
+  },
+  {
+    "author": "Ayn al-Qudat Hamadani (new quote)",
+    "persian": "آنچه را که می‌دانی نگو، آنچه را که می‌گویی بدان",
+    "english_translation": "Do not say everything you know; know everything you say.",
+    "categories": ["wisdom", "speech", "discernment", "integrity"],
+    "wisdom_scale": 10,
+    "theme": "Mastery of speech requires both selective silence and complete integrity in what is spoken"
+  },
+  {
+    "author": "Khwaja Abdullah Ansari (new quote)",
+    "persian": "آنقدر بنده باش که خود را نبینی / آنقدر آزاد باش که غیر را نبینی",
+    "english_translation": "Be servant enough that you do not see yourself / Be free enough that you do not see the other.",
+    "categories": ["servitude", "freedom", "ego", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "The mystical paradox: selfless servitude and total freedom are achieved simultaneously in the divine"
+  },
+  {
+    "author": "Fakhr al-Din Iraqi (new quote)",
+    "persian": "هر که از خود رفت، به حق رسید / هر که ماند، در نفس خود جا ماند",
+    "english_translation": "Whoever departed from the self arrived at the divine / Whoever remained was stuck in the place of their own ego.",
+    "categories": ["ego dissolution", "divine", "spirituality", "mysticism"],
+    "wisdom_scale": 10,
+    "theme": "Departure from the ego-self as the only gateway to arrival at the divine"
+  },
+  {
+    "author": "Masud Sa'd Salman (new quote)",
+    "persian": "شاعر در بند نیست، اگرچه پایش در زنجیر باشد",
+    "english_translation": "The poet is not imprisoned, even if their feet are in chains.",
+    "categories": ["poetry", "freedom", "resilience", "creativity"],
+    "wisdom_scale": 10,
+    "theme": "The poetic spirit as ultimately unchainable — soaring freely even when the body is imprisoned"
+  }
+]

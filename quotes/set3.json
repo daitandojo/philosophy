@@ -1,0 +1,275 @@
+quotes_batch_2 = [
+    # Quotes on Self & Soul (31-45)
+    {
+        "id": 31,
+        "author": "Rumi",
+        "original_farsi": "تو با بال به دنیا آمده‌ای، چرا ترجیح می‌دهی در زندگی بخزی؟",
+        "quote_english": "You were born with wings, why prefer to crawl through life?",
+        "level_of_wisdom": "High",
+        "themes": ["potential", "freedom", "self", "courage"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 32,
+        "author": "Rumi",
+        "original_farsi": "روح گوش‌های خود را داده است تا چیزهایی را بشنود که عقل نمی‌فهمد",
+        "quote_english": "The soul has been given its own ears to hear things the mind does not understand.",
+        "level_of_wisdom": "High",
+        "themes": ["soul", "intuition", "wisdom", "transcendence"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 33,
+        "author": "Rumi",
+        "original_farsi": "بگذار خود را به سکوت به سوی آن کشش عجیب آنچه واقعاً دوست داری، کشیده شوی",
+        "quote_english": "Let yourself be silently drawn by the strange pull of what you really love.",
+        "level_of_wisdom": "High",
+        "themes": ["passion", "calling", "surrender", "authenticity"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 34,
+        "author": "Rumi",
+        "original_farsi": "روحم از جای دیگری است، مطمئنم، و قصد دارم به آنجا بازگردم",
+        "quote_english": "My soul is from elsewhere, I'm sure of that, and I intend to end up there.",
+        "level_of_wisdom": "High",
+        "themes": ["soul", "home", "longing", "transcendence"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 35,
+        "author": "Rumi",
+        "original_farsi": "نه تنم است نه جان، که من خود معشوقم. دوگانگی را کنار گذاشتم، دو جهان را یکی دیدم",
+        "quote_english": "Tis neither body nor soul, for I myself am the Beloved. I have cast aside duality, I have seen the two worlds as one.",
+        "level_of_wisdom": "High",
+        "themes": ["unity", "transcendence", "divine", "self"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 36,
+        "author": "Rumi",
+        "original_farsi": "صدایی هست که با کلمات سخن نمی‌گوید. گوش بده",
+        "quote_english": "There is a voice that doesn't use words. Listen.",
+        "level_of_wisdom": "High",
+        "themes": ["intuition", "silence", "wisdom", "soul"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 37,
+        "author": "Hafez",
+        "original_farsi": "کاش می‌توانستم به تو نشان دهم، وقتی تنها یا در تاریکی هستی، نور شگفت‌انگیز وجود خودت را!",
+        "quote_english": "I wish I could show you, when you are lonely or in darkness, the astonishing light of your own being!",
+        "level_of_wisdom": "High",
+        "themes": ["self-worth", "light", "comfort", "inner beauty"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 38,
+        "author": "Rumi",
+        "original_farsi": "سکوت کن، تا روح الهی سخن بگوید",
+        "quote_english": "Be silent, so that divine spirit may speak.",
+        "level_of_wisdom": "High",
+        "themes": ["silence", "divine", "meditation", "receptivity"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 39,
+        "author": "Rumi",
+        "original_farsi": "سفر روح، بازگشت به عشق بی‌پایان است",
+        "quote_english": "The soul's journey is a return to endless love.",
+        "level_of_wisdom": "High",
+        "themes": ["soul", "love", "journey", "destiny"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 40,
+        "author": "Hafez",
+        "original_farsi": "من این مو نیستم، من این پوست نیستم، من روحی هستم که در درون زندگی می‌کند",
+        "quote_english": "I am not this hair, I am not this skin, I am the soul that lives within.",
+        "level_of_wisdom": "High",
+        "themes": ["identity", "soul", "transcendence", "essence"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 41,
+        "author": "Attar",
+        "original_farsi": "روحی که از قفس رفت، اکنون راهنما شده است",
+        "quote_english": "The soul that left the cage has now become the guide.",
+        "level_of_wisdom": "High",
+        "themes": ["freedom", "transformation", "guidance", "liberation"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 42,
+        "author": "Rumi",
+        "original_farsi": "وقتی روح در آن چمن دراز می‌کشد، جهان برای سخن گفتن بیش از حد پر است",
+        "quote_english": "When the soul lies down in that grass, the world is too full to talk about.",
+        "level_of_wisdom": "High",
+        "themes": ["transcendence", "nature", "mystery", "ineffable"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 43,
+        "author": "Rumi",
+        "original_farsi": "وقتی آنچه فکر می‌کنی هستی را رها کنی، آنچه واقعاً هستی می‌شوی: روحی وسیع و بی‌کران",
+        "quote_english": "When you let go of who you think you are, you become who you really are: a soul, vast and unbound.",
+        "level_of_wisdom": "High",
+        "themes": ["identity", "liberation", "authenticity", "transcendence"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 44,
+        "author": "Saadi",
+        "original_farsi": "اگر روحت بیدار باشد، تمام جهان کتابی از حکمت است",
+        "quote_english": "If your soul is awake, the whole world is a book of wisdom.",
+        "level_of_wisdom": "High",
+        "themes": ["awareness", "wisdom", "perception", "transformation"],
+        "category": "Self & Soul"
+    },
+    {
+        "id": 45,
+        "author": "Rumi",
+        "original_farsi": "چرا در زندان می‌مانی وقتی در آنقدر باز است؟",
+        "quote_english": "Why do you stay in prison when the door is so wide open?",
+        "level_of_wisdom": "High",
+        "themes": ["freedom", "fear", "liberation", "choice"],
+        "category": "Self & Soul"
+    },
+    
+    # Quotes on Faith & Spirituality (46-60)
+    {
+        "id": 46,
+        "author": "Rumi",
+        "original_farsi": "دوگانگی را کنار گذاشتم. دو جهان را یکی دیدم",
+        "quote_english": "I have put duality away. I have seen the two worlds as one.",
+        "level_of_wisdom": "High",
+        "themes": ["unity", "transcendence", "spirituality", "oneness"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 47,
+        "author": "Rumi",
+        "original_farsi": "سکوت زبان خداست، بقیه ترجمه ناقص است",
+        "quote_english": "Silence is the language of God, all else is poor translation.",
+        "level_of_wisdom": "High",
+        "themes": ["divine", "silence", "mystery", "transcendence"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 48,
+        "author": "Hafez",
+        "original_farsi": "من بنده عشقم - هر کجا مرا ببرد، می‌روم",
+        "quote_english": "I am the slave of love—wherever it carries me, I follow.",
+        "level_of_wisdom": "High",
+        "themes": ["devotion", "surrender", "love", "spirituality"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 49,
+        "author": "Hafez",
+        "original_farsi": "هر برگ در باغ به سوی هنرمند الهی اشاره می‌کند",
+        "quote_english": "Every leaf in the garden points to the divine artist.",
+        "level_of_wisdom": "High",
+        "themes": ["creation", "divine", "nature", "beauty"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 50,
+        "author": "Saadi",
+        "original_farsi": "هر نفس زندگی را طولانی می‌کند و هر بازدم روح را شادمان؛ بنابراین هر نفس نعمتی است و شکرگزاری واجب",
+        "quote_english": "Every breath prolongs life and every expiration gladdens the soul; therefore, every breath confers a blessing, and gratitude should be given.",
+        "level_of_wisdom": "High",
+        "themes": ["gratitude", "breath", "life", "spirituality"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 51,
+        "author": "Rumi",
+        "original_farsi": "هر دو چشم را ببند تا با چشم دیگر ببینی",
+        "quote_english": "Close both eyes to see with the other eye.",
+        "level_of_wisdom": "High",
+        "themes": ["intuition", "inner vision", "transcendence", "mysticism"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 52,
+        "author": "Rumi",
+        "original_farsi": "وقتی خود را رها کنی، به خود واقعی‌ات بازمی‌گردی",
+        "quote_english": "When you let go of yourself, you return to your real self.",
+        "level_of_wisdom": "High",
+        "themes": ["surrender", "authenticity", "spirituality", "liberation"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 53,
+        "author": "Rumi",
+        "original_farsi": "سکوت کن، تا آنکه سخن گفتن را به تو آموخت سخن بگوید",
+        "quote_english": "Be silent, so that the Lord who gave you speech may speak.",
+        "level_of_wisdom": "High",
+        "themes": ["receptivity", "divine", "silence", "humility"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 54,
+        "author": "Rumi",
+        "original_farsi": "لحظه‌ای که مشکلاتت را بپذیری، در باز می‌شود",
+        "quote_english": "The moment you accept what troubles you've been given, the door will open.",
+        "level_of_wisdom": "High",
+        "themes": ["acceptance", "surrender", "faith", "transformation"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 55,
+        "author": "Hafez",
+        "original_farsi": "در خانه دل، شمع خدا روشن است - چرا به درهای جهان می‌کوبی؟",
+        "quote_english": "In the house of the heart, the candle of God is lit – Why go knocking at the doors of the world?",
+        "level_of_wisdom": "High",
+        "themes": ["inner peace", "divine", "self-sufficiency", "heart"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 56,
+        "author": "Rumi",
+        "original_farsi": "آب را جستجو نکن، تشنه شو - تا آب تو را بیابد",
+        "quote_english": "Don't seek the water, become thirsty—so that the water may find you.",
+        "level_of_wisdom": "High",
+        "themes": ["longing", "receptivity", "divine", "surrender"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 57,
+        "author": "Omar Khayyam",
+        "original_farsi": "پرسیدم: هدف دعا چیست؟ گفت: یادآوری به روح آنچه از پیش می‌داند",
+        "quote_english": "I asked: 'What is the purpose of prayer? He said: 'To remind your soul what it already knows.'",
+        "level_of_wisdom": "High",
+        "themes": ["prayer", "remembrance", "soul", "wisdom"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 58,
+        "author": "Saadi",
+        "original_farsi": "نیت خود را پیش از کلماتت پاک کن - آن آغاز واقعی دعاست",
+        "quote_english": "Purify your intention before your words – That is the true beginning of prayer.",
+        "level_of_wisdom": "High",
+        "themes": ["intention", "prayer", "authenticity", "purity"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 59,
+        "author": "Saadi",
+        "original_farsi": "فکر نکن دعای بلندت شنیده می‌شود، وقتی دلت از خدا دور است",
+        "quote_english": "Do not think your loud prayer is heard, when your heart is far from God.",
+        "level_of_wisdom": "High",
+        "themes": ["sincerity", "prayer", "heart", "authenticity"],
+        "category": "Faith & Spirituality"
+    },
+    {
+        "id": 60,
+        "author": "Rumi",
+        "original_farsi": "دعایی هست که از کلمات ساخته نشده - از دل برمی‌خیزد، در شعله‌های شوق",
+        "quote_english": "There's a prayer that is not made of words – It rises from the heart, in flames of longing.",
+        "level_of_wisdom": "High",
+        "themes": ["prayer", "longing", "heart", "transcendence"],
+        "category": "Faith & Spirituality"
+    }
+]

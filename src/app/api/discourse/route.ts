@@ -40,7 +40,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { philosopher, type = 'fable', language = 'en', userId, userName } = body;
+    const { philosopher, type = 'fable', language = 'en', userId, userName, customIdea = '', selectedTheme: userTheme = '' } = body;
 
     if (!philosopher) {
       return new Response(JSON.stringify({ error: 'Philosopher is required' }), {
@@ -49,15 +49,50 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const selectedTheme = discourseThemes[Math.floor(Math.random() * discourseThemes.length)];
+    let selectedTheme: DiscourseTheme;
+    
+    if (userTheme && discourseThemes.find(t => t.name === userTheme)) {
+      selectedTheme = discourseThemes.find(t => t.name === userTheme)!;
+    } else if (customIdea.trim()) {
+      selectedTheme = {
+        name: 'Custom Tale',
+        description: customIdea.trim()
+      };
+    } else {
+      selectedTheme = discourseThemes[Math.floor(Math.random() * discourseThemes.length)];
+    }
+
     const philosopherContext = getPhilosopherContext(philosopher);
     const languageName = languageNames[language] || 'English';
 
-    const titlePrompt = `Create a short, evocative title (3-7 words) for a ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in the style of ${philosopher}. 
-    The theme is: ${selectedTheme.name}.
-    Write only the title, no quotes or explanation.`;
+    let titlePrompt = '';
+    let contentPrompt = '';
 
-    const contentPrompt = `Create a short ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in ${languageName}. 
+    if (customIdea.trim()) {
+      titlePrompt = `Create a short, evocative title (3-7 words) for a ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in the style of ${philosopher}. 
+      The user's idea: ${customIdea}
+      Write only the title, no quotes or explanation.`;
+
+      contentPrompt = `Create a ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in ${languageName}. 
+    
+${philosopherContext}
+
+The user's specific idea to incorporate: "${customIdea}"
+
+Requirements:
+- Be 400-600 words
+- Include **bold** for important concepts and *italics* for poetic phrases  
+- Include a clear moral or spiritual lesson
+- MUST incorporate the user's idea: "${customIdea}" - make this the central theme or a key element
+- Use elevated, poetic language appropriate to ${philosopher}'s style
+- Include dialogue between characters
+- End with a philosophical insight or wisdom teaching`;
+    } else {
+      titlePrompt = `Create a short, evocative title (3-7 words) for a ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in the style of ${philosopher}. 
+      The theme is: ${selectedTheme.name}.
+      Write only the title, no quotes or explanation.`;
+
+      contentPrompt = `Create a short ${type === 'discourse' ? 'spiritual discourse' : 'fable'} in ${languageName}. 
     
 ${philosopherContext}
 
@@ -69,6 +104,7 @@ The story should:
 - Use elevated, poetic language appropriate to ${philosopher}'s style
 - Include dialogue between characters
 - End with a philosophical insight or wisdom teaching`;
+    }
 
     const encoder = new TextEncoder();
 

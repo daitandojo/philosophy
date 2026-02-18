@@ -12,9 +12,9 @@ import {
   Button,
   Chip,
 } from '@mui/material';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Image from 'next/image';
 import { bookContent, bookMeta } from '@/lib/book-content';
 import { getBookImage } from '@/lib/book-images';
 import { useThemeMode } from '@/theme/ThemeRegistry';
@@ -62,28 +62,39 @@ export default function BookOverviewPage() {
   }, {} as Record<string, typeof bookContent>);
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        bgcolor: colors.bg,
-        backgroundImage: isDark ? 'none' : `
-          radial-gradient(ellipse at top left, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(201, 169, 98, 0.08) 0%, transparent 50%)
-        `,
-        pb: 10,
-      }}
-    >
+    <Box sx={{ minHeight: '100vh', bgcolor: colors.bg, display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
       <Box
         sx={{
           position: 'relative',
-          py: { xs: 4, md: 6 },
+          minHeight: { xs: 150, md: 200 },
           overflow: 'hidden',
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
         }}
       >
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Background Image */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.1,
+          }}
+        >
+          <Image
+            src="/images/explore-hero.png"
+            alt="Persian wisdom"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </Box>
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: { xs: 3, md: 4 } }}>
           <Grid container spacing={4} alignItems="center">
+            {/* Left: Title and description */}
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography
                 variant="overline"
@@ -96,24 +107,28 @@ export default function BookOverviewPage() {
                 sx={{
                   color: 'white',
                   fontWeight: 300,
-                  mb: 2,
+                  mb: 1,
                 }}
               >
                 {t.work.title}
               </Typography>
               <Typography
-                variant="h5"
-                sx={{ color: 'rgba(255,255,255,0.85)', fontWeight: 300, mb: 4, lineHeight: 1.6 }}
+                variant="h6"
+                sx={{ color: 'rgba(255,255,255,0.85)', fontWeight: 300, mb: 2, lineHeight: 1.6 }}
               >
                 {t.work.subtitle}
               </Typography>
               <Typography
-                variant="body1"
-                sx={{ color: 'rgba(255,255,255,0.7)', mb: 4, maxWidth: 500 }}
+                variant="body2"
+                sx={{ color: 'rgba(255,255,255,0.7)', maxWidth: 450 }}
               >
                 {bookMeta.description}
               </Typography>
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            </Grid>
+
+            {/* Right: Buttons stacked */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-end' }}>
                 <Button
                   variant="contained"
                   size="large"
@@ -124,6 +139,8 @@ export default function BookOverviewPage() {
                     bgcolor: 'rgba(201, 169, 98, 0.9)',
                     color: '#1a3a2a',
                     px: 4,
+                    py: 1.5,
+                    minWidth: 200,
                     '&:hover': { bgcolor: 'rgba(201, 169, 98, 1)' },
                   }}
                 >
@@ -139,6 +156,8 @@ export default function BookOverviewPage() {
                     borderColor: 'rgba(255,255,255,0.5)',
                     color: 'white',
                     px: 4,
+                    py: 1.5,
+                    minWidth: 200,
                     '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.1)' },
                   }}
                 >
@@ -146,31 +165,22 @@ export default function BookOverviewPage() {
                 </Button>
               </Box>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
-                <MenuBookIcon sx={{ fontSize: 200, color: 'rgba(201, 169, 98, 0.3)' }} />
-              </Box>
-            </Grid>
           </Grid>
         </Container>
       </Box>
 
       {/* Table of Contents */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h4" sx={{ mb: 1, fontWeight: 600, color: colors.text }}>
-          Table of Contents
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 4, color: colors.textSecondary }}>
-          {bookContent.length} sections • A journey through 2,500 years of wisdom
-        </Typography>
+      <Box sx={{ bgcolor: colors.bg, py: 8 }}>
+        <Container maxWidth="lg">
+          <Typography variant="h4" sx={{ mb: 1, fontWeight: 600, color: colors.text }}>
+            Table of Contents
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 4, color: colors.textSecondary }}>
+            {bookContent.length} sections • A journey through 2,500 years of wisdom
+          </Typography>
 
-        <Grid container spacing={3}>
-          {parts.map((part, index) => {
+          <Grid container spacing={3}>
+            {parts.map((part, index) => {
             const sectionKey = part.id.replace('part', '');
             const sections = bookContent.filter(s => 
               s.id.startsWith(`part${sectionKey}`) || 
@@ -222,63 +232,100 @@ export default function BookOverviewPage() {
             );
           })}
 
-          {/* Epilogue */}
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Card
-              component={Link}
-              href="/read/epilogue"
-              sx={{
-                height: '100%',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                bgcolor: '#c9a962',
-                color: '#2c2c2c',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 12px 40px rgba(201, 169, 98, 0.3)',
-                },
-              }}
-            >
-              <CardContent sx={{ textAlign: 'center', py: 4 }}>
-                <Typography variant="h5" gutterBottom>
-                  Epilogue
-                </Typography>
-                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                  The Light That Endures
-                </Typography>
-              </CardContent>
-            </Card>
           </Grid>
 
-          {/* Closing */}
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Card
-              component={Link}
-              href="/read/closing"
-              sx={{
-                height: '100%',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                bgcolor: '#2e4a3d',
-                color: 'white',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 12px 40px rgba(46, 74, 61, 0.3)',
-                },
-              }}
-            >
-              <CardContent sx={{ textAlign: 'center', py: 4 }}>
-                <Typography variant="h5" gutterBottom>
-                  Closing
-                </Typography>
-                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                  The Garden
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
+          {/* Epilogue and Closing - centered row */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, mt: 1 }}>
+            <Box sx={{ width: { xs: '100%', sm: '48%', md: 'calc(33.333% - 16px)' } }}>
+              <Card
+                component={Link}
+                href="/read/epilogue"
+                sx={{
+                  height: '100%',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  overflow: 'hidden',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 12px 40px rgba(201, 169, 98, 0.3)',
+                  },
+                }}
+              >
+                <Box sx={{ position: 'relative', height: 140 }}>
+                  <Image
+                    src="/images/read-epilogue.png"
+                    alt="Epilogue"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(180deg, rgba(201,169,98,0.4) 0%, rgba(201,169,98,0.8) 100%)',
+                    }}
+                  />
+                </Box>
+                <CardContent sx={{ textAlign: 'center', py: 3 }}>
+                  <Typography variant="h5" gutterBottom sx={{ color: colors.text }}>
+                    Epilogue
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: colors.textSecondary }}>
+                    The Light That Endures
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+
+            <Box sx={{ width: { xs: '100%', sm: '48%', md: 'calc(33.333% - 16px)' } }}>
+              <Card
+                component={Link}
+                href="/read/closing"
+                sx={{
+                  height: '100%',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  overflow: 'hidden',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 12px 40px rgba(46, 74, 61, 0.3)',
+                  },
+                }}
+              >
+                <Box sx={{ position: 'relative', height: 140 }}>
+                  <Image
+                    src="/images/read-closing.png"
+                    alt="Closing"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(180deg, rgba(46,74,61,0.4) 0%, rgba(46,74,61,0.8) 100%)',
+                    }}
+                  />
+                </Box>
+                <CardContent sx={{ textAlign: 'center', py: 3 }}>
+                  <Typography variant="h5" gutterBottom sx={{ color: colors.text }}>
+                    Closing
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: colors.textSecondary }}>
+                    The Garden
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
       {/* Quote Preview */}
       <Container maxWidth="md" sx={{ py: 4 }}>

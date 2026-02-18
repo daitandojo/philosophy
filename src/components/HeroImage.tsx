@@ -1,33 +1,33 @@
 'use client';
 import { Box } from '@mui/material';
 
-const DEFAULT_HERO_IMAGE = '/hero.jpg';
+const DEFAULT_HERO_IMAGE = '/images/hero/hero-main.png';
 
 interface HeroImageProps {
   src?: string;
   alt?: string;
 }
 
-export default function HeroImage({ src, alt = 'Rumi illustration' }: HeroImageProps) {
+export default function HeroImage({ src, alt = 'Persian wisdom illustration' }: HeroImageProps) {
   const imageSrc = src || DEFAULT_HERO_IMAGE;
   
   return (
     <Box
       sx={{
         width: '100%',
-        maxWidth: 400,
-        height: 300,
+        maxWidth: 450,
+        height: 350,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        borderRadius: 4,
-        background: 'linear-gradient(135deg, rgba(139, 69, 19, 0.08) 0%, rgba(46, 74, 61, 0.08) 100%)',
-        border: '3px solid rgba(139, 69, 19, 0.15)',
+        borderRadius: 3,
+        background: 'linear-gradient(135deg, rgba(26, 58, 42, 0.05) 0%, rgba(61, 107, 82, 0.08) 100%)',
+        border: '2px solid rgba(201, 169, 98, 0.2)',
         p: 2,
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: 'inset 0 0 60px rgba(139, 69, 19, 0.05)',
+        boxShadow: '0 8px 32px rgba(26, 58, 42, 0.15)',
       }}
     >
       <Box
@@ -39,20 +39,6 @@ export default function HeroImage({ src, alt = 'Rumi illustration' }: HeroImageP
           height: '100%',
           objectFit: 'cover',
           borderRadius: 2,
-        }}
-      />
-
-      {/* White Edge Effect */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          boxShadow: 'inset 0 0 40px 25px rgba(250, 249, 247, 0.95)',
-          pointerEvents: 'none',
-          borderRadius: 4,
         }}
       />
     </Box>

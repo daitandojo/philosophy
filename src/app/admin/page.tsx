@@ -68,10 +68,8 @@ export default function AdminPage() {
     activeUsers: 3245,
     totalVerses: 2450,
     totalPhilosophers: philosophers.length,
-    premiumSubscribers: 856,
     dailyActiveUsers: 1245,
     weeklyGrowth: 12.5,
-    monthlyRevenue: 12450,
     avgSessionDuration: '8m 24s',
     topPhilosophers: [
       { name: 'Rumi', views: 45000 },
@@ -172,12 +170,12 @@ export default function AdminPage() {
           <Card>
             <CardContent>
               <Stack direction="row" alignItems="center" spacing={2}>
-                <Box sx={{ bgcolor: 'warning.main', borderRadius: 2, p: 1.5 }}>
-                  <ChatIcon sx={{ color: 'white' }} />
+                <Box sx={{ bgcolor: 'success.main', borderRadius: 2, p: 1.5 }}>
+                  <PeopleIcon sx={{ color: 'white' }} />
                 </Box>
                 <Box>
-                  <Typography variant="h4">${analytics.monthlyRevenue.toLocaleString()}</Typography>
-                  <Typography variant="body2" color="text.secondary">Monthly Revenue</Typography>
+                  <Typography variant="h4">{analytics.activeUsers.toLocaleString()}</Typography>
+                  <Typography variant="body2" color="text.secondary">Active Users</Typography>
                 </Box>
               </Stack>
             </CardContent>
