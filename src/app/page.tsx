@@ -157,7 +157,15 @@ export default function Home() {
                 }}
               >
                 Discover the
-                <Box component="span" sx={{ display: 'block', fontWeight: 700 }}>
+                <Box 
+                  component="span" 
+                  sx={{ 
+                    display: 'block', 
+                    fontWeight: 700,
+                    fontFamily: '"Amiri", "Vazir", serif',
+                    letterSpacing: '0.02em',
+                  }}
+                >
                   Timeless Wisdom
                 </Box>
                 of Persia
