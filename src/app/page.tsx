@@ -275,44 +275,66 @@ export default function Home() {
               </Box>
             </Grid>
           </Grid>
+
+          {/* Featured Quotes - Full Width Below Search & Buttons */}
+          <Box sx={{ mt: 4 }}>
+            <Grid container spacing={2}>
+              {[
+                { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
+                { text: 'What you seek is seeking you.', philosopher: 'Rumi', image: '/images/quote-seek-seeking.png' },
+                { text: 'When you do things from your soul, you feel a river moving in you, a joy.', philosopher: 'Rumi', image: '/images/quote-river-joy.png' },
+              ].map((quote, idx) => (
+                <Grid size={{ xs: 12, md: 4 }} key={idx}>
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 150,
+                      borderRadius: 3,
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': { transform: 'scale(1.02)' },
+                    }}
+                  >
+                    <Box sx={{ position: 'absolute', inset: 0 }}>
+                      <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
+                    </Box>
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        bgcolor: 'rgba(26, 58, 42, 0.75)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        p: 2,
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: '"Vazir", "Noto Naskh Arabic", serif',
+                          fontSize: '1.15rem',
+                          color: 'white',
+                          fontStyle: 'italic',
+                          lineHeight: 1.5,
+                          mb: 1,
+                        }}
+                      >
+                        "{quote.text}"
+                      </Typography>
+                      <Typography sx={{ fontSize: '0.85rem', color: '#c9a962', fontWeight: 500 }}>
+                        — {quote.philosopher}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </Container>
         <SectionDivider color="#c9a962" height={50} />
-      </Box>
-
-      {/* Featured Quotes - Full Width */}
-      <Box sx={{ bgcolor: 'rgba(46, 74, 61, 0.05)', py: 6 }}>
-        <Container maxWidth="xl">
-          <Grid container spacing={3}>
-            {[
-              { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
-              { text: 'What you seek is seeking you.', philosopher: 'Rumi', image: '/images/quote-seek-seeking.png' },
-              { text: 'When you do things from your soul, you feel a river moving in you, a joy.', philosopher: 'Rumi', image: '/images/quote-river-joy.png' },
-            ].map((quote, idx) => (
-              <Grid size={{ xs: 12, md: 4 }} key={idx}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    borderRadius: 4,
-                    '&:hover': { transform: 'translateY(-4px)' },
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <Box sx={{ position: 'absolute', inset: 0, opacity: 0.35 }}>
-                    <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
-                  </Box>
-                  <CardContent sx={{ position: 'relative', zIndex: 1, bgcolor: 'rgba(26, 58, 42, 0.85)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <Typography variant="h6" sx={{ color: 'white', fontStyle: 'italic', mb: 2, lineHeight: 1.5 }}>
-                      "{quote.text}"
-                    </Typography>
-                    <Chip label={`— ${quote.philosopher}`} sx={{ alignSelf: 'flex-start', bgcolor: 'rgba(201, 169, 98, 0.3)', color: '#c9a962' }} />
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
       </Box>
 
       {/* Features Grid */}
