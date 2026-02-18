@@ -260,14 +260,14 @@ export default function Home() {
                         '&:hover': { transform: 'scale(1.02)' },
                       }}
                     >
-                      <Box sx={{ position: 'absolute', inset: 0, opacity: 0.9 }}>
+                      <Box sx={{ position: 'absolute', inset: 0, opacity: 0.85 }}>
                         <Image src={quote.image} alt="" fill style={{ objectFit: 'cover' }} />
                       </Box>
                       <Box
                         sx={{
                           position: 'absolute',
                           inset: 0,
-                          bgcolor: 'rgba(26, 58, 42, 0.4)',
+                          bgcolor: 'rgba(0,0,0,0.35)',
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'center',
@@ -276,19 +276,19 @@ export default function Home() {
                       >
                         <Typography
                           sx={{
-                            fontFamily: '"Vazir", "Noto Naskh Arabic", serif',
-                            fontSize: '0.8rem',
-                            color: 'rgba(255,255,255,0.85)',
-                            fontStyle: 'italic',
+                            fontFamily: 'system-ui, sans-serif',
+                            fontSize: '0.9rem',
+                            fontWeight: 500,
+                            color: '#ffffff',
                             lineHeight: 1.4,
                             mb: 0.5,
                             textAlign: 'left',
                           }}
                         >
-                          "{quote.text}"
+                          {quote.text}
                         </Typography>
-                        <Typography sx={{ fontSize: '0.65rem', color: 'rgba(201, 169, 98, 0.8)', fontWeight: 400 }}>
-                          — {quote.philosopher}
+                        <Typography sx={{ fontSize: '0.7rem', color: '#c9a962', fontWeight: 500 }}>
+                          {quote.philosopher}
                         </Typography>
                       </Box>
                     </Box>
