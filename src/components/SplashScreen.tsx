@@ -7,7 +7,7 @@ interface SplashScreenProps {
   duration?: number;
 }
 
-export default function SplashScreen({ onComplete, duration = 2000 }: SplashScreenProps) {
+export default function SplashScreen({ onComplete, duration = 1500 }: SplashScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
   const theme = useTheme();
 
