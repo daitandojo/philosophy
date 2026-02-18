@@ -24,6 +24,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ForumIcon from '@mui/icons-material/Forum';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useI18n } from '@/i18n';
 import { 
@@ -206,110 +207,70 @@ export default function Home() {
                 }}
                 sx={{ mb: 4, maxWidth: 500 }}
               />
-
-              <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-                <Button
-                  variant="contained"
-                  size="large"
-                  component={Link}
-                  href="/explore"
-                  endIcon={<ArrowForwardIcon />}
-                  sx={{
-                    px: 4,
-                    py: 1.5,
-                    bgcolor: '#c9a962',
-                    color: '#1a1a1a',
-                    fontWeight: 600,
-                    '&:hover': {
-                      bgcolor: '#d4bc7d',
-                    },
-                  }}
-                >
-                  {t.home.exploreVerses}
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  component={Link}
-                  href="/chat"
-                  startIcon={<ChatIcon />}
-                  sx={{
-                    px: 4,
-                    py: 1.5,
-                    borderColor: 'rgba(255,255,255,0.5)',
-                    color: 'white',
-                    '&:hover': {
-                      borderColor: 'white',
-                      bgcolor: 'rgba(255,255,255,0.1)',
-                    },
-                  }}
-                >
-                  Chat
-                </Button>
-              </Stack>
             </Grid>
 
             <Grid size={{ xs: 12, md: 5 }}>
               <Box
                 sx={{
-                  display: { xs: 'none', md: 'flex' },
+                  display: 'flex',
                   flexDirection: 'column',
-                  gap: 2,
+                  gap: 1.5,
                 }}
               >
-                {famousQuotes.map((quote, idx) => (
-                  <Card
+                {[
+                  { icon: <AutoStoriesIcon />, label: 'Explore verses', href: '/explore', desc: 'Browse wisdom' },
+                  { icon: <ChatIcon />, label: 'Chat', href: '/chat', desc: 'Talk with philosophers' },
+                  { icon: <SchoolIcon />, label: 'Learn', href: '/learn', desc: 'Guided paths' },
+                  { icon: <ForumIcon />, label: 'Discourses', href: '/discourse', desc: 'Join discussions' },
+                  { icon: <GroupsIcon />, label: 'Community', href: '/community', desc: 'Connect with others' },
+                ].map((item, idx) => (
+                  <Box
                     key={idx}
+                    component={Link}
+                    href={item.href}
                     sx={{
-                      background: 'rgba(255,255,255,0.1)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(201, 169, 98, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      p: 2,
                       borderRadius: 3,
-                      overflow: 'hidden',
-                      position: 'relative',
+                      bgcolor: 'rgba(255,255,255,0.08)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      textDecoration: 'none',
+                      color: 'white',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(255,255,255,0.15)',
+                        borderColor: 'rgba(201, 169, 98, 0.5)',
+                        transform: 'translateX(8px)',
+                      },
                     }}
                   >
-                    {/* Background Image */}
                     <Box
                       sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        opacity: 0.25,
+                        width: 40,
+                        height: 40,
+                        borderRadius: 2,
+                        bgcolor: 'rgba(201, 169, 98, 0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#c9a962',
+                        '& svg': { fontSize: 20 },
                       }}
                     >
-                      <Image
-                        src={quote.image}
-                        alt=""
-                        fill
-                        style={{ objectFit: 'cover' }}
-                      />
+                      {item.icon}
                     </Box>
-                    <CardContent sx={{ position: 'relative', zIndex: 1 }}>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: 'white',
-                          fontStyle: 'italic',
-                          mb: 1,
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        "{quote.text}"
+                    <Box sx={{ flex: 1 }}>
+                      <Typography sx={{ fontWeight: 600, fontSize: '1rem', lineHeight: 1.2 }}>
+                        {item.label}
                       </Typography>
-                      <Chip
-                        label={`— ${quote.philosopher}`}
-                        size="small"
-                        sx={{
-                          bgcolor: 'rgba(201, 169, 98, 0.2)',
-                          color: '#c9a962',
-                          fontWeight: 500,
-                        }}
-                      />
-                    </CardContent>
-                  </Card>
+                      <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
+                        {item.desc}
+                      </Typography>
+                    </Box>
+                    <ArrowForwardIcon sx={{ color: 'rgba(255,255,255,0.4)', fontSize: 18 }} />
+                  </Box>
                 ))}
               </Box>
             </Grid>
