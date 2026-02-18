@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -9,7 +9,6 @@ interface SplashScreenProps {
 
 export default function SplashScreen({ onComplete, duration = 1500 }: SplashScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,9 +27,7 @@ export default function SplashScreen({ onComplete, duration = 1500 }: SplashScre
         left: 0,
         width: '100vw',
         height: '100vh',
-        background: theme.palette.mode === 'dark' 
-          ? 'linear-gradient(135deg, #1a1a1a 0%, #121212 100%)'
-          : 'linear-gradient(135deg, #faf9f7 0%, #f5f4f1 100%)',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -47,12 +44,10 @@ export default function SplashScreen({ onComplete, duration = 1500 }: SplashScre
           left: 0,
           width: '100%',
           height: '100%',
-          opacity: 0.15,
+          opacity: 0.12,
           backgroundImage: 'url(/splash_screen.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          border: '50px solid white',
-          boxSizing: 'border-box',
         }}
       />
 
@@ -63,51 +58,28 @@ export default function SplashScreen({ onComplete, duration = 1500 }: SplashScre
           zIndex: 1,
         }}
       >
-        <Box
-          sx={{
-            width: 120,
-            height: 120,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #8b4513 0%, #c9a962 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mx: 'auto',
-            mb: 4,
-            boxShadow: '0 8px 32px rgba(139, 69, 19, 0.3)',
-          }}
-        >
-          <Box
-            sx={{
-              fontFamily: '"Vazir", serif',
-              fontSize: '3rem',
-              color: 'white',
-              direction: 'rtl',
-            }}
-          >
-            ح
-          </Box>
-        </Box>
-
         <Box sx={{ mb: 2 }}>
           <Box
             sx={{
               fontFamily: '"Vazir", serif',
-              fontSize: { xs: '2.5rem', md: '4rem' },
-              background: 'linear-gradient(135deg, #8b4513 0%, #2e4a3d 100%)',
+              fontSize: { xs: '3rem', md: '5rem' },
+              background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 50%, #2e4a3d 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               letterSpacing: '0.05em',
+              mb: 1,
             }}
           >
             حکمت
           </Box>
           <Typography
             sx={{
-              fontSize: { xs: '1.2rem', md: '1.5rem' },
-              color: 'text.secondary',
-              letterSpacing: '0.2em',
+              fontFamily: 'system-ui, sans-serif',
+              fontSize: { xs: '1.25rem', md: '1.5rem' },
+              color: 'rgba(255, 255, 255, 0.75)',
+              letterSpacing: '0.25em',
               textTransform: 'uppercase',
+              fontWeight: 300,
             }}
           >
             Hikmatia
@@ -118,19 +90,21 @@ export default function SplashScreen({ onComplete, duration = 1500 }: SplashScre
           <Typography
             sx={{
               fontFamily: '"Vazir", serif',
-              fontSize: '1.1rem',
-              color: 'text.secondary',
+              fontSize: '1.2rem',
+              color: 'rgba(201, 169, 98, 0.85)',
               direction: 'rtl',
+              mb: 1,
             }}
           >
             بیا تا برایت ببینیم
           </Typography>
           <Typography
             sx={{
+              fontFamily: 'system-ui, sans-serif',
               fontSize: '0.9rem',
-              color: 'text.secondary',
+              color: 'rgba(255, 255, 255, 0.5)',
               fontStyle: 'italic',
-              mt: 1,
+              letterSpacing: '0.05em',
             }}
           >
             "Come, let us see for you..."
