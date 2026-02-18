@@ -157,18 +157,13 @@ export default function Home() {
                 }}
               >
                 Discover the
-                <Box 
-                  component="span" 
-                  sx={{ 
-                    display: 'block', 
-                    fontWeight: 700,
-                    fontFamily: '"Amiri", "Vazir", serif',
-                    letterSpacing: '0.02em',
-                  }}
-                >
+                <Box component="span" sx={{ display: 'block', fontWeight: 700, background: 'linear-gradient(135deg, rgba(201,169,98,0.85) 0%, rgba(201,169,98,0.5) 50%, rgba(201,169,98,0.75) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   Timeless Wisdom
                 </Box>
                 of Persia
+                <Box component="span" sx={{ display: 'block', fontFamily: '"Vazir", serif', fontSize: '1.8rem', color: 'rgba(201, 169, 98, 0.7)', mt: 1, textAlign: 'left', direction: 'ltr' }}>
+                  حکمت
+                </Box>
               </Typography>
 
               <Typography
