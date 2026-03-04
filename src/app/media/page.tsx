@@ -143,10 +143,13 @@ export default function MediaPage() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          minHeight: { xs: 400, md: 500 },
           py: { xs: 6, md: 10 },
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <HeroPattern color="#c9a962" opacity={0.08} />

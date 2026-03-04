@@ -31,7 +31,7 @@ let theme = createTheme({
       contrastText: '#1a1a1a',
     },
     background: {
-      default: '#faf9f7',
+      default: '#c8d8d0',
       paper: '#ffffff',
     },
     text: {
@@ -158,6 +158,7 @@ let theme = createTheme({
     MuiSelect: {
       styleOverrides: {
         root: {
+          backgroundColor: '#faf9f7',
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgba(139, 69, 19, 0.3)',
             borderWidth: 1,
@@ -202,6 +203,7 @@ let theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
+          backgroundColor: '#faf9f7',
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgba(139, 69, 19, 0.3)',
           },
@@ -255,7 +257,7 @@ export const darkTheme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#0a0a0a',
+      default: '#0d1f18',
       paper: '#1a1a1a',
     },
     text: {

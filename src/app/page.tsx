@@ -96,10 +96,14 @@ export default function Home() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          minHeight: { xs: 500, md: 600 },
           position: 'relative',
           overflow: 'hidden',
-          pb: { xs: 8, md: 12 },
-          pt: { xs: 6, md: 10 },
+          py: { xs: 6, md: 10 },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <HeroPattern color="#c9a962" opacity={0.08} />
@@ -130,9 +134,9 @@ export default function Home() {
           />
         </Box>
 
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Grid container spacing={4} alignItems="center">
-            <Grid size={{ xs: 12, md: 7 }}>
+        <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1400, mx: 'auto' }}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 4, width: '100%', maxWidth: 1200, mx: 'auto' }}>
+            <Box sx={{ flex: { md: '0 0 auto' }, width: { xs: '100%', md: '58.333333%' }, textAlign: 'left' }}>
               <Typography
                 variant="overline"
                 sx={{ 
@@ -161,7 +165,7 @@ export default function Home() {
                   Timeless Wisdom
                 </Box>
                 of Persia
-                <Box component="span" sx={{ display: 'block', fontFamily: '"Vazir", serif', fontSize: '1.8rem', color: 'rgba(201, 169, 98, 0.7)', mt: 1, textAlign: 'left', direction: 'ltr' }}>
+                <Box component="span" sx={{ display: 'block', fontFamily: '"Vazir", serif', fontSize: '1.8rem', color: 'rgba(201, 169, 98, 0.7)', mt: 1 }}>
                   حکمت
                 </Box>
               </Typography>
@@ -241,10 +245,10 @@ export default function Home() {
                   </Button>
                 ))}
               </Stack>
-            </Grid>
+            </Box>
 
             {/* Quote Tiles - Right Side */}
-            <Grid size={{ xs: 12, md: 5 }}>
+            <Box sx={{ flex: { md: '0 0 auto' }, width: { xs: '100%', md: '41.666667%' } }}>
               <Grid container spacing={1.5}>
                 {[
                   { text: 'The wound is the place where the Light enters you.', philosopher: 'Rumi', image: '/images/quote-wound-light.png' },
@@ -285,12 +289,12 @@ export default function Home() {
                             color: '#ffffff',
                             lineHeight: 1.4,
                             mb: 0.5,
-                            textAlign: 'left',
+                            textAlign: 'center',
                           }}
                         >
                           {quote.text}
                         </Typography>
-                        <Typography sx={{ fontSize: '0.7rem', color: '#c9a962', fontWeight: 500 }}>
+                        <Typography sx={{ fontSize: '0.7rem', color: '#c9a962', fontWeight: 500, textAlign: 'center' }}>
                           {quote.philosopher}
                         </Typography>
                       </Box>
@@ -298,37 +302,14 @@ export default function Home() {
                   </Grid>
                 ))}
               </Grid>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
         <SectionDivider color="#c9a962" height={50} />
       </Box>
 
       {/* Features Grid */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            textAlign: 'center',
-            mb: 1,
-            fontWeight: 300,
-          }}
-        >
-          Explore Hikmatia
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            textAlign: 'center',
-            color: 'text.secondary',
-            mb: 6,
-            maxWidth: 600,
-            mx: 'auto',
-          }}
-        >
-          Your gateway to 2,500 years of Persian philosophical wisdom
-        </Typography>
-
         <Grid container spacing={3}>
           {features.map((feature, idx) => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>

@@ -274,36 +274,66 @@ export default function LearnPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#c8d8d0', display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          py: { xs: 2, md: 3 },
+          minHeight: { xs: 280, md: 350 },
+          py: { xs: 4, md: 6 },
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
           flexShrink: 0,
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
-        <HeroPattern color="#c9a962" opacity={0.06} />
-        <FloatingMotif variant="arcs" color="#c9a962" size={80} top="10%" left="5%" opacity={0.1} />
+        <HeroPattern color="#c9a962" opacity={0.08} />
+        <CornerDecoration position="top-left" color="#c9a962" size={120} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={120} />
+        <FloatingMotif variant="arcs" color="#c9a962" size={80} top="10%" left="5%" opacity={0.12} />
         <FloatingMotif variant="celestial" color="#c9a962" size={60} bottom="15%" right="10%" opacity={0.1} />
-        <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
+        <FloatingMotif variant="geometric" color="#c9a962" size={50} top="20%" left="20%" opacity={0.08} />
+        {/* Background Image - recycled */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.15,
+          }}
+        >
+          <Image
+            src="/images/explore-hero.png"
+            alt="Persian learning"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </Box>
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 2, display: 'block', fontSize: '0.875rem' }}>
             {t.learn.journey}
           </Typography>
-          <Typography variant="h4" sx={{ color: 'white', fontWeight: 300, mb: 1 }}>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
             {t.learn.title}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
             {t.learn.subtitle}
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 2, flex: 1, overflow: 'hidden' }}>
-        <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      <Container maxWidth={false} sx={{ py: 2, flex: 1, overflow: 'hidden', px: { xs: 2, md: 4 } }}>
+        <Box sx={{ position: 'relative' }}>
+        <HeroPattern color="#8b4513" opacity={0.04} />
+        <CornerDecoration position="top-left" color="#8b4513" size={80} />
+        <CornerDecoration position="bottom-right" color="#8b4513" size={80} />
+        
+        <Box sx={{ position: 'relative', zIndex: 1 }}>
         {/* Era Filter Tabs */}
         <Box sx={{ mb: 4, borderBottom: 1, borderColor: 'rgba(201, 169, 98, 0.15)' }}>
           <Tabs 
@@ -341,7 +371,7 @@ export default function LearnPage() {
         {/* Learning Paths */}
         <Grid container spacing={3}>
           {filteredPaths.map((path) => (
-            <Grid size={{ xs: 12, md: 6 }} key={path._id}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={path._id}>
               <Card 
                 sx={{ 
                   height: '100%', 
@@ -525,6 +555,7 @@ export default function LearnPage() {
               </Box>
             </Grid>
           </Grid>
+        </Box>
         </Box>
         </Box>
       </Container>

@@ -93,22 +93,26 @@ export default function PhilosophersPage() {
   const schools = [...new Set(philosophers.flatMap(p => p.school))];
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#c8d8d0' }}>
       {/* Hero Section */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          minHeight: { xs: 280, md: 350 },
           py: { xs: 6, md: 10 },
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <HeroPattern color="#c9a962" opacity={0.08} />
-        <CornerDecoration position="top-left" color="#c9a962" size={100} />
-        <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
-        <FloatingMotif variant="stars" color="#c9a962" size={80} top="10%" right="10%" opacity={0.1} />
+        <CornerDecoration position="top-left" color="#c9a962" size={120} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={120} />
+        <FloatingMotif variant="stars" color="#c9a962" size={80} top="10%" right="10%" opacity={0.12} />
         <FloatingMotif variant="geometric" color="#c9a962" size={60} bottom="15%" left="15%" opacity={0.1} />
+        <FloatingMotif variant="celestial" color="#c9a962" size={50} top="20%" left="20%" opacity={0.08} />
         {/* Background Image */}
         <Box
           sx={{
@@ -117,7 +121,7 @@ export default function PhilosophersPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: 0.1,
+            opacity: 0.15,
           }}
         >
           <Image
@@ -129,20 +133,25 @@ export default function PhilosophersPage() {
           />
         </Box>
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 2, display: 'block', fontSize: '0.875rem' }}>
             {t.philosophers.subtitle}
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 2 }}>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
             {t.philosophers.title}
           </Typography>
-          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300 }}>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
             {t.philosophers.subtitle}
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ position: 'relative', py: 4, px: { xs: 2, md: 4 }, bgcolor: '#c8d8d0', minHeight: '100vh' }}>
+        <HeroPattern color="#8b4513" opacity={0.04} />
+        <CornerDecoration position="top-left" color="#8b4513" size={80} />
+        <CornerDecoration position="bottom-right" color="#8b4513" size={80} />
+        
+        <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container spacing={3} sx={{ mb: 4, maxWidth: 800, mx: 'auto' }}>
         <Grid size={{ xs: 12, md: 4 }}>
           <TextField
             fullWidth
@@ -184,7 +193,7 @@ export default function PhilosophersPage() {
 
       <Grid container spacing={3}>
         {filteredPhilosophers.map((philosopher) => (
-          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={philosopher.id}>
+          <Grid size={{ xs: 12, sm: 6, md: 2 }} key={philosopher.id}>
             <Card
               sx={{
                 height: '100%',
@@ -291,16 +300,14 @@ export default function PhilosophersPage() {
                   <Box sx={{ display: 'flex', gap: 0.5 }}>
                     <IconButton 
                       size="small" 
-                      component={Link}
-                      href={`/philosophers/${philosopher.id}`}
+                      onClick={() => window.location.href = `/philosophers/${philosopher.id}`}
                       sx={{ color: 'text.secondary', '&:hover': { color: '#8b4513' } }}
                     >
                       <InfoOutlinedIcon fontSize="small" />
                     </IconButton>
                     <IconButton 
                       size="small" 
-                      component={Link}
-                      href={`/chat?philosopher=${philosopher.id}`}
+                      onClick={() => window.location.href = `/chat?philosopher=${philosopher.id}`}
                       sx={{ color: 'text.secondary', '&:hover': { color: '#8b4513' } }}
                     >
                       <ChatIcon fontSize="small" />
@@ -327,6 +334,7 @@ export default function PhilosophersPage() {
         </Box>
       )}
       </Container>
+      </Box>
     </Box>
   );
 }

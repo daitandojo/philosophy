@@ -97,15 +97,21 @@ export default function TimelinePage() {
       {/* Hero Section */}
       <Box
         sx={{
-          position: 'relative',
-          py: { xs: 3, md: 5 },
+          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          minHeight: { xs: 400, md: 500 },
+          py: { xs: 6, md: 10 },
           textAlign: 'center',
+          position: 'relative',
           overflow: 'hidden',
           flexShrink: 0,
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <HeroPattern color="#c9a962" opacity={0.08} />
-        <FloatingMotif variant="stars" color="#c9a962" size={70} top="10%" right="10%" opacity={0.1} />
+        <CornerDecoration position="top-left" color="#c9a962" size={120} />
+        <CornerDecoration position="bottom-right" color="#c9a962" size={120} />
+        <FloatingMotif variant="stars" color="#c9a962" size={70} top="10%" right="10%" opacity={0.12} />
         <FloatingMotif variant="waves" color="#c9a962" size={60} bottom="15%" left="10%" opacity={0.1} />
         {/* Background Image */}
         <Box
@@ -127,37 +133,14 @@ export default function TimelinePage() {
           />
         </Box>
 
-        {/* Decorative SVG River */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 120,
-            opacity: 0.2,
-          }}
-        >
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }}>
-            <path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z" fill="url(#riverGradient)" />
-            <defs>
-              <linearGradient id="riverGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#1a3a2a" />
-                <stop offset="50%" stopColor="#2e4a3d" />
-                <stop offset="100%" stopColor="#1a3a2a" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </Box>
-
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 1, display: 'block' }}>
+          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 2, display: 'block', fontSize: '0.875rem' }}>
             Historical Journey
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 1, fontSize: { xs: '2rem', md: '3rem' } }}>
+          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
             {t.timeline.title}
           </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
             {t.timeline.subtitle}
           </Typography>
         </Container>
@@ -300,9 +283,10 @@ export default function TimelinePage() {
                 </Box>
                 {/* Chat button overlay */}
                 <Box
-                  component={Link}
-                  href={`/chat?philosopher=${currentPhilosopher.id}`}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `/chat?philosopher=${currentPhilosopher.id}`;
+                  }}
                   sx={{
                     position: 'absolute',
                     bottom: 0,
@@ -316,6 +300,7 @@ export default function TimelinePage() {
                     justifyContent: 'center',
                     color: 'white',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    cursor: 'pointer',
                     '&:hover': { bgcolor: '#a0522d' },
                   }}
                 >

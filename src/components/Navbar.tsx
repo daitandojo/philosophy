@@ -22,14 +22,17 @@ import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeRegistry';
 
 const navItems = [
-  { label: 'Explore', href: '/explore' },
+  { label: 'Intro', href: '/' },
   { label: 'History', href: '/read' },
-  { label: 'Philosophers', href: '/philosophers' },
   { label: 'Timeline', href: '/timeline' },
+  { label: 'Philosophers', href: '/philosophers' },
+  { label: 'Explore', href: '/explore' },
+  { label: 'Slideshow', href: '/slideshow' },
   { label: 'Learn', href: '/learn' },
   { label: 'Discourses', href: '/discourse' },
   { label: 'Community', href: '/community' },
   { label: 'Chat', href: '/chat' },
+  { label: 'Media', href: '/media' },
   { label: 'About', href: '/about' },
 ];
 

@@ -5,23 +5,13 @@ import { useI18n } from '@/i18n';
 import {
   Box,
   Container,
-  Typography as Typo,
   Typography,
   Grid,
   TextField,
   InputAdornment,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Chip,
-  Stack,
   Pagination,
   CircularProgress,
-  Card,
-  CardContent,
-  ToggleButton,
-  ToggleButtonGroup,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -32,7 +22,6 @@ import Image from 'next/image';
 import { 
   HeroPattern, 
   FloatingMotif, 
-  SectionDivider,
   CornerDecoration,
 } from '@/components/SVGDecorations';
 
@@ -52,13 +41,16 @@ function ExploreContent() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [showLikedOnly, setShowLikedOnly] = useState(false);
-  const [likedVerses, setLikedVerses] = useState<Set<string>>(() => {
+  const [likedVerses, setLikedVerses] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(LIKED_VERSES_KEY);
-      return saved ? new Set(JSON.parse(saved)) : new Set();
+      if (saved) {
+        setLikedVerses(new Set(JSON.parse(saved)));
+      }
     }
-    return new Set();
-  });
+  }, []);
 
   const toggleLike = (verseId: string) => {
     setLikedVerses(prev => {
@@ -104,240 +96,270 @@ function ExploreContent() {
   const sources = ['Masnavi', 'Divan-e Shams', 'Fihi Ma Fihi', 'Mawlana Letters', 'Gulistan', 'Bustan', 'Divan-e Hafez', 'Shahnameh', 'Conference of the Birds', 'Ilahi-Nama', 'Walled Garden of Truth'];
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
-      {/* Hero Section */}
+    <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', color: '#f5f5f5' }}>
+      {/* Hero */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
+          background: 'linear-gradient(135deg, #0d1f18 0%, #1a3a2a 50%, #2e4a3d 100%)',
+          minHeight: { xs: 180, md: 220 },
           position: 'relative',
           overflow: 'hidden',
-          py: { xs: 6, md: 8 },
-          flexShrink: 0,
+          py: { xs: 4, md: 5 },
         }}
       >
-        <HeroPattern color="#c9a962" opacity={0.08} />
+        <HeroPattern color="#c9a962" opacity={0.1} />
         <CornerDecoration position="top-left" color="#c9a962" size={100} />
         <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
-        <FloatingMotif variant="geometric" color="#c9a962" size={70} top="15%" right="8%" opacity={0.1} />
-        <FloatingMotif variant="celestial" color="#c9a962" size={60} bottom="20%" left="10%" opacity={0.1} />
-        {/* Background Image */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.1,
-          }}
-        >
-          <Image
-            src="/images/explore-hero.png"
-            alt="Persian wisdom"
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
-          />
+        <FloatingMotif variant="celestial" color="#c9a962" size={60} top="15%" left="8%" opacity={0.15} />
+        <FloatingMotif variant="geometric" color="#c9a962" size={50} bottom="20%" right="10%" opacity={0.1} />
+        
+        <Box sx={{ position: 'absolute', inset: 0, opacity: 0.15 }}>
+          <Image src="/images/explore-hero.png" alt="Persian wisdom" fill style={{ objectFit: 'cover' }} priority />
         </Box>
-        <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
-            Persian Wisdom
+        
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography variant="overline" sx={{ color: '#c9a962', letterSpacing: 6, mb: 1, display: 'block', fontSize: '0.75rem', fontWeight: 500 }}>
+            Hikmatia
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 1, fontSize: { xs: '2rem', md: '3rem' } }}>
+          <Typography variant="h3" sx={{ color: '#ffffff', fontWeight: 300, mb: 1, fontSize: { xs: '1.75rem', md: '2.5rem' }, letterSpacing: '-0.02em' }}>
             {t.explore.title}
           </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: 500, lineHeight: 1.6, fontSize: '0.95rem' }}>
             {t.explore.subtitle}
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="xl" sx={{ py: 2, flex: 1, overflow: 'hidden' }}>
-        <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            placeholder={t.explore.searchPlaceholder}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <FormControl fullWidth>
-            <InputLabel>{t.verse.philosopher}</InputLabel>
-            <Select
-              value={philosopher}
-              label={t.verse.philosopher}
-              onChange={(e) => setPhilosopher(e.target.value)}
-            >
-              <MenuItem value="">{t.philosophers.viewAll} {t.verse.philosopher}</MenuItem>
-              {philosophers.map((p) => (
-                <MenuItem key={p.id} value={p.id}>{p.name.english}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <FormControl fullWidth>
-            <InputLabel>{t.explore.themes}</InputLabel>
-            <Select
-              value={theme}
-              label={t.explore.themes}
-              onChange={(e) => setTheme(e.target.value)}
-            >
-              <MenuItem value="">{t.explore.allThemes}</MenuItem>
-              {themes.map((t) => (
-                <MenuItem key={t} value={t}>{t}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <FormControl fullWidth>
-            <InputLabel>{t.verse.source}</InputLabel>
-            <Select
-              value={source}
-              label={t.verse.source}
-              onChange={(e) => setSource(e.target.value)}
-            >
-              <MenuItem value="">{t.common.viewAll} {t.verse.source}</MenuItem>
-              {sources.map((s) => (
-                <MenuItem key={s} value={s}>{s}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
-
-      {/* Liked filter toggle */}
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
-        <ToggleButtonGroup
-          value={showLikedOnly ? 'liked' : 'all'}
-          exclusive
-          onChange={(_, value) => setShowLikedOnly(value === 'liked')}
-          size="small"
-          sx={{
-            '& .MuiToggleButton-root': {
-              border: '1px solid rgba(139, 69, 19, 0.3)',
-              color: '#5a5a5a',
-              '&.Mui-selected': {
-                bgcolor: 'rgba(139, 69, 19, 0.1)',
-                color: '#8b4513',
-                borderColor: '#8b4513',
-              },
-            },
-          }}
-        >
-          <ToggleButton value="all">
-            All Verses
-          </ToggleButton>
-          <ToggleButton value="liked" sx={{ gap: 1 }}>
-            <FavoriteIcon sx={{ fontSize: 16 }} />
-            Liked Only
-          </ToggleButton>
-        </ToggleButtonGroup>
-
-        {showLikedOnly && (
-          <Typo variant="body2" sx={{ color: 'text.secondary' }}>
-            {verses.filter(v => likedVerses.has(v._id)).length} liked verse{verses.filter(v => likedVerses.has(v._id)).length !== 1 ? 's' : ''}
-          </Typo>
-        )}
-      </Box>
-
-      <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        {philosopher && (
-          <Chip
-            label={philosophers.find(p => p.id === philosopher)?.name.english}
-            onDelete={() => setPhilosopher('')}
-            sx={{
-              bgcolor: 'rgba(26, 58, 42, 0.15)',
-              color: '#1a3a2a',
-              fontWeight: 500,
-              border: '1px solid rgba(26, 58, 42, 0.3)',
-            }}
-          />
-        )}
-        {theme && (
-          <Chip
-            label={theme}
-            onDelete={() => setTheme('')}
-            sx={{
-              bgcolor: 'rgba(139, 69, 19, 0.15)',
-              color: '#8b4513',
-              fontWeight: 500,
-              border: '1px solid rgba(139, 69, 19, 0.3)',
-            }}
-          />
-        )}
-        {source && (
-          <Chip
-            label={source}
-            onDelete={() => setSource('')}
-            sx={{
-              bgcolor: 'rgba(201, 169, 98, 0.2)',
-              color: '#8b4513',
-              fontWeight: 500,
-              border: '1px solid rgba(201, 169, 98, 0.4)',
-            }}
-          />
-        )}
-      </Box>
-
-      {loading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-          <CircularProgress />
-        </Box>
-      ) : verses.length === 0 ? (
-        <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typo variant="h6" color="text.secondary">
-            No verses found. Try adjusting your filters.
-          </Typo>
-        </Box>
-      ) : (
-        <>
-          <Grid container spacing={3}>
-            {verses
-              .filter(verse => !showLikedOnly || likedVerses.has(verse._id))
-              .map((verse) => (
-                <Grid size={{ xs: 12, md: 6 }} key={verse._id}>
-                  <VerseCard 
-                    verse={verse} 
-                    isLiked={likedVerses.has(verse._id)}
-                    onToggleLike={() => toggleLike(verse._id)}
-                  />
-                </Grid>
-              ))}
-          </Grid>
-          
-          {totalPages > 1 && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-              <Pagination
-                count={totalPages}
-                page={page}
-                onChange={(_, newPage) => setPage(newPage)}
-                sx={{
-                  '& .MuiPaginationItem-root': {
-                    color: '#8b4513',
-                    borderColor: 'rgba(139, 69, 19, 0.2)',
-                  },
-                  '& .MuiPaginationItem-root.Mui-selected': {
-                    bgcolor: 'rgba(139, 69, 19, 0.1)',
+      {/* Filters */}
+      <Container maxWidth="xl" sx={{ py: 4, px: { xs: 2, md: 4 } }}>
+        <Box sx={{ 
+          bgcolor: 'rgba(26, 58, 42, 0.3)', 
+          border: '1px solid rgba(201, 169, 98, 0.15)',
+          borderRadius: 3,
+          backdropFilter: 'blur(10px)',
+          p: 3,
+          mb: 4,
+        }}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid size={{ xs: 12, md: 3 }}>
+              <Box 
+                onClick={() => setShowLikedOnly(!showLikedOnly)}
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 1.5, 
+                  cursor: 'pointer',
+                  p: 1.5,
+                  borderRadius: 2,
+                  bgcolor: showLikedOnly ? 'rgba(201, 169, 98, 0.15)' : 'transparent',
+                  border: '1px solid',
+                  borderColor: showLikedOnly ? '#c9a962' : 'rgba(201, 169, 98, 0.2)',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'rgba(201, 169, 98, 0.1)',
                   },
                 }}
+              >
+                <FavoriteIcon sx={{ color: showLikedOnly ? '#c9a962' : 'rgba(255,255,255,0.5)', fontSize: 20 }} />
+                <Typography sx={{ color: showLikedOnly ? '#c9a962' : 'rgba(255,255,255,0.7)', fontSize: '0.85rem' }}>
+                  {showLikedOnly ? 'Showing Liked' : 'Show Liked'}
+                </Typography>
+              </Box>
+            </Grid>
+            
+            <Grid size={{ xs: 12, md: 3 }}>
+              <TextField
+                fullWidth
+                size="small"
+                placeholder={t.explore.searchPlaceholder}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    bgcolor: 'rgba(0,0,0,0.2)',
+                    color: '#f5f5f5',
+                    '& fieldset': { borderColor: 'rgba(201, 169, 98, 0.2)' },
+                    '&:hover fieldset': { borderColor: 'rgba(201, 169, 98, 0.4)' },
+                    '&.Mui-focused fieldset': { borderColor: '#c9a962' },
+                  },
+                  '& .MuiInputBase-input::placeholder': {
+                    color: 'rgba(255,255,255,0.4)',
+                  },
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon sx={{ color: 'rgba(255,255,255,0.4)' }} />
+                    </InputAdornment>
+                  ),
+                }}
               />
+            </Grid>
+            
+            <Grid size={{ xs: 6, md: 2 }}>
+              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                {philosophers.slice(0, 4).map((p) => (
+                  <Chip
+                    key={p.id}
+                    label={p.name.english.split(' ')[0]}
+                    onClick={() => setPhilosopher(philosopher === p.id ? '' : p.id)}
+                    sx={{
+                      bgcolor: philosopher === p.id ? '#c9a962' : 'rgba(201, 169, 98, 0.1)',
+                      color: philosopher === p.id ? '#0d1f18' : 'rgba(255,255,255,0.8)',
+                      fontWeight: philosopher === p.id ? 600 : 400,
+                      fontSize: '0.7rem',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        bgcolor: philosopher === p.id ? '#d4bc7d' : 'rgba(201, 169, 98, 0.2)',
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
+            </Grid>
+            
+            <Grid size={{ xs: 6, md: 2 }}>
+              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                {themes.slice(0, 4).map((t) => (
+                  <Chip
+                    key={t}
+                    label={t}
+                    onClick={() => setTheme(theme === t ? '' : t)}
+                    size="small"
+                    sx={{
+                      bgcolor: theme === t ? 'rgba(201, 169, 98, 0.3)' : 'transparent',
+                      color: theme === t ? '#c9a962' : 'rgba(255,255,255,0.6)',
+                      border: '1px solid',
+                      borderColor: theme === t ? '#c9a962' : 'rgba(201, 169, 98, 0.2)',
+                      fontSize: '0.65rem',
+                      cursor: 'pointer',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Grid>
+            
+            <Grid size={{ xs: 12, md: 2 }}>
+              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                {sources.slice(0, 4).map((s) => (
+                  <Chip
+                    key={s}
+                    label={s.split(' ')[0]}
+                    onClick={() => setSource(source === s ? '' : s)}
+                    size="small"
+                    sx={{
+                      bgcolor: source === s ? 'rgba(201, 169, 98, 0.3)' : 'transparent',
+                      color: source === s ? '#c9a962' : 'rgba(255,255,255,0.6)',
+                      border: '1px solid',
+                      borderColor: source === s ? '#c9a962' : 'rgba(201, 169, 98, 0.2)',
+                      fontSize: '0.65rem',
+                      cursor: 'pointer',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Grid>
+          </Grid>
+
+          {/* Active Filters */}
+          {(philosopher || theme || source) && (
+            <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid rgba(201, 169, 98, 0.1)', display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+              {philosopher && (
+                <Chip
+                  label={philosophers.find(p => p.id === philosopher)?.name.english}
+                  onDelete={() => setPhilosopher('')}
+                  size="small"
+                  sx={{
+                    bgcolor: 'rgba(201, 169, 98, 0.15)',
+                    color: '#c9a962',
+                    border: '1px solid rgba(201, 169, 98, 0.3)',
+                  }}
+                />
+              )}
+              {theme && (
+                <Chip
+                  label={theme}
+                  onDelete={() => setTheme('')}
+                  size="small"
+                  sx={{
+                    bgcolor: 'rgba(201, 169, 98, 0.15)',
+                    color: '#c9a962',
+                    border: '1px solid rgba(201, 169, 98, 0.3)',
+                  }}
+                />
+              )}
+              {source && (
+                <Chip
+                  label={source}
+                  onDelete={() => setSource('')}
+                  size="small"
+                  sx={{
+                    bgcolor: 'rgba(201, 169, 98, 0.15)',
+                    color: '#c9a962',
+                    border: '1px solid rgba(201, 169, 98, 0.3)',
+                  }}
+                />
+              )}
             </Box>
           )}
-        </>
-      )}
         </Box>
+
+        {/* Results */}
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+            <CircularProgress sx={{ color: '#c9a962' }} />
+          </Box>
+        ) : verses.filter(v => !showLikedOnly || likedVerses.has(v._id)).length === 0 ? (
+          <Box sx={{ 
+            textAlign: 'center', 
+            py: 8,
+            bgcolor: 'rgba(26, 58, 42, 0.3)', 
+            borderRadius: 3,
+            border: '1px solid rgba(201, 169, 98, 0.15)',
+          }}>
+            <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.6)', mb: 1 }}>
+              No verses found
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)' }}>
+              Try adjusting your filters
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <Grid container spacing={2}>
+              {verses
+                .filter(verse => !showLikedOnly || likedVerses.has(verse._id))
+                .map((verse) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={verse._id}>
+                    <VerseCard 
+                      verse={verse} 
+                      isLiked={likedVerses.has(verse._id)}
+                      onToggleLike={() => toggleLike(verse._id)}
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+            
+            {totalPages > 1 && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Pagination
+                  count={totalPages}
+                  page={page}
+                  onChange={(_, newPage) => setPage(newPage)}
+                  sx={{
+                    '& .MuiPaginationItem-root': {
+                      color: '#c9a962',
+                      borderColor: 'rgba(201, 169, 98, 0.2)',
+                    },
+                    '& .MuiPaginationItem-root.Mui-selected': {
+                      bgcolor: 'rgba(201, 169, 98, 0.15)',
+                    },
+                  }}
+                />
+              </Box>
+            )}
+          </>
+        )}
       </Container>
     </Box>
   );
@@ -346,8 +368,8 @@ function ExploreContent() {
 export default function ExplorePage() {
   return (
     <Suspense fallback={
-      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-        <CircularProgress />
+      <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <CircularProgress sx={{ color: '#c9a962' }} />
       </Box>
     }>
       <ExploreContent />
