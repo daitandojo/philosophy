@@ -9,9 +9,6 @@ import {
   Box,
   Button,
   IconButton,
-  Drawer,
-  List,
-  ListItemButton,
   Container,
   useTheme,
 } from '@mui/material';
@@ -56,79 +53,6 @@ export default function Navbar() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const drawer = (
-    <Box 
-      onClick={handleDrawerToggle} 
-      sx={{ 
-        py: 4,
-        px: 3,
-        minHeight: '100vh',
-        height: '100%',
-        background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
-      }}
-    >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3, pl: 1 }}>
-        <Typography
-          sx={{
-            fontFamily: '"Vazir", serif',
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          حکمت
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: 'system-ui, sans-serif',
-            fontSize: '1.25rem',
-            fontWeight: 600,
-            color: '#f5f5f5',
-            letterSpacing: '0.02em',
-          }}
-        >
-          Hikmatia
-        </Typography>
-      </Box>
-      <Box sx={{ width: 40, height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 3 }} />
-      <List sx={{ p: 0 }}>
-        {navItems.map((item) => (
-          <ListItemButton
-            key={item.href}
-            component={Link}
-            href={item.href}
-            selected={pathname === item.href}
-            sx={{ 
-              borderRadius: 2,
-              mb: 0.5,
-              py: 1.5,
-              '&:hover': {
-                backgroundColor: 'rgba(201, 169, 98, 0.1)',
-              },
-              '&.Mui-selected': {
-                backgroundColor: 'rgba(201, 169, 98, 0.15)',
-                borderLeft: '3px solid #c9a962',
-              }
-            }}
-          >
-            <Typography 
-              sx={{ 
-                fontFamily: 'system-ui, sans-serif',
-                fontWeight: pathname === item.href ? 600 : 400,
-                fontSize: '0.95rem',
-                color: pathname === item.href ? '#c9a962' : '#b0b0b0',
-              }}
-            >
-              {item.label}
-            </Typography>
-          </ListItemButton>
-        ))}
-      </List>
-    </Box>
-  );
 
   return (
     <>
@@ -307,24 +231,74 @@ export default function Navbar() {
         </Container>
       </AppBar>
 
-      <Drawer
-        anchor="left"
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{ keepMounted: true }}
-        sx={{
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box', 
+      {mobileOpen && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 56,
+            left: 0,
             width: 280,
-            minHeight: '100vh',
+            height: 'calc(100vh - 56px)',
             background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
             borderRight: '1px solid rgba(201, 169, 98, 0.15)',
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
+            zIndex: 1200,
+            overflowY: 'auto',
+            py: 4,
+            px: 3,
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3, pl: 1 }}>
+            <Typography
+              sx={{
+                fontFamily: '"Vazir", serif',
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              حکمت
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: 'system-ui, sans-serif',
+                fontSize: '1.25rem',
+                fontWeight: 600,
+                color: '#f5f5f5',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Hikmatia
+            </Typography>
+          </Box>
+          <Box sx={{ width: 40, height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 3 }} />
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.href}
+                component={Link}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                sx={{ 
+                  borderRadius: 2,
+                  py: 1.5,
+                  justifyContent: 'flex-start',
+                  color: pathname === item.href ? '#c9a962' : '#b0b0b0',
+                  fontWeight: pathname === item.href ? 600 : 400,
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.95rem',
+                  '&:hover': {
+                    backgroundColor: 'rgba(201, 169, 98, 0.1)',
+                  },
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+        </Box>
+      )}
     </>
   );
 }
