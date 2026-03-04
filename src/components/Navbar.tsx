@@ -45,7 +45,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < theme.breakpoints.values.md);
+      const md = theme.breakpoints.values.md || 900;
+      setIsMobile(window.innerWidth < md);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -62,6 +63,7 @@ export default function Navbar() {
       sx={{ 
         py: 4,
         px: 3,
+        minHeight: '100vh',
         height: '100%',
         background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
       }}
@@ -306,15 +308,16 @@ export default function Navbar() {
       </AppBar>
 
       <Drawer
+        anchor="left"
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: 'block', md: 'none' },
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
             width: 280,
+            minHeight: '100vh',
             background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
             borderRight: '1px solid rgba(201, 169, 98, 0.15)',
           },
