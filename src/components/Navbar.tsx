@@ -232,50 +232,62 @@ export default function Navbar() {
       </AppBar>
 
       {mobileOpen && (
-        <Box
-          sx={{
-            position: 'fixed',
-            top: 56,
-            left: 0,
-            width: 280,
-            height: 'calc(100vh - 56px)',
-            background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
-            borderRight: '1px solid rgba(201, 169, 98, 0.15)',
-            zIndex: 1200,
-            overflowY: 'auto',
-            pt: 3,
-            px: 3,
-          }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2, pl: 1 }}>
-            <Typography
-              sx={{
-                fontFamily: '"Vazir", serif',
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              حکمت
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: 'system-ui, sans-serif',
-                fontSize: '1.25rem',
-                fontWeight: 600,
-                color: '#f5f5f5',
-                letterSpacing: '0.02em',
-              }}
-            >
-              Hikmatia
-            </Typography>
-          </Box>
-          <Box sx={{ width: 40, height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 2 }} />
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-            {navItems.map((item) => (
-              <Button
+        <>
+          <Box
+            onClick={handleDrawerToggle}
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 1199,
+            }}
+          />
+          <Box
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: 280,
+              height: '100vh',
+              background: '#1a1a1a',
+              borderRight: '1px solid rgba(201, 169, 98, 0.15)',
+              zIndex: 1200,
+              overflowY: 'auto',
+              pt: 2,
+              px: 2,
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+              <Typography
+                sx={{
+                  fontFamily: '"Vazir", serif',
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                حکمت
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '1.25rem',
+                  fontWeight: 600,
+                  color: '#f5f5f5',
+                }}
+              >
+                Hikmatia
+              </Typography>
+            </Box>
+            <Box sx={{ height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 2 }} />
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+              {navItems.map((item) => (
+                <Button
                 key={item.href}
                 component={Link}
                 href={item.href}
@@ -298,6 +310,7 @@ export default function Navbar() {
             ))}
           </Box>
         </Box>
+        </>
       )}
     </>
   );
