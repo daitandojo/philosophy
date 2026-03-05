@@ -607,7 +607,7 @@ function ChatContent() {
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
-            height: 'calc(100vh - 400px)',
+            //height: 'calc(100vh - 400px)',
             minHeight: 500,
           }}
         >
@@ -708,6 +708,7 @@ function ChatContent() {
                       whiteSpace: 'pre-wrap',
                       lineHeight: 1.7,
                       fontSize: '0.95rem',
+                      color: 'rgba(255,255,255,0.9)',
                     }}
                   >
                     {streamingContent}
