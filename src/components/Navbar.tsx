@@ -243,11 +243,11 @@ export default function Navbar() {
             borderRight: '1px solid rgba(201, 169, 98, 0.15)',
             zIndex: 1200,
             overflowY: 'auto',
-            py: 4,
+            pt: 3,
             px: 3,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3, pl: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2, pl: 1 }}>
             <Typography
               sx={{
                 fontFamily: '"Vazir", serif',
@@ -272,7 +272,7 @@ export default function Navbar() {
               Hikmatia
             </Typography>
           </Box>
-          <Box sx={{ width: 40, height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 3 }} />
+          <Box sx={{ width: 40, height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 2 }} />
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             {navItems.map((item) => (
               <Button
