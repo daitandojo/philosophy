@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { Box, Typography, IconButton } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -229,29 +229,53 @@ function SlideshowContent() {
   const [isMuted, setIsMuted] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, []);
 
   const currentQuote = quotes[currentIndex % quotes.length];
   const currentConfig = slideConfigs[currentIndex % slideConfigs.length];
   const currentImage = slideshowImages[currentIndex % slideshowImages.length];
 
-  const speakQuote = useCallback((text: string) => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window) || isMuted) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'fa-IR';
-    utterance.rate = 0.7;
-    utterance.pitch = 0.65;
-    utterance.volume = 0.8;
-    const voices = window.speechSynthesis.getVoices();
-    const persianVoice = voices.find(v => v.lang.includes('fa') || v.lang.includes('per'));
-    if (persianVoice) utterance.voice = persianVoice;
-    window.speechSynthesis.speak(utterance);
-  }, [isMuted]);
+  const speakQuote = useCallback(async (text: string) => {
+    if (isMuted || !isLoaded) return;
+    
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, voiceType: 'persian' }),
+      });
+
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audioRef.current = audio;
+        await audio.play();
+        audio.onended = () => {
+          audioRef.current = null;
+          URL.revokeObjectURL(audioUrl);
+        };
+      }
+    } catch (error) {
+      console.error('TTS error:', error);
+    }
+  }, [isMuted, isLoaded]);
 
   const nextSlide = useCallback(() => {
     if (isTransitioning) return;
@@ -270,7 +294,12 @@ function SlideshowContent() {
   }, [currentIndex, isPlaying, currentQuote, nextSlide, speakQuote, isLoaded]);
 
   useEffect(() => {
-    if (!isPlaying && typeof window !== 'undefined') window.speechSynthesis?.cancel();
+    if (!isPlaying) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    }
   }, [isPlaying]);
 
   if (!isLoaded) {

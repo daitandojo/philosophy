@@ -1,7 +1,7 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+'use client'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import {
   AppBar,
   Toolbar,
@@ -11,11 +11,12 @@ import {
   IconButton,
   Container,
   useTheme,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { useThemeMode } from '@/theme/ThemeRegistry';
+} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import CloseIcon from '@mui/icons-material/Close'
+import { useThemeMode } from '@/theme/ThemeRegistry'
 
 const navItems = [
   { label: 'Intro', href: '/' },
@@ -30,44 +31,101 @@ const navItems = [
   { label: 'Chat', href: '/chat' },
   { label: 'Media', href: '/media' },
   { label: 'About', href: '/about' },
-];
+]
+
+const KEYFRAMES = `
+  @keyframes drawerSlideIn {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes drawerSlideOut {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+  @keyframes backdropFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes backdropFadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes persianBreath {
+    0%, 100% { box-shadow: 4px 0 50px rgba(201,169,98,0.12), 4px 0 100px rgba(139,69,19,0.07); }
+    50%       { box-shadow: 4px 0 70px rgba(201,169,98,0.28), 4px 0 140px rgba(139,69,19,0.15); }
+  }
+  @keyframes itemSlideIn {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+`
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
-  const theme = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
-  const { mode, toggleTheme } = useThemeMode();
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
+  const [animateItems, setAnimateItems] = useState(false)
+  const pathname = usePathname()
+  const theme = useTheme()
+  const [isMobile, setIsMobile] = useState(false)
+  const { mode, toggleTheme } = useThemeMode()
+
+  useEffect(() => {
+    if (typeof document !== 'undefined' && !document.getElementById('navbar-keyframes')) {
+      const style = document.createElement('style')
+      style.id = 'navbar-keyframes'
+      style.textContent = KEYFRAMES
+      document.head.appendChild(style)
+    }
+  }, [])
 
   useEffect(() => {
     const checkMobile = () => {
-      const md = theme.breakpoints.values.md || 900;
-      setIsMobile(window.innerWidth < md);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [theme]);
+      const md = theme.breakpoints.values.md || 900
+      setIsMobile(window.innerWidth < md)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [theme])
+
+  const handleOpen = () => {
+    setIsClosing(false)
+    setAnimateItems(false)
+    setMobileOpen(true)
+    // Trigger item animations slightly after drawer starts sliding
+    setTimeout(() => setAnimateItems(true), 80)
+  }
+
+  const handleClose = () => {
+    setIsClosing(true)
+    setAnimateItems(false)
+    setTimeout(() => {
+      setMobileOpen(false)
+      setIsClosing(false)
+    }, 430)
+  }
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    if (mobileOpen && !isClosing) handleClose()
+    else handleOpen()
+  }
 
   return (
     <>
-      <AppBar 
-        position="sticky" 
+      <AppBar
+        position="sticky"
         elevation={0}
-        sx={{ 
+        sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          background: 'linear-gradient(180deg, rgba(20, 20, 20, 0.97) 0%, rgba(30, 30, 30, 0.95) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(20,20,20,0.97) 0%, rgba(30,30,30,0.95) 100%)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(201, 169, 98, 0.15)',
+          borderBottom: '1px solid rgba(201,169,98,0.15)',
         }}
       >
         <Container maxWidth={false} disableGutters>
-          <Toolbar 
-            sx={{ 
+          <Toolbar
+            sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -126,13 +184,15 @@ export default function Navbar() {
             </Box>
 
             {!isMobile && (
-              <Box sx={{ 
-                display: 'flex', 
-                gap: 0.5, 
-                justifyContent: 'center',
-                flex: 1,
-                px: 3,
-              }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 0.5,
+                  justifyContent: 'center',
+                  flex: 1,
+                  px: 3,
+                }}
+              >
                 {navItems.map((item) => (
                   <Button
                     key={item.href}
@@ -151,7 +211,7 @@ export default function Navbar() {
                       borderRadius: 1,
                       position: 'relative',
                       overflow: 'hidden',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
                       '&::before': {
                         content: '""',
                         position: 'absolute',
@@ -159,7 +219,8 @@ export default function Navbar() {
                         left: '50%',
                         width: pathname === item.href ? '60%' : '0%',
                         height: 2,
-                        background: 'linear-gradient(90deg, transparent, #c9a962, transparent)',
+                        background:
+                          'linear-gradient(90deg, transparent, #c9a962, transparent)',
                         transform: 'translateX(-50%)',
                         transition: 'width 0.3s ease',
                       },
@@ -167,14 +228,10 @@ export default function Navbar() {
                         color: '#c9a962',
                         backgroundColor: 'transparent',
                         transform: 'translateY(-2px)',
-                        textShadow: '0 0 20px rgba(201, 169, 98, 0.5)',
-                        '&::before': {
-                          width: '80%',
-                        },
+                        textShadow: '0 0 20px rgba(201,169,98,0.5)',
+                        '&::before': { width: '80%' },
                       },
-                      '& .MuiButton-startIcon': {
-                        display: 'none',
-                      },
+                      '& .MuiButton-startIcon': { display: 'none' },
                     }}
                   >
                     {item.label}
@@ -187,14 +244,14 @@ export default function Navbar() {
               <IconButton
                 onClick={toggleTheme}
                 size="small"
-                sx={{ 
+                sx={{
                   color: '#a0a0a0',
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     color: '#c9a962',
                     transform: 'rotate(15deg)',
                     backgroundColor: 'transparent',
-                  }
+                  },
                 }}
               >
                 {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
@@ -203,10 +260,10 @@ export default function Navbar() {
                 component={Link}
                 href="/account"
                 size="small"
-                sx={{ 
+                sx={{
                   color: '#f5f5f5',
-                  backgroundColor: 'rgba(201, 169, 98, 0.15)',
-                  border: '1px solid rgba(201, 169, 98, 0.3)',
+                  backgroundColor: 'rgba(201,169,98,0.15)',
+                  border: '1px solid rgba(201,169,98,0.3)',
                   borderRadius: 1.5,
                   px: 2,
                   py: 0.5,
@@ -216,11 +273,11 @@ export default function Navbar() {
                   letterSpacing: '0.05em',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgba(201, 169, 98, 0.25)',
+                    backgroundColor: 'rgba(201,169,98,0.25)',
                     borderColor: '#c9a962',
                     transform: 'scale(1.02)',
-                    boxShadow: '0 0 20px rgba(201, 169, 98, 0.2)',
-                  }
+                    boxShadow: '0 0 20px rgba(201,169,98,0.2)',
+                  },
                 }}
               >
                 Sign In
@@ -230,44 +287,80 @@ export default function Navbar() {
         </Container>
       </AppBar>
 
+      {/* Backdrop */}
       {mobileOpen && (
-        <>
+        <Box
+          onClick={handleClose}
+          sx={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.75)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 1199,
+            animation: isClosing
+              ? 'backdropFadeOut 0.4s ease forwards'
+              : 'backdropFadeIn 0.4s ease forwards',
+          }}
+        />
+      )}
+
+      {/* Drawer */}
+      {mobileOpen && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: 265,
+            height: '100vh',
+            zIndex: 1200,
+            display: 'flex',
+            flexDirection: 'column',
+            background: `
+              radial-gradient(ellipse at 15% 20%, rgba(139,69,19,0.25) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 80%, rgba(201,169,98,0.12) 0%, transparent 50%),
+              linear-gradient(165deg, #0e0b08 0%, #110d09 50%, #090705 100%)
+            `,
+            borderRight: '1px solid rgba(201,169,98,0.22)',
+            animation: isClosing
+              ? 'drawerSlideOut 0.43s cubic-bezier(0.4,0,0.2,1) forwards'
+              : 'drawerSlideIn 0.43s cubic-bezier(0.16,1,0.3,1) forwards, persianBreath 5s ease-in-out 0.6s infinite',
+          }}
+        >
+          {/* Top gold bar */}
           <Box
-            onClick={handleDrawerToggle}
             sx={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              zIndex: 1199,
+              height: 3,
+              flexShrink: 0,
+              background:
+                'linear-gradient(90deg, transparent, #6b3410 15%, #c9a962 50%, #6b3410 85%, transparent)',
+              boxShadow: '0 0 16px rgba(201,169,98,0.7)',
             }}
           />
+
+          {/* Header */}
           <Box
             sx={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: 280,
-              height: '100vh',
-              backgroundColor: '#0a0a0a',
-              borderRight: '1px solid rgba(201, 169, 98, 0.15)',
-              zIndex: 1200,
-              overflowY: 'auto',
-              pt: 2,
-              px: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              px: 2.5,
+              py: 1.5,
+              flexShrink: 0,
+              borderBottom: '1px solid rgba(201,169,98,0.1)',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Typography
                 sx={{
                   fontFamily: '"Vazir", serif',
-                  fontSize: '1.5rem',
+                  fontSize: '1.4rem',
                   fontWeight: 700,
-                  background: 'linear-gradient(135deg, #c9a962 0%, #8b4513 100%)',
+                  background:
+                    'linear-gradient(135deg, #edd88a 0%, #c9a962 45%, #8b4513 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 0 10px rgba(201,169,98,0.5))',
                 }}
               >
                 حکمت
@@ -275,42 +368,110 @@ export default function Navbar() {
               <Typography
                 sx={{
                   fontFamily: 'system-ui, sans-serif',
-                  fontSize: '1.25rem',
+                  fontSize: '1rem',
                   fontWeight: 600,
-                  color: '#f5f5f5',
+                  color: '#c9a962',
+                  letterSpacing: '0.06em',
+                  textShadow: '0 0 18px rgba(201,169,98,0.4)',
                 }}
               >
                 Hikmatia
               </Typography>
             </Box>
-            <Box sx={{ height: 1, background: 'linear-gradient(90deg, #c9a962 0%, transparent 100%)', mb: 2 }} />
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.href}
-                  component={Link}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  sx={{ 
-                    borderRadius: 2,
-                    py: 1.5,
-                    justifyContent: 'flex-start',
-                    color: pathname === item.href ? '#c9a962' : '#b0b0b0',
-                    fontWeight: pathname === item.href ? 600 : 400,
-                    fontFamily: 'system-ui, sans-serif',
-                    fontSize: '0.95rem',
-                    '&:hover': {
-                      backgroundColor: 'rgba(201, 169, 98, 0.1)',
-                    },
-                  }}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </Box>
+            <IconButton
+              onClick={handleClose}
+              size="small"
+              sx={{
+                color: 'rgba(201,169,98,0.5)',
+                border: '1px solid rgba(201,169,98,0.18)',
+                borderRadius: '50%',
+                width: 28,
+                height: 28,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  color: '#c9a962',
+                  borderColor: 'rgba(201,169,98,0.5)',
+                  backgroundColor: 'rgba(201,169,98,0.08)',
+                  boxShadow: '0 0 14px rgba(201,169,98,0.3)',
+                },
+              }}
+            >
+              <CloseIcon sx={{ fontSize: '0.9rem' }} />
+            </IconButton>
           </Box>
-        </>
+
+          {/* Nav items — always visible; stagger animation is purely cosmetic */}
+          <Box sx={{ overflowY: 'auto', flex: 1, px: 1.5, py: 1.5 }}>
+            {navItems.map((item, i) => (
+              <Button
+                key={item.href}
+                component={Link}
+                href={item.href}
+                onClick={handleClose}
+                sx={{
+                  width: '100%',
+                  borderRadius: 1.5,
+                  py: 0.85,
+                  px: 2,
+                  mb: 0.25,
+                  justifyContent: 'flex-start',
+                  color: pathname === item.href ? '#e8c97a' : 'rgba(210,185,140,0.75)',
+                  fontWeight: pathname === item.href ? 600 : 400,
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  letterSpacing: '0.04em',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'all 0.25s ease',
+                  backgroundColor:
+                    pathname === item.href ? 'rgba(201,169,98,0.08)' : 'transparent',
+                  ...(pathname === item.href && {
+                    textShadow: '0 0 18px rgba(201,169,98,0.5)',
+                  }),
+                  // Active left bar
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    left: 0,
+                    top: '15%',
+                    height: '70%',
+                    width: pathname === item.href ? 2 : 0,
+                    background:
+                      'linear-gradient(180deg, transparent, #c9a962, transparent)',
+                    borderRadius: 1,
+                    boxShadow: '0 0 8px rgba(201,169,98,0.8)',
+                    transition: 'width 0.2s ease',
+                  },
+                  '&:hover': {
+                    color: '#e8c97a',
+                    backgroundColor: 'rgba(201,169,98,0.07)',
+                    textShadow: '0 0 20px rgba(201,169,98,0.4)',
+                    transform: 'translateX(4px)',
+                    '&::before': { width: 2 },
+                  },
+                  // Stagger slide-in when animateItems becomes true
+                  ...(animateItems && {
+                    animation: `itemSlideIn 0.35s cubic-bezier(0.16,1,0.3,1) ${i * 0.04}s both`,
+                  }),
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Bottom gold bar */}
+          <Box
+            sx={{
+              height: 3,
+              flexShrink: 0,
+              background:
+                'linear-gradient(90deg, transparent, #6b3410 15%, #c9a962 50%, #6b3410 85%, transparent)',
+              boxShadow: '0 0 14px rgba(201,169,98,0.5)',
+            }}
+          />
+        </Box>
       )}
     </>
-  );
+  )
 }
