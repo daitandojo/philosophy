@@ -15,7 +15,6 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeRegistry';
 
 const navItems = [
@@ -252,7 +251,7 @@ export default function Navbar() {
               left: 0,
               width: 280,
               height: '100vh',
-              background: '#1a1a1a',
+              backgroundColor: '#0a0a0a',
               borderRight: '1px solid rgba(201, 169, 98, 0.15)',
               zIndex: 1200,
               overflowY: 'auto',
@@ -288,28 +287,28 @@ export default function Navbar() {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               {navItems.map((item) => (
                 <Button
-                key={item.href}
-                component={Link}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                sx={{ 
-                  borderRadius: 2,
-                  py: 1.5,
-                  justifyContent: 'flex-start',
-                  color: pathname === item.href ? '#c9a962' : '#b0b0b0',
-                  fontWeight: pathname === item.href ? 600 : 400,
-                  fontFamily: 'system-ui, sans-serif',
-                  fontSize: '0.95rem',
-                  '&:hover': {
-                    backgroundColor: 'rgba(201, 169, 98, 0.1)',
-                  },
-                }}
-              >
-                {item.label}
-              </Button>
-            ))}
+                  key={item.href}
+                  component={Link}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  sx={{ 
+                    borderRadius: 2,
+                    py: 1.5,
+                    justifyContent: 'flex-start',
+                    color: pathname === item.href ? '#c9a962' : '#b0b0b0',
+                    fontWeight: pathname === item.href ? 600 : 400,
+                    fontFamily: 'system-ui, sans-serif',
+                    fontSize: '0.95rem',
+                    '&:hover': {
+                      backgroundColor: 'rgba(201, 169, 98, 0.1)',
+                    },
+                  }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
           </Box>
-        </Box>
         </>
       )}
     </>
