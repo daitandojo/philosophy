@@ -11,6 +11,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { I18nProvider } from '@/i18n';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 
 // Lazy load heavy components
 const LazyPhilosophyGraph = dynamic(() => import('./PhilosophyGraph'), {
@@ -27,9 +28,11 @@ import MicroInteractions from '@/components/MicroInteractions';
 import AccessibilityOverlay from '@/components/AccessibilityOverlay';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const [showSplash, setShowSplash] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const pathname = usePathname();
+  const isAccessPage = pathname === '/access';
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSplash(false), 1500);
@@ -53,7 +56,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <IlluminatedBackground intensity={0.6} />
           {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
           <ServiceWorkerRegistration />
-          <Navbar />
+          {!isAccessPage && <Navbar />}
           <Box
             component="main"
             id="main-content"
@@ -72,7 +75,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
            <AccessibilityOverlay />
            <PWAInstallPrompt />
          </I18nProvider>
-       </SmoothScrollProvider>
-     </ThemeRegistry>
-   );
- }
+        </SmoothScrollProvider>
+      </ThemeRegistry>
+    );
+  }
+
+export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  return <ClientLayoutContent>{children}</ClientLayoutContent>;
+}
