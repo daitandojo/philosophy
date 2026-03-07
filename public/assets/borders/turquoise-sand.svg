@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="turqGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#40e0d0"/>
+      <stop offset="50%" style="stop-color:#20b2aa"/>
+      <stop offset="100%" style="stop-color:#008b8b"/>
+    </linearGradient>
+    <linearGradient id="sandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4a574"/>
+      <stop offset="100%" style="stop-color:#b87333"/>
+    </linearGradient>
+    <filter id="mysticGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="none"/>
+  <!-- Islimi (arabesque) vines -->
+  <g fill="none" stroke-width="2" filter="url(#mysticGlow)">
+    <!-- Top-left vine -->
+    <path d="M20,10 Q30,30 20,50 Q10,70 25,80" stroke="url(#turqGrad)" opacity="0.7"/>
+    <path d="M15,20 Q25,35 18,48" stroke="url(#sandGrad)" opacity="0.5"/>
+    <!-- Top-right vine -->
+    <path d="M180,10 Q170,30 180,50 Q190,70 175,80" stroke="url(#turqGrad)" opacity="0.7"/>
+    <path d="M185,20 Q175,35 182,48" stroke="url(#sandGrad)" opacity="0.5"/>
+    <!-- Bottom-left vine -->
+    <path d="M20,190 Q30,170 20,150 Q10,130 25,120" stroke="url(#turqGrad)" opacity="0.7"/>
+    <path d="M15,180 Q25,165 18,152" stroke="url(#sandGrad)" opacity="0.5"/>
+    <!-- Bottom-right vine -->
+    <path d="M180,190 Q170,170 180,150 Q190,130 175,120" stroke="url(#turqGrad)" opacity="0.7"/>
+    <path d="M185,180 Q175,165 182,152" stroke="url(#sandGrad)" opacity="0.5"/>
+  </g>
+  <!-- Decorative elements -->
+  <g fill="url(#turqGrad)" opacity="0.8">
+    <!-- Tulips -->
+    <ellipse cx="20" cy="50" rx="4" ry="6"/>
+    <ellipse cx="180" cy="50" rx="4" ry="6"/>
+    <ellipse cx="20" cy="150" rx="4" ry="6"/>
+    <ellipse cx="180" cy="150" rx="4" ry="6"/>
+    <!-- Leaves -->
+    <path d="M20,50 Q15,55 20,60 Q25,55 20,50" fill="url(#sandGrad)" opacity="0.6"/>
+    <path d="M180,50 Q175,55 180,60 Q185,55 180,50" fill="url(#sandGrad)" opacity="0.6"/>
+  </g>
+  <!-- Stars -->
+  <g fill="url(#turqGrad)" opacity="0.5">
+    <polygon points="50,10 52,15 58,15 54,19 56,25 50,21 44,25 46,19 42,15 48,15" transform="scale(0.5)"/>
+    <polygon points="350,10 352,15 358,15 354,19 356,25 350,21 344,25 346,19 342,15 348,15" transform="scale(0.5)"/>
+    <polygon points="50,390 52,395 358,15 354,19 356,25 350,21 344,25 346,19 342,15 348,15" transform="scale(0.5)"/>
+  </g>
+</svg>

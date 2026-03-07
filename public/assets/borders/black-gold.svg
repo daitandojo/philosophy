@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="elegantGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a962"/>
+      <stop offset="50%" style="stop-color:#8b7355"/>
+      <stop offset="100%" style="stop-color:#4a3c2a"/>
+    </linearGradient>
+    <filter id="elegantGlow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="#0a0a0a"/>
+  <!-- Thin elegant vines -->
+  <g fill="none" stroke="url(#elegantGold)" stroke-width="1" opacity="0.6" filter="url(#elegantGlow)">
+    <!-- Top-left delicate spiral -->
+    <path d="M25,15 Q35,25 30,35 Q25,45 35,50 Q40,45 38,38 Q36,30 42,28"/>
+    <path d="M15,25 Q20,20 25,25"/>
+    <!-- Top-right delicate spiral -->
+    <path d="M175,15 Q165,25 170,35 Q175,45 165,50 Q160,45 162,38 Q164,30 158,28"/>
+    <path d="M185,25 Q180,20 175,25"/>
+    <!-- Bottom-left delicate spiral -->
+    <path d="M25,185 Q35,175 30,165 Q25,155 35,150 Q40,155 38,162 Q36,170 42,172"/>
+    <path d="M15,175 Q20,180 25,175"/>
+    <!-- Bottom-right delicate spiral -->
+    <path d="M175,185 Q165,175 170,165 Q175,155 165,150 Q160,155 162,162 Q164,170 158,172"/>
+    <path d="M185,175 Q180,180 175,175"/>
+  </g>
+  <!-- Tear-drop motifs -->
+  <g fill="url(#elegantGold)" opacity="0.4">
+    <path d="M40,30 Q45,40 40,50 Q35,40 40,30" />
+    <path d="M160,30 Q165,40 160,50 Q155,40 160,30" />
+    <path d="M40,170 Q45,160 40,150 Q35,160 40,170" />
+    <path d="M160,170 Q165,160 160,150 Q155,160 160,170" />
+  </g>
+  <!-- Tiny stars -->
+  <g fill="url(#elegantGold)" opacity="0.5">
+    <circle cx="60" cy="20" r="1.5"/>
+    <circle cx="140" cy="20" r="1.5"/>
+    <circle cx="60" cy="180" r="1.5"/>
+    <circle cx="140" cy="180" r="1.5"/>
+    <circle cx="20" cy="80" r="1"/>
+    <circle cx="20" cy="120" r="1"/>
+    <circle cx="180" cy="80" r="1"/>
+    <circle cx="180" cy="120" r="1"/>
+  </g>
+  <!-- Central subtle medallion -->
+  <circle cx="100" cy="100" r="30" fill="none" stroke="url(#elegantGold)" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="100" cy="100" r="20" fill="none" stroke="url(#elegantGold)" stroke-width="0.3" opacity="0.15"/>
+</svg>

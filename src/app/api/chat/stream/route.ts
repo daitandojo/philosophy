@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { message, history } = body;
+    const { message, history, systemPrompt } = body;
 
     if (!message) {
       return new Response(JSON.stringify({ error: 'Message is required' }), {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const stream = await chatWithRumiStream(message, history || []);
+          const stream = await chatWithRumiStream(message, history || [], systemPrompt);
           
           for await (const chunk of stream) {
             const data = JSON.stringify({ content: chunk });

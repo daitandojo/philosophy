@@ -1,4 +1,5 @@
 'use client';
+// Chat with philosophers - DeepSeek powered
 import { useState, useRef, useEffect, useCallback, useMemo, Suspense } from 'react';
 import { useI18n } from '@/i18n';
 import { useSearchParams } from 'next/navigation';

@@ -183,10 +183,12 @@ Only include indices that are truly relevant. Maximum 5 indices.`;
 
 export async function* chatWithRumiStream(
   userMessage: string,
-  conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
+  conversationHistory: { role: 'user' | 'assistant'; content: string }[] = [],
+  customSystemPrompt?: string
 ): AsyncGenerator<string, void, unknown> {
+  const systemPrompt = customSystemPrompt || SYSTEM_PROMPT;
   const messages = [
-    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'system', content: systemPrompt },
     ...conversationHistory.slice(-10),
     { role: 'user', content: userMessage },
   ];

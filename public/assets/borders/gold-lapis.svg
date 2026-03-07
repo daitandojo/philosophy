@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700"/>
+      <stop offset="50%" style="stop-color:#c9a962"/>
+      <stop offset="100%" style="stop-color:#8b6914"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="none"/>
+  <!-- Corner flourishes -->
+  <g fill="url(#goldGrad)" filter="url(#glow)">
+    <!-- Top-left corner -->
+    <path d="M10,30 Q10,10 30,10 Q25,20 20,25 Q15,20 10,30 M15,25 Q20,30 25,20 Q20,15 15,25" opacity="0.9"/>
+    <circle cx="15" cy="15" r="3" opacity="0.8"/>
+    <!-- Top-right corner -->
+    <path d="M170,10 Q190,10 190,30 Q185,20 180,25 Q175,20 170,30 M175,25 Q180,30 185,20 Q180,15 175,25" opacity="0.9"/>
+    <circle cx="185" cy="15" r="3" opacity="0.8"/>
+    <!-- Bottom-left corner -->
+    <path d="M10,170 Q10,190 30,190 Q25,180 20,175 Q15,180 10,170 M15,175 Q20,180 25,170 Q20,165 15,175" opacity="0.9"/>
+    <circle cx="15" cy="185" r="3" opacity="0.8"/>
+    <!-- Bottom-right corner -->
+    <path d="M170,190 Q190,190 190,170 Q185,180 180,175 Q175,180 170,170 M175,175 Q180,180 185,170 Q180,165 175,175" opacity="0.9"/>
+    <circle cx="185" cy="185" r="3" opacity="0.8"/>
+  </g>
+  <!-- Geometric patterns -->
+  <g stroke="url(#goldGrad)" stroke-width="1" fill="none" opacity="0.6">
+    <path d="M20,15 L30,15 M15,20 L15,30"/>
+    <path d="M180,15 L170,15 M185,20 L185,30"/>
+    <path d="M20,185 L30,185 M15,180 L15,170"/>
+    <path d="M180,185 L170,185 M185,180 L185,170"/>
+  </g>
+  <!-- Central medallion -->
+  <g transform="translate(100,100)">
+    <circle cx="0" cy="0" r="25" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.4"/>
+    <path d="M0,-15 L0,15 M-15,0 L15,0" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.3"/>
+  </g>
+</svg>

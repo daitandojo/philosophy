@@ -35,6 +35,43 @@
   --radius-xl: 16px;
   --radius-2xl: 24px;
   --radius-full: 9999px;
+
+  /* Accessibility variables */
+  --font-size-multiplier: 1;
+  --contrast-mode: normal;
+  --reduced-motion: no-preference;
+}
+
+/* High contrast mode */
+:root[style*="--contrast-mode: high"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --primary: #ffff00;
+  --secondary: #00ffff;
+  --accent: #ff00ff;
+  --divider: #ffffff;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-normal: 0ms;
+    --transition-slow: 0ms;
+  }
+}
+
+:root[style*="--reduced-motion: reduce"] {
+  --transition-fast: 0ms;
+  --transition-normal: 0ms;
+  --transition-slow: 0ms;
+}
+
+/* Font size scaling */
+html {
+  font-size: calc(16px * var(--font-size-multiplier, 1));
 }
 
 [data-theme="dark"] {

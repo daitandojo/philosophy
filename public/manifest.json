@@ -1,24 +1,100 @@
 {
-  "name": "Hikmatia - Persian Philosophy",
+  "name": "Hikmatia | حکمت",
   "short_name": "Hikmatia",
-  "description": "Explore wisdom from Persia's greatest philosophers - Rumi, Hafez, Saadi, and more",
-  "start_url": "/",
+  "description": "Persian Philosophy & Wisdom - Explore 2,500 years of wisdom from Persia's greatest philosophers",
+  "theme_color": "#1a3a2a",
+  "background_color": "#0a1a14",
   "display": "standalone",
-  "background_color": "#faf9f7",
-  "theme_color": "#8b4513",
   "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
-      "src": "/icon-192.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.svg",
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Hikmatia Home Screen"
+    },
+    {
+      "src": "/screenshots/chat.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Philosophical Chat Interface"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Daily Wisdom",
+      "short_name": "Wisdom",
+      "description": "Get your daily dose of Persian wisdom",
+      "url": "/?source=pwa_shortcut"
+    },
+    {
+      "name": "Chat with Philosophers",
+      "short_name": "Chat",
+      "description": "Have a conversation with AI philosophers",
+      "url": "/chat?source=pwa_shortcut"
+    },
+    {
+      "name": "Explore Timeline",
+      "short_name": "Timeline",
+      "description": "Browse 2,500 years of Persian philosophy",
+      "url": "/timeline?source=pwa_shortcut"
+    }
+  ],
+  "categories": ["education", "books", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr"
 }

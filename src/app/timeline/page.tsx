@@ -1,28 +1,10 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
-import {
-  Box,
-  Container,
-  Typography,
-  Card,
-  CardContent,
-  Chip,
-  Stack,
-  IconButton,
-} from '@mui/material';
+
+import { useRef, useState, useEffect } from 'react';
+import { Box, Typography, IconButton } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { philosophers, eraLabels, eraColors } from '@/lib/philosophers';
-import { useI18n } from '@/i18n';
 import Image from 'next/image';
-import { 
-  HeroPattern, 
-  FloatingMotif, 
-  SectionDivider,
-  CornerDecoration,
-} from '@/components/SVGDecorations';
 
 const philosopherImages: Record<string, string> = {
   rumi: '/images/philosopher-rumi.png',
@@ -57,390 +39,289 @@ const philosopherImages: Record<string, string> = {
   mani: '/images/philosopher-mani.png',
 };
 
-const sortedPhilosophers = [...philosophers].sort((a, b) => a.life.birth - b.life.birth);
+interface PhilosopherData {
+  id: string;
+  name: string;
+  title: string;
+  birth: number;
+  death?: number;
+  bio: string;
+  image: string;
+  quoteFarsi: string;
+  quoteEnglish: string;
+}
 
-const worldEvents = [
-  { year: 570, title: 'Prophet Muhammad born' },
-  { year: 632, title: 'Islamic era begins' },
-  { year: 750, title: 'Abbasid Caliphate' },
-  { year: 1055, title: 'Seljuk Empire' },
-  { year: 1258, title: 'Mongol Invasion' },
-  { year: 1501, title: 'Safavid Dynasty' },
-];
+const philosopherData: PhilosopherData[] = [
+  { id: 'zoroaster', name: 'Zoroaster', title: 'Prophet of Ancient Persia', birth: -628, death: -551, bio: 'Founder of Zoroastrianism, one of the oldest monotheistic religions.', image: philosopherImages.zoroaster, quoteFarsi: 'پندار نیک، گفتار نیک، کردار نیک', quoteEnglish: 'Good thoughts, good words, good deeds.' },
+  { id: 'mani', name: 'Mani', title: 'Prophet of Light', birth: 216, death: 276, bio: 'Founder of Manichaeism, a major religious movement.', image: philosopherImages.mani, quoteFarsi: 'نور و تاریکی در جدال ابدی هستند', quoteEnglish: 'Light and darkness are in eternal struggle.' },
+  { id: 'mazdak', name: 'Mazdak', title: 'Social Reformer', birth: 420, death: 530, bio: 'Persian proto-communist philosopher and religious leader.', image: philosopherImages.mazdak, quoteFarsi: 'ثروت باید میان همه تقسیم شود', quoteEnglish: 'Wealth should be shared among all.' },
+  { id: 'al-kindi', name: 'Al-Kindi', title: 'Father of Arab Philosophy', birth: 801, death: 873, bio: 'First major philosopher of the Islamic golden age.', image: philosopherImages['al-kindi'], quoteFarsi: 'حقیقت را از هر کجا که بیاید بپذیرید', quoteEnglish: 'Accept the truth from wherever it comes.' },
+  { id: 'al-farabi', name: 'Al-Farabi', title: 'Second Teacher', birth: 872, death: 950, bio: 'Polymath who contributed to philosophy, music, and science.', image: philosopherImages['al-farabi'], quoteFarsi: 'سعادت در شناخت حقیقت است', quoteEnglish: 'Happiness lies in knowing the truth.' },
+  { id: 'ibn-sina', name: 'Ibn Sina', title: 'Avicenna', birth: 980, death: 1037, bio: 'Persian polymath and physician, author of The Canon of Medicine.', image: philosopherImages['ibn-sina'], quoteFarsi: 'علم بدون عمل مانند درختی است بی‌میوه', quoteEnglish: 'Knowledge without action is like a tree without fruit.' },
+  { id: 'bayazid-bastami', name: 'Bayazid Bastami', title: 'Sufi Mystic', birth: 804, death: 874, bio: 'Early Persian Sufi known for his ecstatic experiences of God.', image: philosopherImages['bayazid-bastami'], quoteFarsi: 'من خود را گم کردم تا خدا را بیابم', quoteEnglish: 'I lost myself to find God.' },
+  { id: 'hallaj', name: 'Hallaj', title: 'Martyr of Love', birth: 858, death: 922, bio: 'Sufi mystic famous for his declaration "Ana al-Haqq".', image: philosopherImages.hallaj, quoteFarsi: 'انا الحق', quoteEnglish: 'I am the Truth.' },
+  { id: 'junayd-baghdadi', name: 'Junayd Baghdad', title: 'Sufi Master', birth: 830, death: 910, bio: 'One of the most important figures in early Sufism.', image: philosopherImages['junayd-baghdadi'], quoteFarsi: 'تصوف آن است که تو با خدا باشی و هیچ نباشی', quoteEnglish: 'Sufism is that you should be with God and be nothing.' },
+  { id: 'attar', name: 'Attar', title: 'Poet Mystic', birth: 1145, death: 1221, bio: 'Persian poet known for his Sufi poetry including The Conference of the Birds.', image: philosopherImages.attar, quoteFarsi: 'سی مرغ به پرواز درآمدند، سیمرغ شدند', quoteEnglish: 'Thirty birds took flight and became the Simurgh.' },
+  { id: 'najm-kubra', name: 'Najm Kubra', title: 'Sufi Master', birth: 1145, death: 1221, bio: 'Founder of the Kubrawiya Sufi order.', image: philosopherImages['najm-kubra'], quoteFarsi: 'نور دل را روشن می‌کند', quoteEnglish: 'Light illuminates the heart.' },
+  { id: 'sanai', name: 'Sanai', title: 'Poet Philosopher', birth: 1080, death: 1131, bio: 'Persian poet who pioneered mystical poetry.', image: philosopherImages.sanai, quoteFarsi: 'عالم همه صورت توست، جان همه سیرت توست', quoteEnglish: 'The world is your form, the soul is your essence.' },
+  { id: 'ferdowsi', name: 'Ferdowsi', title: 'Poet of Kings', birth: 940, death: 1020, bio: 'Author of Shahnameh, the epic poem of Persia.', image: philosopherImages.ferdowsi, quoteFarsi: 'توانا بود هر که دانا بود', quoteEnglish: 'He who has knowledge is powerful.' },
+  { id: 'nizami', name: 'Nizami', title: 'Poet of Wisdom', birth: 1141, death: 1209, bio: 'Persian poet known for his Khamsa (Quintet).', image: philosopherImages.nizami, quoteFarsi: 'عشق آتش است و ما هیزم آن', quoteEnglish: 'Love is fire and we are its fuel.' },
+  { id: 'rumi', name: 'Rumi', title: 'Mawlana', birth: 1207, death: 1273, bio: 'The greatest Sufi poet, author of the Masnavi and Divan-e Shams.', image: philosopherImages.rumi, quoteFarsi: 'بیا، بیا، هر آنچه هستی بیا', quoteEnglish: 'Come, come, whoever you are, come.' },
+  { id: 'saadi', name: 'Saadi', title: 'Poet of Wisdom', birth: 1210, death: 1291, bio: 'Famous for his practical wisdom in Golestan and Bustan.', image: philosopherImages.saadi, quoteFarsi: 'بنى آدم اعضای یکدیگرند', quoteEnglish: 'Human beings are members of a whole.' },
+  { id: 'hafez', name: 'Hafez', title: 'Tongue of the Invisible', birth: 1315, death: 1390, bio: 'Master of the ghazal form, author of the Divan-e Hafez.', image: philosopherImages.hafez, quoteFarsi: 'مرا به کار جهان چه کار؟', quoteEnglish: 'What business have I with the affairs of the world?' },
+  { id: 'jami', name: 'Jami', title: 'Last Great Sufi Poet', birth: 1414, death: 1492, bio: 'Last major poet of classical Persia.', image: philosopherImages.jami, quoteFarsi: 'هر که را اسرار حق آموختند، مهر کردند و دهانش دوختند', quoteEnglish: 'Those who were taught the secrets of Truth were sealed with a kiss and their mouths were sewn shut.' },
+  { id: 'suhrawardi', name: 'Suhrawardi', title: 'Master of Illumination', birth: 1154, death: 1191, bio: 'Founder of the Illuminationist school of philosophy.', image: philosopherImages.suhrawardi, quoteFarsi: 'نور، حقیقت مطلق است', quoteEnglish: 'Light is the absolute truth.' },
+  { id: 'ibn-rushd', name: 'Ibn Rushd', title: 'Averroes', birth: 1126, death: 1198, bio: 'Andalusian philosopher who defended Aristotelian philosophy.', image: philosopherImages['ibn-rushd'], quoteFarsi: 'عقل و ایمان با هم سازگارند', quoteEnglish: 'Reason and faith are compatible.' },
+  { id: 'nasir-tusi', name: 'Nasir al-Din Tusi', title: 'Polymath', birth: 1201, death: 1274, bio: 'Persian polymath who contributed to astronomy and philosophy.', image: philosopherImages['nasir-tusi'], quoteFarsi: 'جهان بر اساس نظم ریاضی استوار است', quoteEnglish: 'The universe is based on mathematical order.' },
+  { id: 'ibn-arabi', name: 'Ibn Arabi', title: 'Sheikh al-Akbar', birth: 1165, death: 1240, bio: 'One of the most important Sufi masters, author of Fusus al-Hikam.', image: philosopherImages['ibn-arabi'], quoteFarsi: 'خداوند آیینه‌ای است که خود را در آن می‌بیند', quoteEnglish: 'God is a mirror in which He sees Himself.' },
+  { id: 'al-ghazali', name: 'Al-Ghazali', title: 'Proof of Islam', birth: 1058, death: 1111, bio: 'The most influential Muslim after the Prophet Muhammad.', image: philosopherImages['al-ghazali'], quoteFarsi: 'علم حقیقی، علم به خداوند است', quoteEnglish: 'True knowledge is knowledge of God.' },
+  { id: 'mulla-sadra', name: 'Mulla Sadra', title: 'Transcendent Theosophy', birth: 1571, death: 1640, bio: 'Founder of Transcendent Theosophy (Hikmat al-Mutaaliya).', image: philosopherImages['mulla-sadra'], quoteFarsi: 'وجود، حقیقت بسیط و واحد است', quoteEnglish: 'Existence is a simple and unified reality.' },
+].sort((a, b) => a.birth - b.birth);
+
+const eraThemes: Record<string, { bg: string; accent: string; name: string }> = {
+  ancient: { bg: '#1a0a00', accent: '#ff6b35', name: 'Ancient Persia' },
+  classical: { bg: '#0a1a2e', accent: '#4fc3f7', name: 'Classical Age' },
+  golden: { bg: '#1a0f1a', accent: '#ce93d8', name: 'Islamic Golden Age' },
+  medieval: { bg: '#0f1a1a', accent: '#26a69a', name: 'Medieval Persia' },
+  modern: { bg: '#1a1a1a', accent: '#78909c', name: 'Modern Era' },
+};
+
+function getEraTheme(birthYear: number) {
+  if (birthYear < 0) return { ...eraThemes.ancient, name: 'Ancient Persia' };
+  if (birthYear < 800) return { ...eraThemes.classical, name: 'Classical Age' };
+  if (birthYear < 1200) return { ...eraThemes.golden, name: 'Islamic Golden Age' };
+  if (birthYear < 1500) return { ...eraThemes.medieval, name: 'Medieval Persia' };
+  return { ...eraThemes.modern, name: 'Modern Philosophy' };
+}
 
 export default function TimelinePage() {
-  const { t } = useI18n();
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const currentPhilosopher = sortedPhilosophers[selectedIndex];
-  const prevPhilosopher = selectedIndex > 0 ? sortedPhilosophers[selectedIndex - 1] : null;
-  const nextPhilosopher = selectedIndex < sortedPhilosophers.length - 1 ? sortedPhilosophers[selectedIndex + 1] : null;
-
-  const getPhilosopherImage = (id: string): string | null => {
-    return philosopherImages[id] || null;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const goNext = () => {
+    if (currentIndex < philosopherData.length - 1) setCurrentIndex(currentIndex + 1);
   };
-
-  const getEraColor = (era: string): string => {
-    return eraColors[era] || '#8b4513';
+  
+  const goPrev = () => {
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
+  
+  useEffect(() => {
+    if (containerRef.current) {
+      // Each philosopher takes full viewport width (100vw)
+      const scrollAmount = containerRef.current.clientWidth;
+      containerRef.current.scrollTo({ left: currentIndex * scrollAmount, behavior: 'smooth' });
+    }
+  }, [currentIndex]);
 
-  const handlePrev = () => {
-    setSelectedIndex(prev => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
-    setSelectedIndex(prev => Math.min(sortedPhilosophers.length - 1, prev + 1));
-  };
+  const philosopher = philosopherData[currentIndex];
+  const theme = getEraTheme(philosopher.birth);
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0f1f18', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#1a3a2a' }}>
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          minHeight: { xs: 400, md: 500 },
-          py: { xs: 6, md: 10 },
-          textAlign: 'center',
+          background: 'linear-gradient(135deg, #0d1f18 0%, #1a3a2a 50%, #2e4a3d 100%)',
+          minHeight: { xs: 180, md: 220 },
           position: 'relative',
           overflow: 'hidden',
-          flexShrink: 0,
-          display: 'flex',
-          alignItems: 'center',
+          py: { xs: 4, md: 5 },
         }}
       >
-        <HeroPattern color="#c9a962" opacity={0.08} />
-        <CornerDecoration position="top-left" color="#c9a962" size={120} />
-        <CornerDecoration position="bottom-right" color="#c9a962" size={120} />
-        <FloatingMotif variant="stars" color="#c9a962" size={70} top="10%" right="10%" opacity={0.12} />
-        <FloatingMotif variant="waves" color="#c9a962" size={60} bottom="15%" left="10%" opacity={0.1} />
         {/* Background Image */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.15,
-          }}
-        >
-          <Image
-            src="/images/explore-hero.png"
-            alt="Persian wisdom"
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
+        <Box sx={{ position: 'absolute', inset: 0, opacity: 0.15 }}>
+          <Image 
+            src="/images/hero/hero-main.png" 
+            alt="Persian philosophy timeline" 
+            fill 
+            style={{ objectFit: 'cover' }} 
+            priority 
           />
         </Box>
-
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 2, display: 'block', fontSize: '0.875rem' }}>
-            Historical Journey
+        
+        <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center', px: 2, maxWidth: 1200, mx: 'auto' }}>
+          <Typography
+            variant="h3"
+            sx={{
+              color: '#ffffff',
+              fontFamily: '"Vazir", serif',
+              fontSize: { xs: '1.75rem', md: '2.5rem' },
+              fontWeight: 300,
+              mb: 1,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Scroll of Time
           </Typography>
-          <Typography variant="h2" sx={{ color: 'white', fontWeight: 300, mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
-            {t.timeline.title}
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'rgba(255,255,255,0.7)',
+              fontFamily: '"Vazir", serif',
+              fontSize: '0.95rem',
+              fontWeight: 300,
+              maxWidth: 600,
+              lineHeight: 1.6,
+              mx: 'auto',
+              mb: 2,
+            }}
+          >
+            Journey through 2,500 years of Persian philosophical wisdom
           </Typography>
-          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
-            {t.timeline.subtitle}
-          </Typography>
-        </Container>
+          
+          {/* Era indicator */}
+          <Box sx={{ 
+            display: 'inline-flex',
+            bgcolor: 'rgba(0,0,0,0.3)',
+            p: 1.5,
+            borderRadius: 2,
+            border: `1px solid ${theme.accent}40`,
+            backdropFilter: 'blur(8px)',
+          }}>
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontFamily: '"Vazir", serif',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+              }}
+            >
+              {theme.name} • {philosopher.birth < 0 ? Math.abs(philosopher.birth) + ' BCE' : philosopher.birth}
+            </Typography>
+          </Box>
+        </Box>
       </Box>
 
-      {/* Journey Timeline */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-        {/* SVG River Background */}
+      {/* Timeline */}
+      <Box
+        ref={containerRef}
+        sx={{
+          width: '100%',
+          height: 'calc(100vh - 220px)',
+          minHeight: 500,
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+          bgcolor: '#1a3a2a',
+        }}
+      >
         <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            pointerEvents: 'none',
-          }}
+           sx={{
+             display: 'flex',
+             height: '100%',
+             // Flex container - each child takes full width
+             // No explicit width needed - flex children define their own width
+             alignItems: 'center',
+           }}
         >
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }}>
-            <defs>
-              <linearGradient id="waterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#c9a962" stopOpacity="0.1" />
-                <stop offset="50%" stopColor="#c9a962" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#c9a962" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-            {/* Flowing river path */}
-            <path 
-              d="M0,50 Q25,30 50,50 T100,50" 
-              stroke="url(#waterGradient)" 
-              strokeWidth="8" 
-              fill="none"
-              strokeLinecap="round"
-            />
-            {/* Decorative waves - using deterministic values */}
-            {[...Array(20)].map((_, i) => (
-              <circle 
-                key={i}
-                cx={`${i * 5 + 2}`} 
-                cy={50 + Math.sin(i * 0.8) * 3} 
-                r="1" 
-                fill="#c9a962"
-                opacity={0.4}
-              />
-            ))}
-          </svg>
-        </Box>
-
-        {/* Navigation */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ px: 3, py: 2 }}>
-          <IconButton 
-            onClick={handlePrev} 
-            disabled={selectedIndex === 0}
-            sx={{ color: 'white', bgcolor: 'rgba(139,69,19,0.3)', '&:hover': { bgcolor: 'rgba(139,69,19,0.5)' } }}
-          >
-            <ChevronLeftIcon />
-          </IconButton>
-          
-          <Stack direction="row" spacing={1} alignItems="center">
-            {sortedPhilosophers.slice(Math.max(0, selectedIndex - 2), selectedIndex + 3).map((p, idx) => {
-              const actualIdx = Math.max(0, selectedIndex - 2) + idx;
-              return (
-                <Box
-                  key={p.id}
-                  onClick={() => setSelectedIndex(actualIdx)}
-                  sx={{
-                    width: actualIdx === selectedIndex ? 12 : 8,
-                    height: actualIdx === selectedIndex ? 12 : 8,
-                    borderRadius: '50%',
-                    bgcolor: actualIdx === selectedIndex ? '#c9a962' : 'rgba(201,169,98,0.3)',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                  }}
-                />
-              );
-            })}
-          </Stack>
-
-          <IconButton 
-            onClick={handleNext}
-            disabled={selectedIndex === sortedPhilosophers.length - 1}
-            sx={{ color: 'white', bgcolor: 'rgba(139,69,19,0.3)', '&:hover': { bgcolor: 'rgba(139,69,19,0.5)' } }}
-          >
-            <ChevronRightIcon />
-          </IconButton>
-        </Stack>
-
-        {/* Main Content */}
-        <Container maxWidth="lg" sx={{ flex: 1, display: 'flex', alignItems: 'center', py: 4 }}>
-          <Box sx={{ width: '100%' }}>
-            {/* Current Philosopher Card */}
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, alignItems: 'center' }}>
-              
-              {/* Philosopher Portrait */}
-              <Box 
-                component={Link}
-                href={`/philosophers/${currentPhilosopher.id}`}
-                sx={{ 
-                  position: 'relative',
-                  width: { xs: 200, md: 280 },
-                  height: { xs: 200, md: 280 },
-                  flexShrink: 0,
-                  cursor: 'pointer',
-                }}
+          {philosopherData.map((p, idx) => {
+            const pTheme = getEraTheme(p.birth);
+            const isActive = idx === currentIndex;
+            const offset = Math.abs(idx - currentIndex);
+            
+            return (
+              <Box
+                key={p.id}
+                 sx={{
+                   flex: '0 0 100%', // Each philosopher takes full width of container (viewport)
+                   height: '100%',
+                   display: 'flex',
+                   alignItems: 'center',
+                   justifyContent: 'center',
+                    opacity: Math.max(0.7, 1 - offset * 0.15),
+                    transform: `scale(${Math.max(0.85, 1 - offset * 0.05)})`,
+                   transition: 'all 0.5s ease',
+                 }}
               >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: '50%',
-                    border: '4px solid',
-                    borderColor: getEraColor(currentPhilosopher.life.era),
-                    overflow: 'hidden',
-                    boxShadow: `0 0 40px ${getEraColor(currentPhilosopher.life.era)}40`,
-                  }}
-                >
-                  {getPhilosopherImage(currentPhilosopher.id) ? (
-                    <Image
-                      src={getPhilosopherImage(currentPhilosopher.id)!}
-                      alt={currentPhilosopher.name.english}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <Box
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-                        bgcolor: getEraColor(currentPhilosopher.life.era),
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '4rem',
-                        color: 'white',
-                      }}
-                    >
-                      {currentPhilosopher.name.persian[0]}
-                    </Box>
-                  )}
-                </Box>
-                {/* Chat button overlay */}
-                <Box
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.location.href = `/chat?philosopher=${currentPhilosopher.id}`;
-                  }}
-                  sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    right: 0,
-                    width: 48,
-                    height: 48,
-                    borderRadius: '50%',
-                    bgcolor: '#8b4513',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                    cursor: 'pointer',
-                    '&:hover': { bgcolor: '#a0522d' },
-                  }}
-                >
-                  <AutoStoriesIcon />
-                </Box>
-              </Box>
-
-              {/* Philosopher Info */}
-              <Card
-                sx={{
-                  flex: 1,
-                  background: 'rgba(26, 58, 42, 0.4)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(201, 169, 98, 0.2)',
-                  borderRadius: 3,
-                  maxWidth: 600,
-                  minHeight: 380,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-                    <Chip 
-                      label={eraLabels[currentPhilosopher.life.era] || currentPhilosopher.life.era}
-                      size="small"
-                      sx={{ 
-                        bgcolor: getEraColor(currentPhilosopher.life.era),
-                        color: 'white',
-                        fontWeight: 600,
-                      }}
-                    />
-                    <Chip 
-                      label={`${currentPhilosopher.life.birth} - ${currentPhilosopher.life.death}`}
-                      size="small"
-                      variant="outlined"
-                      sx={{ borderColor: 'rgba(201, 169, 98, 0.5)', color: '#c9a962' }}
-                    />
-                  </Stack>
-
-                  <Typography variant="h3" sx={{ color: 'white', fontWeight: 600, mb: 1 }}>
-                    {currentPhilosopher.name.english}
-                  </Typography>
-                  
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
+                <Box sx={{ maxWidth: 800, width: '100%' }}>
+                  {/* Date */}
+                  <Typography
+                    sx={{
+                      color: pTheme.accent,
                       fontFamily: '"Vazir", serif',
-                      direction: 'rtl', 
-                      color: 'rgba(201, 169, 98, 0.9)',
-                      mb: 3,
+                      fontSize: { xs: '2rem', md: '4rem' },
+                      fontWeight: 300,
+                      lineHeight: 1,
+                      mb: 2,
+                       opacity: 0.3,
                     }}
                   >
-                    {currentPhilosopher.name.persian}
+                    {p.birth < 0 ? Math.abs(p.birth) + ' BCE' : p.birth}
                   </Typography>
 
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, mb: 3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>
-                    {currentPhilosopher.description}
-                  </Typography>
+                  {/* Card */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      gap: 4,
+                      alignItems: 'center',
+                    }}
+                  >
+                    {/* Portrait */}
+                    <Box
+                      sx={{
+                        width: { xs: 180, md: 260 },
+                        height: { xs: 220, md: 320 },
+                        position: 'relative',
+                        flexShrink: 0,
+                        borderRadius: 2,
+                        overflow: 'hidden',
+                        boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${pTheme.accent}20`,
+                      }}
+                    >
+                      {p.image && (
+                        <Image src={p.image} alt={p.name} fill style={{ objectFit: 'cover' }} />
+                      )}
+                    </Box>
 
-                  <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ gap: 1, mt: 'auto' }}>
-                    {currentPhilosopher.school.slice(0, 3).map((s) => (
-                      <Chip 
-                        key={s}
-                        label={s}
-                        size="small"
-                        variant="outlined"
-                        sx={{ borderColor: 'rgba(201, 169, 98, 0.3)', color: 'rgba(255,255,255,0.7)' }}
-                      />
-                    ))}
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Box>
-
-            {/* Prev/Next Preview */}
-            <Stack direction="row" justifyContent="space-between" sx={{ mt: 4, px: { md: 8 } }}>
-              {prevPhilosopher && (
-                <Box 
-                  onClick={() => setSelectedIndex(selectedIndex - 1)}
-                  sx={{ cursor: 'pointer', opacity: 0.6, '&:hover': { opacity: 1 } }}
-                >
-                  <Typography variant="caption" sx={{ color: 'rgba(201,169,98,0.7)' }}>
-                    ← Previous
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'white' }}>
-                    {prevPhilosopher.name.english}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-                    {prevPhilosopher.life.birth}
-                  </Typography>
+                    {/* Info */}
+                    <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
+                      <Typography sx={{ color: '#c9a962', fontFamily: '"Vazir", serif', fontSize: '2rem', mb: 1 }}>
+                        {p.name}
+                      </Typography>
+                      <Typography sx={{ color: 'rgba(255,255,255,0.6)', fontFamily: '"Vazir", serif', fontSize: '0.9rem', mb: 2 }}>
+                        {p.title}
+                      </Typography>
+                       <Typography sx={{ color: 'rgba(255,255,255,0.8)', fontFamily: '"Vazir", serif', fontSize: '1rem', lineHeight: 1.8, mb: 3 }}>
+                         {p.bio}
+                       </Typography>
+                       
+                       {/* Quote */}
+                       <Box sx={{ borderLeft: `3px solid ${pTheme.accent}`, pl: 2, py: 1, mt: 2 }}>
+                         <Typography sx={{ color: pTheme.accent, fontFamily: '"Vazir", serif', fontSize: '1.1rem', lineHeight: 1.8, fontStyle: 'italic', mb: 1 }}>
+                           {p.quoteFarsi}
+                         </Typography>
+                         <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontFamily: '"Vazir", serif', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                           {p.quoteEnglish}
+                         </Typography>
+                       </Box>
+                     </Box>
+                  </Box>
                 </Box>
-              )}
-              
-              {nextPhilosopher && (
-                <Box 
-                  onClick={() => setSelectedIndex(selectedIndex + 1)}
-                  sx={{ cursor: 'pointer', opacity: 0.6, textAlign: 'right', '&:hover': { opacity: 1 } }}
-                >
-                  <Typography variant="caption" sx={{ color: 'rgba(201,169,98,0.7)' }}>
-                    Next →
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'white' }}>
-                    {nextPhilosopher.name.english}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-                    {nextPhilosopher.life.birth}
-                  </Typography>
-                </Box>
-              )}
-            </Stack>
-          </Box>
-        </Container>
-
-        {/* World Events Timeline */}
-        <Box sx={{ py: 3, borderTop: '1px solid rgba(201,169,98,0.1)' }}>
-          <Container maxWidth="lg">
-            <Stack direction="row" spacing={2} sx={{ overflowX: 'auto', pb: 1, '&::-webkit-scrollbar': { height: 4 }, '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(201,169,98,0.3)', borderRadius: 2 } }}>
-              {worldEvents.map((event, idx) => (
-                <Box 
-                  key={idx}
-                  sx={{ 
-                    flexShrink: 0,
-                    px: 2,
-                    py: 1,
-                    borderLeft: '2px solid',
-                    borderColor: 'rgba(201,169,98,0.3)',
-                  }}
-                >
-                  <Typography variant="caption" sx={{ color: '#c9a962', fontWeight: 600 }}>
-                    {event.year}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-                    {event.title}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Container>
+              </Box>
+            );
+          })}
         </Box>
+      </Box>
+
+      {/* Navigation */}
+      <Box sx={{ position: 'fixed', bottom: 30, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 2, zIndex: 100 }}>
+        <IconButton onClick={goPrev} disabled={currentIndex === 0} sx={{ color: '#c9a962', bgcolor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,169,98,0.3)', '&:hover': { bgcolor: 'rgba(201,169,98,0.2)' }, '&.Mui-disabled': { opacity: 0.3 } }}>
+          <ChevronLeftIcon />
+        </IconButton>
+        
+        <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', px: 2, bgcolor: 'rgba(0,0,0,0.4)', borderRadius: 3, border: '1px solid rgba(201,169,98,0.2)' }}>
+          {philosopherData.map((_, idx) => (
+            <Box key={idx} onClick={() => setCurrentIndex(idx)} sx={{ width: idx === currentIndex ? 20 : 4, height: 2, borderRadius: 1, bgcolor: idx === currentIndex ? '#c9a962' : 'rgba(201,169,98,0.2)', cursor: 'pointer', transition: 'all 0.3s' }} />
+          ))}
+        </Box>
+
+        <IconButton onClick={goNext} disabled={currentIndex === philosopherData.length - 1} sx={{ color: '#c9a962', bgcolor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,169,98,0.3)', '&:hover': { bgcolor: 'rgba(201,169,98,0.2)' }, '&.Mui-disabled': { opacity: 0.3 } }}>
+          <ChevronRightIcon />
+        </IconButton>
       </Box>
     </Box>
   );

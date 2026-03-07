@@ -1,17 +1,23 @@
 'use client';
-import { useI18n } from '@/i18n';
+
+import { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Card,
   CardContent,
+  CardActions,
   Grid,
   Button,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Chip,
+  Divider,
+  Alert,
+  Paper
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -20,18 +26,112 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ChatIcon from '@mui/icons-material/Chat';
+import StarIcon from '@mui/icons-material/Star';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import DownloadIcon from '@mui/icons-material/Download';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SecurityIcon from '@mui/icons-material/Security';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import { motion } from 'framer-motion';
+import IlluminatedCard from '@/components/IlluminatedCard';
+import NastaliqReveal from '@/components/NastaliqReveal';
 
-const features = [
-  { icon: <AutoStoriesIcon />, title: 'Access to 10,000+ Quotes', description: 'Explore wisdom from Rumi, Hafez, Saadi, and 50+ philosophers' },
-  { icon: <MenuBookIcon />, title: 'Complete Works Library', description: 'Read full texts of major Persian philosophical works' },
-  { icon: <ChatIcon />, title: 'AI Chat with Philosophers', description: 'Have meaningful conversations with AI representations of ancient thinkers' },
-  { icon: <SchoolIcon />, title: 'Learning Paths', description: 'Structured courses from beginner to advanced' },
-  { icon: <GroupsIcon />, title: 'Community', description: 'Join discussions and connect with fellow seekers' },
-  { icon: <AutoAwesomeIcon />, title: 'Text-to-Speech', description: 'Listen to Persian poetry with correct pronunciation' },
+const plans = [
+  {
+    name: 'The Seeker',
+    price: 'Free',
+    period: 'forever',
+    description: 'For those beginning their journey',
+    color: 'secondary',
+    features: [
+      'Daily wisdom verse',
+      'Basic reading access',
+      'Limited chat (5 turns/day)',
+      'Community access',
+      'Basic search'
+    ],
+    cta: 'Continue Free',
+    popular: false
+  },
+  {
+    name: 'The Dervish',
+    price: '$5',
+    period: 'per month',
+    description: 'For dedicated students of wisdom',
+    color: 'primary',
+    features: [
+      'Unlimited philosophical chat',
+      'Full audio library',
+      'Unlimited collections',
+      'Advanced search filters',
+      'Download for offline reading',
+      'Priority support',
+      'Ad-free experience'
+    ],
+    cta: 'Become a Dervish',
+    popular: true
+  },
+  {
+    name: 'The Patron',
+    price: '$20',
+    period: 'per month',
+    description: 'For those who wish to sustain wisdom',
+    color: 'accent',
+    features: [
+      'Everything in Dervish',
+      'Sponsor a verse (your name in credits)',
+      'Early access to new features',
+      'Scholar verification priority',
+      'Personalized curriculum',
+      'Monthly wisdom report',
+      'Founder recognition'
+    ],
+    cta: 'Become a Patron',
+    popular: false
+  }
+];
+
+const benefits = [
+  {
+    icon: <AutoStoriesIcon />,
+    title: 'Unlimited Access',
+    description: 'Full library of 2,500 years of Persian philosophy'
+  },
+  {
+    icon: <VolumeUpIcon />,
+    title: 'Audio Immersion',
+    description: 'Professional narration of verses with ambient soundscapes'
+  },
+  {
+    icon: <GroupsIcon />,
+    title: 'Community Wisdom',
+    description: 'Join discussions with fellow seekers worldwide'
+  },
+  {
+    icon: <SchoolIcon />,
+    title: 'Guided Learning',
+    description: 'Personalized curriculum based on your interests'
+  },
+  {
+    icon: <FavoriteIcon />,
+    title: 'Support Preservation',
+    description: 'Your subscription helps digitize rare manuscripts'
+  },
+  {
+    icon: <SecurityIcon />,
+    title: 'Ad-Free Sanctuary',
+    description: 'A pure space for contemplation without distractions'
+  }
 ];
 
 export default function PremiumPage() {
-  const { t } = useI18n();
+  const [selectedPlan, setSelectedPlan] = useState('dervish');
+
+  const handleSubscribe = (plan: string) => {
+    // In production, this would redirect to Stripe checkout
+    console.log(`Subscribing to ${plan} plan`);
+    // window.location.href = `/api/stripe/checkout?plan=${plan}`;
+  };
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
@@ -39,7 +139,7 @@ export default function PremiumPage() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, #1a3a2a 0%, #2e4a3d 50%, #3d6b52 100%)',
-          py: { xs: 2, md: 3 },
+          py: { xs: 4, md: 6 },
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -57,158 +157,215 @@ export default function PremiumPage() {
           },
         }}
       >
-        <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'rgba(201, 169, 98, 0.9)', letterSpacing: 4, mb: 0.5, display: 'block' }}>
-            Free Forever
+        <Container maxWidth="lg">
+          <NastaliqReveal text="The Patron's Gate" />
+          <Typography variant="h4" sx={{ color: 'white', fontWeight: 300, mb: 2, mt: 2 }}>
+            Sustain Wisdom, Support Preservation
           </Typography>
-          <Typography variant="h4" sx={{ color: 'white', fontWeight: 300, mb: 1 }}>
-            {t.premium.title}
+          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', maxWidth: 600, mx: 'auto', mb: 3 }}>
+            Your subscription directly supports the digitization of rare Persian manuscripts and the development of this sanctuary for wisdom seekers worldwide.
           </Typography>
-          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-            {t.premium.subtitle}
-          </Typography>
+          
+          <Alert 
+            severity="info" 
+            sx={{ 
+              maxWidth: 600, 
+              mx: 'auto', 
+              bgcolor: 'rgba(255,255,255,0.1)',
+              color: 'white',
+              borderColor: 'rgba(255,255,255,0.2)'
+            }}
+          >
+            <Typography variant="body2">
+              <strong>Soft Paywall:</strong> Enjoy 5 free chat turns daily. The paywall appears gently, inviting support rather than demanding payment.
+            </Typography>
+          </Alert>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 3, flex: 1, overflow: 'auto' }}>
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            Completely Free. No Payments. Ever.
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-            Hikmatia is dedicated to preserving and sharing Persian wisdom with the world. 
-            We believe knowledge should be accessible to everyone.
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3} sx={{ mb: 6 }}>
-          {features.map((feature, index) => (
-            <Grid size={{ xs: 12, md: 6 }} key={index}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  border: '1px solid rgba(201, 169, 98, 0.15)',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    borderColor: 'rgba(201, 169, 98, 0.4)',
-                    boxShadow: '0 8px 24px rgba(139, 69, 19, 0.1)',
-                  },
-                }}
+      <Container maxWidth="lg" sx={{ py: 6, flex: 1, overflow: 'auto' }}>
+        {/* Pricing Cards */}
+        <Grid container spacing={4} justifyContent="center" mb={8}>
+          {plans.map((plan) => (
+            <Grid size={{ xs: 12, md: 4 }} key={plan.name}>
+              <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ type: 'spring', stiffness: 300 }}
               >
-                <CardContent sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                  <Box sx={{ 
-                    color: '#c9a962', 
-                    mt: 0.5,
-                    bgcolor: 'rgba(201, 169, 98, 0.1)',
-                    p: 1,
-                    borderRadius: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                <IlluminatedCard borderStyle="gold-lapis">
+                  <Card sx={{ 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    border: plan.popular ? '2px solid' : 'none',
+                    borderColor: plan.popular ? 'primary.main' : 'transparent'
                   }}>
-                    {feature.icon}
-                  </Box>
-                  <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                      {feature.description}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                        <Typography variant="h5" component="h2">
+                          {plan.name}
+                        </Typography>
+                        {plan.popular && (
+                          <Chip 
+                            icon={<StarIcon />} 
+                            label="Most Popular" 
+                            color="primary" 
+                            size="small" 
+                          />
+                        )}
+                      </Box>
+                      
+                      <Box mb={3}>
+                        <Typography variant="h3" component="div" color="primary">
+                          {plan.price}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {plan.period}
+                        </Typography>
+                      </Box>
+
+                      <Typography variant="body2" color="text.secondary" mb={3}>
+                        {plan.description}
+                      </Typography>
+
+                      <Divider sx={{ my: 2 }} />
+
+                      <List dense>
+                        {plan.features.map((feature, index) => (
+                          <ListItem key={index} disableGutters>
+                            <ListItemIcon sx={{ minWidth: 36 }}>
+                              <CheckCircleIcon color="success" fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary={feature} />
+                          </ListItem>
+                        ))}
+                      </List>
+                    </CardContent>
+
+                    <CardActions sx={{ p: 2, pt: 0 }}>
+                      <Button
+                        fullWidth
+                        variant={plan.popular ? 'contained' : 'outlined'}
+                        size="large"
+                        onClick={() => handleSubscribe(plan.name.toLowerCase().replace(' ', '-'))}
+                        startIcon={plan.name === 'The Patron' ? <FavoriteIcon /> : undefined}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </IlluminatedCard>
+              </motion.div>
             </Grid>
           ))}
         </Grid>
 
-        <Card sx={{ bgcolor: 'rgba(46, 74, 61, 0.08)', border: 'none' }}>
-          <CardContent sx={{ textAlign: 'center', py: 4 }}>
-            <Typography variant="h5" gutterBottom>
-              Support Our Mission
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 500, mx: 'auto' }}>
-              While our core features are completely free, your support helps us continue 
-              maintaining and expanding this collection of Persian wisdom.
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Button 
-                variant="contained" 
-                size="large" 
-                startIcon={<GroupsIcon />}
-                sx={{
-                  bgcolor: '#c9a962',
-                  color: '#1a3a2a',
-                  fontWeight: 600,
-                  '&:hover': { bgcolor: '#d4bc7d' },
-                }}
-              >
-                Join Our Community
-              </Button>
-              <Button 
-                variant="outlined" 
-                size="large"
-                sx={{
-                  borderColor: 'rgba(201, 169, 98, 0.5)',
-                  color: '#c9a962',
-                  '&:hover': { 
-                    borderColor: '#c9a962',
-                    bgcolor: 'rgba(201, 169, 98, 0.1)',
-                  },
-                }}
-              >
-                Contribute Translations
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
-
-        <Box sx={{ mt: 8 }}>
-          <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
-            What Our Users Say
+        {/* Benefits Section */}
+        <Box mb={8}>
+          <Typography variant="h4" component="h2" textAlign="center" gutterBottom>
+            Why Become a Patron?
           </Typography>
-          <Grid container spacing={3}>
-            {[
-              '"This platform has transformed how I study Persian philosophy. The AI discussions feel incredibly authentic."',
-              '"Finally, a place where I can access these ancient texts without paywalls. Thank you for this gift."',
-              '"The text-to-speech feature has helped me improve my Persian pronunciation significantly."',
-            ].map((quote, idx) => (
-              <Grid size={{ xs: 12, md: 4 }} key={idx}>
-                <Card 
+          <Typography variant="body1" color="text.secondary" textAlign="center" mb={6} sx={{ maxWidth: 800, mx: 'auto' }}>
+            Your support goes beyond access—it becomes part of a living tradition of wisdom preservation.
+          </Typography>
+
+          <Grid container spacing={4}>
+            {benefits.map((benefit, index) => (
+               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+                <Paper 
+                  elevation={0} 
                   sx={{ 
+                    p: 3, 
                     height: '100%',
-                    border: '1px solid rgba(201, 169, 98, 0.15)',
-                    bgcolor: 'rgba(26, 58, 42, 0.02)',
+                    border: 1,
+                    borderColor: 'divider',
+                    borderRadius: 2,
                     transition: 'all 0.3s ease',
                     '&:hover': {
-                      borderColor: 'rgba(201, 169, 98, 0.4)',
-                    },
+                      borderColor: 'primary.main',
+                      boxShadow: 2
+                    }
                   }}
                 >
-                  <CardContent>
-                    <Typography 
-                      variant="body1" 
-                      sx={{ 
-                        fontStyle: 'italic', 
-                        mb: 2,
-                        lineHeight: 1.7,
-                        color: 'text.secondary',
-                      }}
-                    >
-                      {quote}
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Box sx={{ width: 24, height: 2, bgcolor: '#c9a962', borderRadius: 1 }} />
-                      <Typography variant="caption" color="text.secondary">
-                        Community Member
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+                  <Box color="primary.main" mb={2}>
+                    {benefit.icon}
+                  </Box>
+                  <Typography variant="h6" gutterBottom>
+                    {benefit.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {benefit.description}
+                  </Typography>
+                </Paper>
               </Grid>
             ))}
           </Grid>
+        </Box>
+
+        {/* FAQ Section */}
+        <Box mb={8}>
+          <Typography variant="h4" component="h2" textAlign="center" gutterBottom>
+            Frequently Asked Questions
+          </Typography>
+          
+          <Grid container spacing={3} sx={{ maxWidth: 800, mx: 'auto', mt: 4 }}>
+            {[
+              {
+                q: 'Can I cancel anytime?',
+                a: 'Yes, you can cancel your subscription at any time. Your access will continue until the end of your billing period.'
+              },
+              {
+                q: 'What payment methods do you accept?',
+                a: 'We accept all major credit cards, Apple Pay, Google Pay, and PayPal through our secure Stripe integration.'
+              },
+              {
+                q: 'Is there a free trial?',
+                a: 'The free tier (The Seeker) is our permanent free trial. You can experience core features before deciding to upgrade.'
+              },
+              {
+                q: 'How does "Sponsor a Verse" work?',
+                a: 'As a Patron, you can sponsor the digitization of a specific verse. Your name will appear in the credits of that verse forever.'
+              },
+              {
+                q: 'Can I switch plans?',
+                a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at your next billing cycle.'
+              },
+              {
+                q: 'Is my payment information secure?',
+                a: 'We use Stripe for payment processing. Your payment information is encrypted and never stored on our servers.'
+              }
+            ].map((faq, index) => (
+               <Grid size={{ xs: 12 }} key={index}>
+                <Paper sx={{ p: 3 }}>
+                  <Typography variant="h6" color="primary" gutterBottom>
+                    {faq.q}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {faq.a}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Final CTA */}
+        <Box textAlign="center" sx={{ py: 6, borderTop: 1, borderColor: 'divider' }}>
+          <WorkspacePremiumIcon sx={{ fontSize: 64, color: 'primary.main', mb: 2 }} />
+          <Typography variant="h5" gutterBottom>
+            Join the Circle of Wisdom Keepers
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mb: 4 }}>
+            Your subscription sustains not just an app, but a living tradition of Persian philosophy for generations to come.
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => handleSubscribe('dervish')}
+            sx={{ px: 6 }}
+          >
+            Begin Your Journey
+          </Button>
         </Box>
       </Container>
     </Box>

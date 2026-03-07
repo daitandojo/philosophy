@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="etherealSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8e8e8"/>
+      <stop offset="50%" style="stop-color:#c0c0c0"/>
+      <stop offset="100%" style="stop-color:#a0a0a0"/>
+    </linearGradient>
+    <linearGradient id="paleBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd"/>
+      <stop offset="100%" style="stop-color:#90caf9"/>
+    </linearGradient>
+    <filter id="etherealGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="#ffffff"/>
+  <!-- Light floating flowers -->
+  <g fill="url(#etherealSilver)" filter="url(#etherealGlow)" opacity="0.7">
+    <!-- Top-left -->
+    <circle cx="25" cy="25" r="6" opacity="0.5"/>
+    <circle cx="20" cy="20" r="3" opacity="0.4"/>
+    <circle cx="30" cy="20" r="3" opacity="0.4"/>
+    <circle cx="20" cy="30" r="3" opacity="0.4"/>
+    <circle cx="30" cy="30" r="3" opacity="0.4"/>
+    <!-- Top-right -->
+    <circle cx="175" cy="25" r="6" opacity="0.5"/>
+    <circle cx="170" cy="20" r="3" opacity="0.4"/>
+    <circle cx="180" cy="20" r="3" opacity="0.4"/>
+    <circle cx="170" cy="30" r="3" opacity="0.4"/>
+    <circle cx="180" cy="30" r="3" opacity="0.4"/>
+    <!-- Bottom-left -->
+    <circle cx="25" cy="175" r="6" opacity="0.5"/>
+    <circle cx="20" cy="170" r="3" opacity="0.4"/>
+    <circle cx="30" cy="170" r="3" opacity="0.4"/>
+    <circle cx="20" cy="180" r="3" opacity="0.4"/>
+    <circle cx="30" cy="180" r="3" opacity="0.4"/>
+    <!-- Bottom-right -->
+    <circle cx="175" cy="175" r="6" opacity="0.5"/>
+    <circle cx="170" cy="170" r="3" opacity="0.4"/>
+    <circle cx="180" cy="170" r="3" opacity="0.4"/>
+    <circle cx="170" cy="180" r="3" opacity="0.4"/>
+    <circle cx="180" cy="180" r="3" opacity="0.4"/>
+  </g>
+  <!-- Delicate sprigs -->
+  <g fill="none" stroke="url(#etherealSilver)" stroke-width="0.8" opacity="0.5">
+    <path d="M15,50 Q25,45 20,55 Q15,50 25,48"/>
+    <path d="M185,50 Q175,45 180,55 Q185,50 175,48"/>
+    <path d="M15,150 Q25,155 20,145 Q15,150 25,152"/>
+    <path d="M185,150 Q175,155 180,145 Q185,150 175,152"/>
+  </g>
+  <!-- Subtle geometric mandala -->
+  <g transform="translate(100,100)" opacity="0.2">
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#paleBlue)" stroke-width="0.5"/>
+    <circle cx="0" cy="0" r="25" fill="none" stroke="url(#etherealSilver)" stroke-width="0.5"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="url(#paleBlue)" stroke-width="0.3"/>
+  </g>
+  <!-- Feather-light vines -->
+  <g fill="none" stroke="url(#paleBlue)" stroke-width="0.6" opacity="0.4">
+    <path d="M50,10 Q55,25 45,35"/>
+    <path d="M150,10 Q145,25 155,35"/>
+    <path d="M50,190 Q55,175 45,165"/>
+    <path d="M150,190 Q145,175 155,165"/>
+  </g>
+</svg>
