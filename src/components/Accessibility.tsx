@@ -15,7 +15,7 @@ export function SkipToContent() {
         px: 3,
         py: 1,
         borderRadius: '0 0 8px 8px',
-        zIndex: 9999,
+        zIndex: 10001,
         transition: 'top 0.2s ease',
         fontWeight: 600,
         textDecoration: 'none',

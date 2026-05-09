@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 
 interface SplashScreenProps {
@@ -7,17 +7,31 @@ interface SplashScreenProps {
   duration?: number;
 }
 
-export default function SplashScreen({ onComplete, duration = 1500 }: SplashScreenProps) {
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+export default function SplashScreen({ onComplete, duration = 1200 }: SplashScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
+  const skippedRef = useRef(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (prefersReducedMotion()) {
+      skippedRef.current = true;
+      onComplete();
+      return;
+    }
+
+    const showTimer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(onComplete, 1500);
+      setTimeout(onComplete, 800);
     }, duration);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(showTimer);
   }, [duration, onComplete]);
+
+  if (skippedRef.current) return null;
 
   return (
     <Box
@@ -33,7 +47,7 @@ export default function SplashScreen({ onComplete, duration = 1500 }: SplashScre
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 9999,
-        transition: 'opacity 1.5s ease-out',
+        transition: 'opacity 0.8s ease-out',
         opacity: fadeOut ? 0 : 1,
       }}
     >

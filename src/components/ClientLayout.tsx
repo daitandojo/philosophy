@@ -36,13 +36,13 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const isAccessPage = pathname === '/access';
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 1500);
+    const timer = setTimeout(() => setShowSplash(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (!showSplash) {
-      const timer = setTimeout(() => setShowContent(true), 1500);
+      const timer = setTimeout(() => setShowContent(true), 800);
       return () => clearTimeout(timer);
     } else {
       setShowContent(false);

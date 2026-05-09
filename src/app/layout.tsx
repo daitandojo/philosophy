@@ -107,6 +107,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr">
+      <head>
+        <link rel="preload" href="/splash_screen.jpg" as="image" />
+      </head>
       <body style={{ backgroundColor: '#0d1f18', margin: 0 }}>
         <SkipToContent />
         <JsonLd data={websiteSchema} />
