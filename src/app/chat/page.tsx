@@ -29,14 +29,8 @@ interface SpeechRecognitionAlternative {
 interface SpeechRecognitionErrorEvent {
   error: string;
 }
-import { 
-  FloatingMotif,
-  HeroPattern,
-  CornerDecoration,
-} from '@/components/SVGDecorations';
 import {
   Box,
-  Container,
   Typography,
   TextField,
   Button,
@@ -491,364 +485,334 @@ function ChatContent() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', color: '#f5f5f5' }}>
-      {/* Hero Section */}
+    <Box
+      sx={{
+        height: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        bgcolor: '#0d1f18',
+        color: '#f5f5f5',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Philosopher Selector Bar */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #0d1f18 0%, #1a3a2a 50%, #2e4a3d 100%)',
-          minHeight: { xs: 200, md: 280 },
-          py: { xs: 4, md: 6 },
-          textAlign: 'center',
-          position: 'relative',
-          overflow: 'hidden',
+          flexShrink: 0,
+          bgcolor: 'rgba(0,0,0,0.4)',
+          borderBottom: '1px solid rgba(201,169,98,0.15)',
+          px: { xs: 1.5, md: 3 },
+          py: 1.5,
         }}
       >
-        <HeroPattern color="#c9a962" opacity={0.1} />
-        <CornerDecoration position="top-left" color="#c9a962" size={100} />
-        <CornerDecoration position="bottom-right" color="#c9a962" size={100} />
-        <FloatingMotif variant="celestial" color="#c9a962" size={60} top="15%" left="10%" opacity={0.15} />
-        <FloatingMotif variant="geometric" color="#c9a962" size={50} top="20%" right="15%" opacity={0.1} />
-        <FloatingMotif variant="waves" color="#c9a962" size={70} bottom="10%" right="5%" opacity={0.08} />
-        
-        {/* Background Image */}
-        <Box sx={{ position: 'absolute', inset: 0, opacity: 0.15 }}>
-          <Image src="/images/explore-hero.png" alt="Chat with philosophers" fill style={{ objectFit: 'cover' }} priority />
-        </Box>
-        
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="overline" sx={{ color: '#c9a962', letterSpacing: 6, mb: 1, display: 'block', fontSize: '0.75rem', fontWeight: 500 }}>
-            Hikmatia Original
-          </Typography>
-          <Typography variant="h3" sx={{ color: '#ffffff', fontWeight: 300, mb: 1, fontSize: { xs: '1.75rem', md: '2.5rem' }, letterSpacing: '-0.02em' }}>
-            Chat with the Great Minds
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: 500, mx: 'auto', lineHeight: 1.6, fontSize: '0.95rem' }}>
-            Engage in AI-powered conversations with Persian philosophers and explore timeless wisdom
-          </Typography>
-        </Container>
-      </Box>
-
-      {/* Main Content */}
-      <Container maxWidth="xl" sx={{ py: 6, px: { xs: 2, md: 4 } }}>
-        {/* Philosopher Selection */}
-        <Box sx={{ mb: 4 }}>
-          <Box sx={{ 
-            bgcolor: 'rgba(26, 58, 42, 0.3)', 
-            border: '1px solid rgba(201, 169, 98, 0.15)',
-            borderRadius: 3,
-            backdropFilter: 'blur(10px)',
-            p: 3,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 3,
-            flexWrap: 'wrap',
-          }}>
-            {/* Current Philosopher */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box
-                sx={{
-                  position: 'relative',
-                  width: 56,
-                  height: 56,
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  border: '2px solid #c9a962',
-                  boxShadow: '0 4px 14px rgba(201, 169, 98, 0.3)',
-                  flexShrink: 0,
-                }}
-              >
-                <Image
-                  src={philosopher.image}
-                  alt={philosopher.name}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </Box>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <Typography variant="subtitle1" sx={{ color: '#ffffff', fontWeight: 500 }}>
-                  {philosopher.name}
-                </Typography>
-                <Typography variant="caption" sx={{ color: 'rgba(201, 169, 98, 0.8)', fontFamily: 'Vazirmatn', fontSize: '0.75rem' }}>
-                  {philosopher.persianName}
-                </Typography>
-              </Box>
-            </Box>
-
-            {/* Chip Selectors */}
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, flex: 1 }}>
-              {philosophers.slice(0, 12).map((p) => (
-                <Chip
-                  key={p.id}
-                  label={p.name.split(' ')[0]}
-                  onClick={() => handlePhilosopherChange(p.id)}
-                  sx={{
-                    bgcolor: selectedPhilosopher === p.id ? '#c9a962' : 'rgba(201, 169, 98, 0.1)',
-                    color: selectedPhilosopher === p.id ? '#0d1f18' : 'rgba(255,255,255,0.8)',
-                    fontWeight: selectedPhilosopher === p.id ? 600 : 400,
-                    fontSize: '0.75rem',
-                    px: 1,
-                    transition: 'all 0.2s ease',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      bgcolor: selectedPhilosopher === p.id ? '#d4bc7d' : 'rgba(201, 169, 98, 0.2)',
-                    },
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Chat Interface */}
-        <Box
-          sx={{
-            bgcolor: 'rgba(26, 58, 42, 0.3)',
-            border: '1px solid rgba(201, 169, 98, 0.15)',
-            borderRadius: 3,
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            //height: 'calc(100vh - 400px)',
-            minHeight: 500,
-          }}
-        >
-          {/* Messages Area */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <Box
-            ref={containerRef}
-            onScroll={handleScroll}
             sx={{
+              position: 'relative',
+              width: { xs: 40, md: 48 },
+              height: { xs: 40, md: 48 },
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '2px solid #c9a962',
+              flexShrink: 0,
+            }}
+          >
+            <Image
+              src={philosopher.image}
+              alt={philosopher.name}
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </Box>
+          <Box sx={{ minWidth: 0 }}>
+            <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 500, fontSize: '0.85rem', lineHeight: 1.2 }}>
+              {philosopher.name}
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'rgba(201,169,98,0.7)', fontSize: '0.7rem' }}>
+              {philosopher.persianName}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 0.5,
               flex: 1,
               overflow: 'auto',
-              p: 3,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
+              ml: 'auto',
+              '&::-webkit-scrollbar': { display: 'none' },
+              scrollbarWidth: 'none',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 12px, black calc(100% - 12px), transparent 100%)',
             }}
           >
-            {messages.map((message, index) => (
-              <Box
-                key={index}
+            {philosophers.slice(0, 30).map((p) => (
+              <Chip
+                key={p.id}
+                label={p.name.split(' ')[0]}
+                onClick={() => handlePhilosopherChange(p.id)}
+                size="small"
                 sx={{
-                  display: 'flex',
-                  justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
-                  alignItems: 'flex-start',
-                  gap: 1.5,
-                }}
-              >
-                {message.role === 'assistant' && (
-                  <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
-                    <Image
-                      src={philosopher.image}
-                      alt={philosopher.name}
-                      width={36}
-                      height={36}
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </Box>
-                )}
-                <Paper
-                  sx={{
-                    p: 2,
-                    maxWidth: '75%',
-                    bgcolor: message.role === 'user' ? '#c9a962' : 'rgba(0, 0, 0, 0.2)',
-                    color: message.role === 'user' ? '#0d1f18' : 'rgba(255,255,255,0.9)',
-                    borderRadius: 3,
-                    borderTopRightRadius: message.role === 'user' ? 4 : 16,
-                    borderTopLeftRadius: message.role === 'assistant' ? 4 : 16,
-                  }}
-                >
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      whiteSpace: 'pre-wrap',
-                      lineHeight: 1.7,
-                      fontSize: '0.95rem',
-                    }}
-                  >
-                    {message.content}
-                  </Typography>
-                </Paper>
-                {message.role === 'user' && (
-                  <Avatar sx={{ bgcolor: 'rgba(201, 169, 98, 0.3)', color: '#c9a962', width: 36, height: 36, flexShrink: 0 }}>
-                    U
-                  </Avatar>
-                )}
-              </Box>
-            ))}
-            
-            {streamingContent && (
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  gap: 1.5,
-                }}
-              >
-                <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
-                  <Image
-                    src={philosopher.image}
-                    alt={philosopher.name}
-                    width={36}
-                    height={36}
-                    style={{ objectFit: 'cover' }}
-                  />
-                </Box>
-                <Paper
-                  sx={{
-                    p: 2,
-                    maxWidth: '75%',
-                    bgcolor: 'rgba(0, 0, 0, 0.2)',
-                    borderRadius: 3,
-                    borderTopLeftRadius: 4,
-                  }}
-                >
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      whiteSpace: 'pre-wrap',
-                      lineHeight: 1.7,
-                      fontSize: '0.95rem',
-                      color: 'rgba(255,255,255,0.9)',
-                    }}
-                  >
-                    {streamingContent}
-                    <Box
-                      component="span"
-                      sx={{
-                        display: 'inline-block',
-                        width: 8,
-                        height: 16,
-                        bgcolor: '#c9a962',
-                        ml: 0.5,
-                        animation: 'blink 1s infinite',
-                        '@keyframes blink': {
-                          '0%, 50%': { opacity: 1 },
-                          '51%, 100%': { opacity: 0 },
-                        },
-                      }}
-                    />
-                  </Typography>
-                </Paper>
-              </Box>
-            )}
-            
-            {loading && !streamingContent && (
-              <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1.5 }}>
-                <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
-                  <Image
-                    src={philosopher.image}
-                    alt={philosopher.name}
-                    width={36}
-                    height={36}
-                    style={{ objectFit: 'cover' }}
-                  />
-                </Box>
-                <Paper sx={{ p: 2, bgcolor: 'rgba(0, 0, 0, 0.2)', borderRadius: 3 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                    <CircularProgress size={16} sx={{ color: '#c9a962' }} />
-                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-                      Thinking...
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Box>
-            )}
-            
-            <div ref={messagesEndRef} />
-          </Box>
-
-          {/* Input Area */}
-          <Box
-            sx={{
-              p: 3,
-              borderTop: '1px solid rgba(201, 169, 98, 0.15)',
-              bgcolor: 'rgba(0, 0, 0, 0.15)',
-            }}
-          >
-            <Stack direction="row" spacing={1.5} alignItems="flex-end">
-              <Button
-                onClick={isRecording ? stopRecording : startRecording}
-                sx={{
-                  minWidth: 44,
-                  height: 44,
-                  borderRadius: 2,
-                  bgcolor: isRecording ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
-                  color: isRecording ? '#f44336' : '#c9a962',
+                  flexShrink: 0,
+                  bgcolor: selectedPhilosopher === p.id ? '#c9a962' : 'rgba(201,169,98,0.1)',
+                  color: selectedPhilosopher === p.id ? '#0d1f18' : 'rgba(255,255,255,0.7)',
+                  fontWeight: selectedPhilosopher === p.id ? 600 : 400,
+                  fontSize: '0.7rem',
+                  height: 28,
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
                   '&:hover': {
-                    bgcolor: isRecording ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
-                  },
-                }}
-              >
-                {isRecording ? <StopIcon /> : <MicIcon />}
-              </Button>
-              <Button
-                onClick={isSpeaking ? stopSpeaking : () => speakText(messages[messages.length - 1]?.content || '')}
-                disabled={!messages.length}
-                sx={{
-                  minWidth: 44,
-                  height: 44,
-                  borderRadius: 2,
-                  bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
-                  color: isSpeaking ? '#f44336' : '#c9a962',
-                  '&:hover': {
-                    bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
-                  },
-                  '&.Mui-disabled': {
-                    color: 'rgba(201, 169, 98, 0.3)',
-                  },
-                }}
-              >
-                {isSpeaking ? <VolumeOffIcon /> : <VolumeUpIcon />}
-              </Button>
-              <TextField
-                fullWidth
-                multiline
-                maxRows={4}
-                placeholder="Ask your question..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={loading}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    bgcolor: 'rgba(0, 0, 0, 0.2)',
-                    color: '#f5f5f5',
-                    borderRadius: 3,
-                    '& fieldset': { borderColor: 'rgba(201, 169, 98, 0.2)' },
-                    '&:hover fieldset': { borderColor: 'rgba(201, 169, 98, 0.4)' },
-                    '&.Mui-focused fieldset': { borderColor: '#c9a962' },
-                  },
-                  '& .MuiInputBase-input::placeholder': {
-                    color: 'rgba(255,255,255,0.4)',
+                    bgcolor: selectedPhilosopher === p.id ? '#d4bc7d' : 'rgba(201,169,98,0.2)',
                   },
                 }}
               />
-              <Button
-                variant="contained"
-                onClick={handleSend}
-                disabled={loading || !input.trim()}
-                sx={{ 
-                  minWidth: 56,
-                  height: 48,
-                  borderRadius: 3,
-                  bgcolor: '#c9a962',
-                  color: '#0d1f18',
-                  '&:hover': {
-                    bgcolor: '#d4bc7d',
-                  },
-                  '&.Mui-disabled': {
-                    bgcolor: 'rgba(201, 169, 98, 0.2)',
-                    color: 'rgba(0, 0, 0, 0.3)',
-                  },
-                }}
-              >
-                <SendIcon />
-              </Button>
-            </Stack>
+            ))}
           </Box>
         </Box>
-      </Container>
+      </Box>
+
+      {/* Messages Area */}
+      <Box
+        ref={containerRef}
+        onScroll={handleScroll}
+        sx={{
+          flex: 1,
+          overflow: 'auto',
+          p: { xs: 2, md: 3 },
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        {messages.length === 1 && !loading && !streamingContent && (
+          <Box sx={{ textAlign: 'center', py: 4, opacity: 0.5 }}>
+            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem' }}>
+              Ask a question to begin your conversation
+            </Typography>
+          </Box>
+        )}
+        {messages.map((message, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: 'flex',
+              justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+              alignItems: 'flex-start',
+              gap: 1.5,
+            }}
+          >
+            {message.role === 'assistant' && (
+              <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
+                <Image
+                  src={philosopher.image}
+                  alt={philosopher.name}
+                  width={36}
+                  height={36}
+                  style={{ objectFit: 'cover' }}
+                />
+              </Box>
+            )}
+            <Paper
+              sx={{
+                p: 2,
+                maxWidth: '75%',
+                bgcolor: message.role === 'user' ? '#c9a962' : 'rgba(0, 0, 0, 0.2)',
+                color: message.role === 'user' ? '#0d1f18' : 'rgba(255,255,255,0.9)',
+                borderRadius: 3,
+                borderTopRightRadius: message.role === 'user' ? 4 : 16,
+                borderTopLeftRadius: message.role === 'assistant' ? 4 : 16,
+              }}
+            >
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  whiteSpace: 'pre-wrap',
+                  lineHeight: 1.7,
+                  fontSize: '0.95rem',
+                }}
+              >
+                {message.content}
+              </Typography>
+            </Paper>
+            {message.role === 'user' && (
+              <Avatar sx={{ bgcolor: 'rgba(201, 169, 98, 0.3)', color: '#c9a962', width: 36, height: 36, flexShrink: 0 }}>
+                U
+              </Avatar>
+            )}
+          </Box>
+        ))}
+        
+        {streamingContent && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              gap: 1.5,
+            }}
+          >
+            <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
+              <Image
+                src={philosopher.image}
+                alt={philosopher.name}
+                width={36}
+                height={36}
+                style={{ objectFit: 'cover' }}
+              />
+            </Box>
+            <Paper
+              sx={{
+                p: 2,
+                maxWidth: '75%',
+                bgcolor: 'rgba(0, 0, 0, 0.2)',
+                borderRadius: 3,
+                borderTopLeftRadius: 4,
+              }}
+            >
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  whiteSpace: 'pre-wrap',
+                  lineHeight: 1.7,
+                  fontSize: '0.95rem',
+                  color: 'rgba(255,255,255,0.9)',
+                }}
+              >
+                {streamingContent}
+                <Box
+                  component="span"
+                  sx={{
+                    display: 'inline-block',
+                    width: 8,
+                    height: 16,
+                    bgcolor: '#c9a962',
+                    ml: 0.5,
+                    animation: 'blink 1s infinite',
+                    '@keyframes blink': {
+                      '0%, 50%': { opacity: 1 },
+                      '51%, 100%': { opacity: 0 },
+                    },
+                  }}
+                />
+              </Typography>
+            </Paper>
+          </Box>
+        )}
+        
+        {loading && !streamingContent && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1.5 }}>
+            <Box sx={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #c9a962' }}>
+              <Image
+                src={philosopher.image}
+                alt={philosopher.name}
+                width={36}
+                height={36}
+                style={{ objectFit: 'cover' }}
+              />
+            </Box>
+            <Paper sx={{ p: 2, bgcolor: 'rgba(0, 0, 0, 0.2)', borderRadius: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <CircularProgress size={16} sx={{ color: '#c9a962' }} />
+                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
+                  Thinking...
+                </Typography>
+              </Box>
+            </Paper>
+          </Box>
+        )}
+        
+        <div ref={messagesEndRef} />
+      </Box>
+
+      {/* Input Area */}
+      <Box
+        sx={{
+          flexShrink: 0,
+          p: { xs: 1.5, md: 3 },
+          borderTop: '1px solid rgba(201,169,98,0.15)',
+          bgcolor: 'rgba(0,0,0,0.3)',
+          paddingBottom: { xs: 'calc(var(--sab, 0px) + 64px)', md: 3 },
+        }}
+      >
+        <Stack direction="row" spacing={1.5} alignItems="flex-end">
+          <Button
+            onClick={isRecording ? stopRecording : startRecording}
+            sx={{
+              minWidth: 44,
+              height: 44,
+              borderRadius: 2,
+              bgcolor: isRecording ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
+              color: isRecording ? '#f44336' : '#c9a962',
+              '&:hover': {
+                bgcolor: isRecording ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
+              },
+            }}
+          >
+            {isRecording ? <StopIcon /> : <MicIcon />}
+          </Button>
+          <Button
+            onClick={isSpeaking ? stopSpeaking : () => speakText(messages[messages.length - 1]?.content || '')}
+            disabled={!messages.length}
+            sx={{
+              minWidth: 44,
+              height: 44,
+              borderRadius: 2,
+              bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
+              color: isSpeaking ? '#f44336' : '#c9a962',
+              '&:hover': {
+                bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
+              },
+              '&.Mui-disabled': {
+                color: 'rgba(201, 169, 98, 0.3)',
+              },
+            }}
+          >
+            {isSpeaking ? <VolumeOffIcon /> : <VolumeUpIcon />}
+          </Button>
+          <TextField
+            fullWidth
+            multiline
+            maxRows={4}
+            placeholder="Ask your question..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={loading}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                bgcolor: 'rgba(0, 0, 0, 0.2)',
+                color: '#f5f5f5',
+                borderRadius: 3,
+                '& fieldset': { borderColor: 'rgba(201, 169, 98, 0.2)' },
+                '&:hover fieldset': { borderColor: 'rgba(201, 169, 98, 0.4)' },
+                '&.Mui-focused fieldset': { borderColor: '#c9a962' },
+              },
+              '& .MuiInputBase-input::placeholder': {
+                color: 'rgba(255,255,255,0.4)',
+              },
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleSend}
+            disabled={loading || !input.trim()}
+            sx={{ 
+              minWidth: 56,
+              height: 48,
+              borderRadius: 3,
+              bgcolor: '#c9a962',
+              color: '#0d1f18',
+              '&:hover': {
+                bgcolor: '#d4bc7d',
+              },
+              '&.Mui-disabled': {
+                bgcolor: 'rgba(201, 169, 98, 0.2)',
+                color: 'rgba(0, 0, 0, 0.3)',
+              },
+            }}
+          >
+            <SendIcon />
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 }
