@@ -121,6 +121,7 @@ export default function Navbar() {
             'linear-gradient(180deg, rgba(20,20,20,0.97) 0%, rgba(30,30,30,0.95) 100%)',
           backdropFilter: 'blur(20px)',
           borderBottom: '1px solid rgba(201,169,98,0.15)',
+          paddingTop: 'var(--sat, 0px)',
         }}
       >
         <Container maxWidth={false} disableGutters>

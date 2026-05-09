@@ -62,7 +62,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
             id="main-content"
             sx={{
               minHeight: '100vh',
-              pb: 8,
+              pb: { xs: 'calc(env(safe-area-inset-bottom, 0px) + 72px)', md: 8 },
               opacity: showContent ? 1 : 0,
               transition: 'opacity 1.5s ease-in',
             }}
