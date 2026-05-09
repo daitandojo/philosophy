@@ -16,6 +16,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import CloseIcon from '@mui/icons-material/Close'
 import { useThemeMode } from '@/theme/ThemeRegistry'
+import { triggerHaptic } from '@/lib/haptic'
 
 const navItems = [
   { label: 'Intro', href: '/' },
@@ -76,14 +77,15 @@ export default function Navbar() {
   }, [])
 
   const handleOpen = () => {
+    triggerHaptic(10)
     setIsClosing(false)
     setAnimateItems(false)
     setMobileOpen(true)
-    // Trigger item animations slightly after drawer starts sliding
     setTimeout(() => setAnimateItems(true), 80)
   }
 
   const handleClose = () => {
+    triggerHaptic(5)
     setIsClosing(true)
     setAnimateItems(false)
     setTimeout(() => {

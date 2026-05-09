@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -13,6 +13,7 @@ import {
   ListItemText,
   Divider,
 } from '@mui/material';
+import { triggerHaptic } from '@/lib/haptic';
 import HomeIcon from '@mui/icons-material/Home';
 import ExploreIcon from '@mui/icons-material/Explore';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -39,16 +40,18 @@ const moreItems = [
   { label: 'About', href: '/about' },
 ];
 
-const TAB_LABELS: Record<string, string> = {
-  '/': 'Home',
-  '/explore': 'Explore',
-  '/chat': 'Chat',
-  '/learn': 'Learn',
-};
-
 export default function BottomNav() {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
+
+  const handleMoreOpen = useCallback(() => {
+    triggerHaptic(10);
+    setMoreOpen(true);
+  }, []);
+
+  const handleTabClick = useCallback(() => {
+    triggerHaptic(5);
+  }, []);
 
   const currentTab = primaryTabs.find((t) => {
     if (t.href === '/') return pathname === '/';
@@ -91,6 +94,7 @@ export default function BottomNav() {
                 key={tab.href}
                 component={Link}
                 href={tab.href}
+                onClick={handleTabClick}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -125,7 +129,7 @@ export default function BottomNav() {
           })}
 
           <IconButton
-            onClick={() => setMoreOpen(true)}
+            onClick={handleMoreOpen}
             sx={{
               display: 'flex',
               flexDirection: 'column',
