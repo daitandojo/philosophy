@@ -10,7 +10,6 @@ import {
   Button,
   IconButton,
   Container,
-  useTheme,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
@@ -65,8 +64,6 @@ export default function Navbar() {
   const [isClosing, setIsClosing] = useState(false)
   const [animateItems, setAnimateItems] = useState(false)
   const pathname = usePathname()
-  const theme = useTheme()
-  const [isMobile, setIsMobile] = useState(false)
   const { mode, toggleTheme } = useThemeMode()
 
   useEffect(() => {
@@ -77,16 +74,6 @@ export default function Navbar() {
       document.head.appendChild(style)
     }
   }, [])
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const md = theme.breakpoints.values.md || 900
-      setIsMobile(window.innerWidth < md)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [theme])
 
   const handleOpen = () => {
     setIsClosing(false)
@@ -135,17 +122,15 @@ export default function Navbar() {
               px: { xs: 2, sm: 3, md: 4 },
             }}
           >
-            {isMobile && (
-              <IconButton
-                color="inherit"
-                aria-label="open menu"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ color: '#f5f5f5' }}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
+            <IconButton
+              color="inherit"
+              aria-label="open menu"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ color: '#f5f5f5', display: { xs: 'flex', md: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
 
             <Box
               component={Link}
@@ -184,17 +169,16 @@ export default function Navbar() {
               </Typography>
             </Box>
 
-            {!isMobile && (
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 0.5,
-                  justifyContent: 'center',
-                  flex: 1,
-                  px: 3,
-                }}
-              >
-                {navItems.map((item) => (
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                gap: 0.5,
+                justifyContent: 'center',
+                flex: 1,
+                px: 3,
+              }}
+            >
+              {navItems.map((item) => (
                   <Button
                     key={item.href}
                     component={Link}
@@ -239,7 +223,6 @@ export default function Navbar() {
                   </Button>
                 ))}
               </Box>
-            )}
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <IconButton
