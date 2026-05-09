@@ -27,6 +27,7 @@ const LazyArtifactInspector = dynamic(() => import('./ArtifactInspector'), {
 import MicroInteractions from '@/components/MicroInteractions';
 import AccessibilityOverlay from '@/components/AccessibilityOverlay';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
+import BottomNav from '@/components/BottomNav';
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const [showSplash, setShowSplash] = useState(true);
@@ -71,6 +72,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
               {children}
             </PageTransition>
            </Box>
+           {!isAccessPage && <BottomNav />}
            <MicroInteractions />
            <AccessibilityOverlay />
            <PWAInstallPrompt />
