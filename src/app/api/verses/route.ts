@@ -48,6 +48,65 @@ export async function GET(request: NextRequest) {
         query.wisdomScore = { $gte: parseInt(minWisdom) };
       }
       if (maxWisdom) {
+        query.wisdomScore = { $lte: parseInt(maxWisdom) };
+      }
+      if (source) {
+        query.sourceWork = source;
+      }
+      if (philosopher) {
+        query.philosopher = philosopher;
+      }
+      if (search) {
+        query.$text = { $search: search };
+      }
+
+      verses = await VerseModel.find(query)
+        .sort({ wisdomScore: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit);
+    }
+
+    const total = verses.length;
+
+    return NextResponse.json({
+      verses: verses.map(v => ({
+        _id: v._id.toString(),
+        persianText: v.persianText,
+        transliteration: v.transliteration,
+        englishTranslation: v.englishTranslation,
+        summary: v.summary,
+        sourceWork: v.sourceWork,
+        philosopher: v.philosopher,
+        themes: v.themes,
+        wisdomScore: v.wisdomScore,
+        complexity: v.complexity,
+        emotionalTone: v.emotionalTone,
+        tags: v.tags,
+      })),
+      total,
+      page,
+      pageSize: limit,
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.error('Verses GET error:', error);
+    return NextResponse.json({ error: 'Failed to fetch verses', verses: [], total: 0, page: 1, pageSize: 20, totalPages: 0 }, { status: 200 });
+  }
+}
+      } catch (vectorError) {
+        console.error('Vector search failed, falling back to text search:', vectorError);
+        verses = await VerseModel.find({}).limit(0);
+      }
+    } else {
+      const query: Record<string, any> = {};
+
+      if (theme) {
+        query.themes = theme;
+      }
+      if (minWisdom) {
+        query.wisdomScore = { $gte: parseInt(minWisdom) };
+      }
+      if (maxWisdom) {
         query.wisdomScore = { ...query.wisdomScore, $lte: parseInt(maxWisdom) };
       }
       if (source) {

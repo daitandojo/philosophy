@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   Box,
@@ -23,6 +23,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { bookContent } from '@/lib/book-content';
 import { useThemeMode } from '@/theme/ThemeRegistry';
 
+const PROGRESS_KEY = 'hikmatia_read_progress';
+
 export default function ReadingPage() {
   const params = useParams();
   const router = useRouter();
@@ -33,6 +35,31 @@ export default function ReadingPage() {
   const isDark = mode === 'dark';
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(PROGRESS_KEY);
+    if (saved) {
+      try {
+        const { sectionId: savedId } = JSON.parse(saved);
+        if (savedId) {
+          const idx = bookContent.findIndex((s) => s.id === savedId);
+          if (idx >= 0 && sectionId === savedId) {
+            setCurrentSectionIndex(idx);
+          }
+        }
+      } catch { /* ignore */ }
+    }
+  }, [sectionId]);
+
+  const saveProgress = useCallback((index: number) => {
+    const section = bookContent[index];
+    if (section) {
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify({
+        sectionId: section.id,
+        timestamp: Date.now(),
+      }));
+    }
+  }, []);
 
   const colors = {
     bg: isDark ? '#121212' : '#f5f5f0',
@@ -62,6 +89,7 @@ export default function ReadingPage() {
   const goToSection = (index: number) => {
     if (index >= 0 && index < bookContent.length) {
       setCurrentSectionIndex(index);
+      saveProgress(index);
       setDrawerOpen(false);
     }
   };
