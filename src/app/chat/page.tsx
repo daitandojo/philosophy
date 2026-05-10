@@ -230,12 +230,44 @@ function ChatContent() {
     [selectedPhilosopher]
   );
 
+  const saveConversation = useCallback((philosopherId: string, msgs: Message[]) => {
+    try {
+      const key = `hikmatia-chat-${philosopherId}`;
+      localStorage.setItem(key, JSON.stringify(msgs));
+    } catch {
+      // localStorage may be full or unavailable
+    }
+  }, []);
+
+  const loadConversation = useCallback((philosopherId: string): Message[] | null => {
+    try {
+      const key = `hikmatia-chat-${philosopherId}`;
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch {
+      // Invalid JSON or localStorage unavailable
+    }
+    return null;
+  }, []);
+
   useEffect(() => {
     if (!mounted) return;
-    const initialPhilosopher = philosophers.find(p => p.id === initialPhilosopherId) || philosophers[0];
-    const greeting = generateDynamicGreeting(initialPhilosopherId, initialPhilosopher.name, locale);
-    setMessages([{ role: 'assistant', content: greeting }]);
-  }, [mounted, locale, initialPhilosopherId]);
+    const saved = loadConversation(selectedPhilosopher);
+    if (saved && saved.length > 0) {
+      setMessages(saved);
+    } else {
+      const initialPhilosopher = philosophers.find(p => p.id === selectedPhilosopher) || philosophers[0];
+      const greeting = generateDynamicGreeting(selectedPhilosopher, initialPhilosopher.name, locale);
+      const initialMsgs: Message[] = [{ role: 'assistant', content: greeting }];
+      setMessages(initialMsgs);
+      saveConversation(selectedPhilosopher, initialMsgs);
+    }
+  }, [mounted, selectedPhilosopher, locale, loadConversation, saveConversation]);
 
   const handleTranscript = useCallback((text: string) => {
     setInput(text);
@@ -251,6 +283,12 @@ function ChatContent() {
     scrollToBottom();
   }, [messages, streamingContent, scrollToBottom]);
 
+  useEffect(() => {
+    if (messages.length > 0) {
+      saveConversation(selectedPhilosopher, messages);
+    }
+  }, [messages, selectedPhilosopher, saveConversation]);
+
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
@@ -259,16 +297,17 @@ function ChatContent() {
     }
   }, []);
 
+  const handleNewChat = useCallback(() => {
+    const newPhilosopher = philosophers.find(p => p.id === selectedPhilosopher) || philosophers[0];
+    const greeting = generateDynamicGreeting(selectedPhilosopher, newPhilosopher.name, locale);
+    const initialMsgs: Message[] = [{ role: 'assistant', content: greeting }];
+    setMessages(initialMsgs);
+    saveConversation(selectedPhilosopher, initialMsgs);
+  }, [selectedPhilosopher, locale, saveConversation]);
+
   const handlePhilosopherChange = (newId: string) => {
+    saveConversation(selectedPhilosopher, messages);
     setSelectedPhilosopher(newId);
-    const newPhilosopher = philosophers.find(p => p.id === newId) || philosophers[0];
-    const greeting = generateDynamicGreeting(newId, newPhilosopher.name, locale);
-    setMessages([
-      {
-        role: 'assistant',
-        content: greeting,
-      },
-    ]);
   };
 
   const handleSend = async () => {
@@ -411,6 +450,27 @@ function ChatContent() {
               {philosopher.persianName}
             </Typography>
           </Box>
+          <Button
+            onClick={handleNewChat}
+            size="small"
+            sx={{
+              flexShrink: 0,
+              color: 'rgba(201,169,98,0.7)',
+              fontSize: '0.65rem',
+              minWidth: 'auto',
+              height: 28,
+              px: 1.5,
+              border: '1px solid rgba(201,169,98,0.2)',
+              borderRadius: 1.5,
+              '&:hover': {
+                borderColor: '#c9a962',
+                color: '#c9a962',
+                backgroundColor: 'rgba(201,169,98,0.1)',
+              },
+            }}
+          >
+            New Chat
+          </Button>
           <Box
             sx={{
               display: 'flex',
