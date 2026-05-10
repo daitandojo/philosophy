@@ -423,7 +423,7 @@ function ChatContent() {
           py: 1.5,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'nowrap' }}>
           <Box
             sx={{
               position: 'relative',
@@ -442,8 +442,8 @@ function ChatContent() {
               style={{ objectFit: 'cover' }}
             />
           </Box>
-          <Box sx={{ minWidth: 0 }}>
-            <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 500, fontSize: '0.85rem', lineHeight: 1.2 }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block' }, minWidth: 0 }}>
+            <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 500, fontSize: '0.85rem', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {philosopher.name}
             </Typography>
             <Typography variant="caption" sx={{ color: 'rgba(201,169,98,0.7)', fontSize: '0.7rem' }}>

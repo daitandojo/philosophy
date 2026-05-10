@@ -145,7 +145,7 @@ export default function PhilosophersPage() {
         </Container>
       </Box>
 
-      <Box sx={{ position: 'relative', py: 4, px: { xs: 2, md: 4 }, bgcolor: '#c8d8d0', minHeight: '100vh' }}>
+      <Box sx={{ position: 'relative', py: 4, px: { xs: 2, md: 4 }, bgcolor: 'background.default' }}>
         <HeroPattern color="#8b4513" opacity={0.04} />
         <CornerDecoration position="top-left" color="#8b4513" size={80} />
         <CornerDecoration position="bottom-right" color="#8b4513" size={80} />

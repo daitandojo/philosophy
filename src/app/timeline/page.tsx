@@ -198,10 +198,10 @@ export default function TimelinePage() {
         ref={containerRef}
         sx={{
           width: '100%',
-          height: 'calc(100vh - 220px)',
-          minHeight: 500,
+          height: { xs: 'calc(100dvh - 236px)', md: 'calc(100dvh - 276px)' },
+          minHeight: 400,
           overflowX: 'auto',
-          overflowY: 'hidden',
+          overflowY: 'auto',
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
           bgcolor: '#1a3a2a',
