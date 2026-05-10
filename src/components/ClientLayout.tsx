@@ -29,6 +29,7 @@ import MicroInteractions from '@/components/MicroInteractions';
 import AccessibilityOverlay from '@/components/AccessibilityOverlay';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import BottomNav from '@/components/BottomNav';
+import VisitorTracker from '@/components/VisitorTracker';
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const [showSplash, setShowSplash] = useState(true);
@@ -74,6 +75,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
             </PageTransition>
            </Box>
            {!isAccessPage && <BottomNav />}
+           <VisitorTracker />
            <MicroInteractions />
            <AccessibilityOverlay />
            <PWAInstallPrompt />

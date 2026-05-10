@@ -24,3 +24,4 @@ export { ReadingGoalModel } from './readingGoal';
 export { MemorizationCardModel } from './memorization';
 export { StudyGroupModel } from './studyGroup';
 export { CertificateModel } from './certificate';
+export { VisitorModel } from './visitor';

@@ -17,6 +17,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Link from 'next/link';
 import { useI18n } from '@/i18n';
+import VisitorCount from '@/components/VisitorCount';
 import { 
   HeroPattern, 
   FloatingMotif,
@@ -287,6 +288,9 @@ export default function AboutPage() {
             ))}
           </Grid>
         </Box>
+
+        {/* Visitor Stats */}
+        <VisitorCount />
 
         {/* Call to Action */}
         <Box sx={{ textAlign: 'center', py: 4 }}>
