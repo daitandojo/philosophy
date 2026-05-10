@@ -37,7 +37,7 @@ export interface Philosopher {
   };
   life: {
     birth: number;
-    death: number;
+    death: number | null;
     birthPlace: string;
     deathPlace: string;
     era: 'ancient' | 'classical' | 'golden-age' | 'modern';

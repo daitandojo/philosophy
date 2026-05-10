@@ -1,8 +1,22 @@
 import fs from 'fs';
 import path from 'path';
-import type { Verse } from '@/types';
+interface OutputVerse {
+  persianText: string;
+  transliteration: string;
+  englishTranslation: string;
+  summary: string;
+  sourceWork: string;
+  philosopher: string;
+  themes: string[];
+  wisdomScore: number;
+  complexity: number;
+  emotionalTone: string;
+  tags: string[];
+  sourceFile: string;
+}
 
 interface RawQuote {
+  // Canonical fields
   persianText?: string;
   englishTranslation?: string;
   transliteration?: string;
@@ -18,6 +32,15 @@ interface RawQuote {
   author?: string;
   level_of_wisdom?: number;
   wisdomScale?: number;
+  // Alternate field names found in quote files
+  persian?: string;
+  original_farsi?: string;
+  english_translation?: string;
+  quote_english?: string;
+  categories?: string[];
+  theme?: string;
+  id?: string;
+  [key: string]: unknown;
 }
 
 const PHILOSOPHER_MAP: Record<string, string> = {
@@ -73,7 +96,7 @@ function pick<T>(obj: RawQuote, keys: (keyof RawQuote)[]): T | undefined {
   return undefined;
 }
 
-function toVerse(raw: RawQuote, source: string, index: number): Verse | null {
+function toVerse(raw: RawQuote, source: string, index: number): OutputVerse | null {
   const persianText = pick<string>(raw, ['persianText', 'persian', 'original_farsi']);
   const englishTranslation = pick<string>(raw, ['englishTranslation', 'english_translation', 'quote_english']);
 
@@ -96,8 +119,7 @@ function toVerse(raw: RawQuote, source: string, index: number): Verse | null {
     complexity: raw.complexity ?? 3,
     emotionalTone: raw.emotionalTone || 'contemplative',
     tags: raw.tags || [],
-    versions: [],
-    source,
+    sourceFile: source,
   };
 }
 
@@ -105,7 +127,7 @@ async function main() {
   const quotesDir = path.join(__dirname, '..', 'quotes');
   const files = fs.readdirSync(quotesDir).filter(f => f.endsWith('.json'));
 
-  const allVerses: Verse[] = [];
+  const allVerses: OutputVerse[] = [];
 
   for (const file of files) {
     const filePath = path.join(quotesDir, file);

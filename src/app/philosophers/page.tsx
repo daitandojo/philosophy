@@ -275,7 +275,7 @@ export default function PhilosophersPage() {
                   </Box>
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {philosopher.life.birth} - {philosopher.life.death}
+                    {philosopher.life.birth} - {philosopher.life.death ?? 'Present'}
                   </Typography>
 
                   <Typography variant="body2" sx={{ mb: 2, minHeight: 40 }}>

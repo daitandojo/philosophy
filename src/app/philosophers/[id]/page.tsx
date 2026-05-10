@@ -171,8 +171,8 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
                     </Box>
                     <Box>
                       <Typography variant="body2" color="text.secondary">Died</Typography>
-                      <Typography variant="body1">{philosopher.life.death}</Typography>
-                      <Typography variant="body2" color="text.secondary">{philosopher.life.deathPlace}</Typography>
+                      <Typography variant="body1">{philosopher.life.death ?? 'Present'}</Typography>
+                      <Typography variant="body2" color="text.secondary">{philosopher.life.death ? philosopher.life.deathPlace : 'Still living'}</Typography>
                     </Box>
                     <Box>
                       <Typography variant="body2" color="text.secondary">Quotes</Typography>
@@ -256,7 +256,7 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
                       <Typography variant="body2">Born in {philosopher.life.birthPlace}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                      <Chip label={philosopher.life.death} size="small" color="secondary" />
+                      <Chip label={philosopher.life.death?.toString() ?? 'Present'} size="small" color="secondary" />
                       <Typography variant="body2">Passed in {philosopher.life.deathPlace}</Typography>
                     </Box>
                   </Stack>
