@@ -31,6 +31,7 @@ const navItems = [
   { label: 'Discourses', href: '/discourse' },
   { label: 'Community', href: '/community' },
   { label: 'Chat', href: '/chat' },
+  { label: 'Debate', href: '/debate' },
   { label: 'Media', href: '/media' },
   { label: 'About', href: '/about' },
 ]

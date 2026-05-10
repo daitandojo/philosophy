@@ -31,6 +31,7 @@ const moreItems = [
   { label: 'Philosophers', href: '/philosophers' },
   { label: 'Read', href: '/read' },
   { label: 'Timeline', href: '/timeline' },
+  { label: 'Debate', href: '/debate' },
   { label: 'Discourses', href: '/discourse' },
   { label: 'Community', href: '/community' },
   { label: 'Media', href: '/media' },

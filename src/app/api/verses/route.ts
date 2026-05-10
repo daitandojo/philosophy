@@ -93,53 +93,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to fetch verses', verses: [], total: 0, page: 1, pageSize: 20, totalPages: 0 }, { status: 200 });
   }
 }
-      } catch (vectorError) {
-        console.error('Vector search failed, falling back to text search:', vectorError);
-        verses = await VerseModel.find({}).limit(0);
-      }
-    } else {
-      const query: Record<string, any> = {};
-
-      if (theme) {
-        query.themes = theme;
-      }
-      if (minWisdom) {
-        query.wisdomScore = { $gte: parseInt(minWisdom) };
-      }
-      if (maxWisdom) {
-        query.wisdomScore = { ...query.wisdomScore, $lte: parseInt(maxWisdom) };
-      }
-      if (source) {
-        query.sourceWork = source;
-      }
-      if (philosopher) {
-        query.philosopher = philosopher;
-      }
-      if (search) {
-        query.$text = { $search: search };
-      }
-
-      const skip = (page - 1) * limit;
-      verses = await VerseModel.find(query)
-        .sort({ wisdomScore: -1, createdAt: -1 })
-        .skip(skip)
-        .limit(limit);
-    }
-
-    const total = await VerseModel.countDocuments({});
-
-    return NextResponse.json({
-      verses,
-      total,
-      page,
-      pageSize: limit,
-      totalPages: Math.ceil(total / limit),
-    });
-  } catch (error) {
-    console.error('Error fetching verses:', error);
-    return NextResponse.json({ error: 'Failed to fetch verses' }, { status: 500 });
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {
