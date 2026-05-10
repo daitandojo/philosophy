@@ -7,29 +7,6 @@ import { philosophers as philosopherList } from '@/lib/philosophers';
 import { philosopherConfigs } from '@/lib/philosopher-prompts';
 import Image from 'next/image';
 
-interface SpeechRecognitionEvent {
-  results: SpeechRecognitionResultList;
-}
-
-interface SpeechRecognitionResultList {
-  [index: number]: SpeechRecognitionResult;
-  length: number;
-}
-
-interface SpeechRecognitionResult {
-  [index: number]: SpeechRecognitionAlternative;
-  isFinal: boolean;
-  length: number;
-}
-
-interface SpeechRecognitionAlternative {
-  transcript: string;
-  confidence: number;
-}
-
-interface SpeechRecognitionErrorEvent {
-  error: string;
-}
 import {
   Box,
   Typography,
@@ -42,10 +19,7 @@ import {
   Chip,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import MicIcon from '@mui/icons-material/Mic';
-import StopIcon from '@mui/icons-material/Stop';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import { VoiceInput, VoiceOutput } from '@/components/chat';
 
 const philosopherImages: Record<string, string> = {
   rumi: '/images/philosopher-rumi.png',
@@ -247,15 +221,9 @@ function ChatContent() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled] = useState(true);
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef(true);
-  const recognitionRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
-  const speechSynthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const philosopher = useMemo(() => 
     philosophers.find(p => p.id === selectedPhilosopher) || philosophers[0], 
@@ -269,65 +237,8 @@ function ChatContent() {
     setMessages([{ role: 'assistant', content: greeting }]);
   }, [mounted, locale, initialPhilosopherId]);
 
-  const startRecording = useCallback(() => {
-    if (typeof window !== 'undefined' && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognitionClass();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
-      
-      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
-        const transcript = Array.from(event.results)
-          .map((result) => result[0].transcript)
-          .join('');
-        setInput(transcript);
-      };
-      
-      recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
-        console.error('Speech recognition error:', event.error);
-        setIsRecording(false);
-      };
-      
-      recognitionRef.current.onend = () => {
-        setIsRecording(false);
-      };
-      
-      recognitionRef.current.start();
-      setIsRecording(true);
-    } else {
-      alert('Voice recognition not supported in this browser');
-    }
-  }, []);
-
-  const stopRecording = useCallback(() => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-      setIsRecording(false);
-    }
-  }, []);
-
-  const speakText = useCallback((text: string) => {
-    if (!voiceEnabled || typeof window === 'undefined' || !window.speechSynthesis) return;
-    
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    
-    speechSynthesisRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
-  }, [voiceEnabled]);
-
-  const stopSpeaking = useCallback(() => {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-    }
+  const handleTranscript = useCallback((text: string) => {
+    setInput(text);
   }, []);
 
   const scrollToBottom = useCallback(() => {
@@ -701,40 +612,13 @@ function ChatContent() {
         }}
       >
         <Stack direction="row" spacing={1.5} alignItems="flex-end">
-          <Button
-            onClick={isRecording ? stopRecording : startRecording}
-            sx={{
-              minWidth: 44,
-              height: 44,
-              borderRadius: 2,
-              bgcolor: isRecording ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
-              color: isRecording ? '#f44336' : '#c9a962',
-              '&:hover': {
-                bgcolor: isRecording ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
-              },
-            }}
-          >
-            {isRecording ? <StopIcon /> : <MicIcon />}
-          </Button>
-          <Button
-            onClick={isSpeaking ? stopSpeaking : () => speakText(messages[messages.length - 1]?.content || '')}
-            disabled={!messages.length}
-            sx={{
-              minWidth: 44,
-              height: 44,
-              borderRadius: 2,
-              bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.2)' : 'rgba(201, 169, 98, 0.1)',
-              color: isSpeaking ? '#f44336' : '#c9a962',
-              '&:hover': {
-                bgcolor: isSpeaking ? 'rgba(244, 67, 54, 0.3)' : 'rgba(201, 169, 98, 0.2)',
-              },
-              '&.Mui-disabled': {
-                color: 'rgba(201, 169, 98, 0.3)',
-              },
-            }}
-          >
-            {isSpeaking ? <VolumeOffIcon /> : <VolumeUpIcon />}
-          </Button>
+          <VoiceInput
+            onTranscript={handleTranscript}
+            disabled={loading}
+          />
+          <VoiceOutput
+            text={messages[messages.length - 1]?.content || ''}
+          />
           <TextField
             fullWidth
             multiline
