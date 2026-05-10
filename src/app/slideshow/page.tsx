@@ -30,127 +30,118 @@ interface Quote {
 }
 
 const quotes: Quote[] = [
-  {
-    id: 1,
-    persian: 'ای صوفی، ببخشای و ببخش، که رحم تو بر غیر خود نیز گسترده شده است',
-    english: 'O Sufi, forgive and pardon, for your mercy extends beyond yourself',
-    source: 'Rumi',
-  },
-  {
-    id: 2,
-    persian: 'هر که را به یقین رسیده‌ست، بی‌نیاز از کس شده‌ست',
-    english: 'Whoever has reached certainty has become independent of everyone',
-    source: 'Hafez',
-  },
-  {
-    id: 3,
-    persian: 'دانش بی‌عمل، درختی است بی‌برگ',
-    english: 'Knowledge without action is a tree without leaves',
-    source: 'Saadi',
-  },
-  {
-    id: 4,
-    persian: 'از گلزار عالم، هیچ نگذر که بی‌حاصل نگذری',
-    english: 'Pass not through any garden of the world without harvest',
-    source: 'Attar',
-  },
-  {
-    id: 5,
-    persian: 'عارف کسی است که در هر دو جهان، بی‌مکان شده‌ست',
-    english: 'The mystic is one who has become placeless in both worlds',
-    source: 'Ibn Arabi',
-  },
-  {
-    id: 6,
-    persian: 'عشق، آن دریای بی‌کران است که هیچ ساحلی ندارد',
-    english: 'Love is that endless sea with no shore',
-    source: 'Rumi',
-  },
-  {
-    id: 7,
-    persian: 'زندگی آن است که بین مرگ و دروازه‌های جاودانگی باشد',
-    english: 'Life is that which stands between death and the gates of eternity',
-    source: 'Mulla Sadra',
-  },
-  {
-    id: 8,
-    persian: 'سالک باید از خود برهد تا به حق رسد',
-    english: 'The seeker must escape from self to reach the Truth',
-    source: 'Bayazid Bastami',
-  },
-  {
-    id: 9,
-    persian: 'حقیقت را در آینه قلب خود ببین',
-    english: 'See the truth in the mirror of your heart',
-    source: 'Rumi',
-  },
-  {
-    id: 10,
-    persian: 'هر روزی که در آن ذکر حق تعالی نباشد، روز بی‌برکت است',
-    english: 'Every day without remembrance of God is a day without blessing',
-    source: 'Al-Ghazali',
-  },
-  {
-    id: 11,
-    persian: 'معرفت به نفس، مقدمه معرفت به خداست',
-    english: 'Knowledge of the self is the prelude to knowledge of God',
-    source: 'Ibn Sina',
-  },
-  {
-    id: 12,
-    persian: 'انسان نقطه وسط است میان حیوان و فرشته',
-    english: 'Man stands between animal and angel',
-    source: 'Nasir al-Din al-Tusi',
-  },
-  {
-    id: 13,
-    persian: 'بهشت زیر قدم‌های مادران است',
-    english: 'Paradise lies beneath the feet of mothers',
-    source: 'Prophet Muhammad',
-  },
-  {
-    id: 14,
-    persian: 'علم نوری است که خدا در قلب هر که بخواهد قرار می‌دهد',
-    english: 'Knowledge is a light that God places in the heart of whom He wills',
-    source: 'Al-Kindi',
-  },
-  {
-    id: 15,
-    persian: 'صبر تلخ است، لیکن ثمراتش شیرین است',
-    english: 'Patience is bitter, but its fruits are sweet',
-    source: 'Saadi',
-  },
-  {
-    id: 16,
-    persian: 'آن کس که خود را بشناسد، پروردگارش را شناخته‌است',
-    english: 'He who knows himself has known his Lord',
-    source: 'Sufi saying',
-  },
-  {
-    id: 17,
-    persian: 'مرگ ما را نمی‌ترساند، زیرا ما دوستان مرگیم',
-    english: 'Death does not frighten us, for we are friends of death',
-    source: 'Hallaj',
-  },
-  {
-    id: 18,
-    persian: 'در طلب حق، جان را فدا کن که جان بخشایی می‌یابی',
-    english:
-      "In seeking the Truth, sacrifice your soul, for you shall find the soul's salvation",
-    source: 'Sanai',
-  },
-  {
-    id: 19,
-    persian: 'هر که را عشق باشد، همه چیز را در همه چیز ببیند',
-    english: 'He who has love sees everything in everything',
-    source: 'Jami',
-  },
-  {
-    id: 20,
-    persian: 'از این گفتار پرده بردار که راز جاودانگی در آن نهفته است',
-    english: 'Unveil this speech, for the secret of eternity lies within it',
-    source: 'Nizami',
-  },
+  // Rumi (5)
+  { id: 1, persian: 'بشنو این نی چون شکایت می‌کند / از جدایی‌ها حکایت می‌کند', english: 'Listen to the reed, how it tells a tale of separations / It complains of the pain of longing.', source: 'Rumi' },
+  { id: 2, persian: 'عشق، آن دریای بی‌کران است که هیچ ساحلی ندارد', english: 'Love is that endless sea with no shore', source: 'Rumi' },
+  { id: 3, persian: 'حقیقت را در آینه قلب خود ببین', english: 'See the truth in the mirror of your heart', source: 'Rumi' },
+  { id: 4, persian: 'ای صوفی، ببخشای و ببخش، که رحم تو بر غیر خود نیز گسترده شده است', english: 'O Sufi, forgive and pardon, for your mercy extends beyond yourself', source: 'Rumi' },
+  { id: 5, persian: 'تو خود آن چیزی که می‌جویی', english: 'You are yourself what you seek', source: 'Rumi' },
+  // Hafez (4)
+  { id: 6, persian: 'هر که را به یقین رسیده‌ست، بی‌نیاز از کس شده‌ست', english: 'Whoever has reached certainty has become independent of everyone', source: 'Hafez' },
+  { id: 7, persian: 'دلا دیدی که آن دلبر چه کرد آخر / ز رخ پرده برانداخت و ساغر بر کف اندر بست', english: 'O heart, see what the beloved finally did / Unveiled her face and took the cup in hand', source: 'Hafez' },
+  { id: 8, persian: 'دوش دیدم که ملایک در میخانه زدند / گل آدم بسرشتند و به پیمانه زدند', english: 'Last night I saw angels knocking at the tavern door / They kneaded Adam\'s clay and poured it into the cup', source: 'Hafez' },
+  { id: 9, persian: 'غم و شادی به هم بسته‌ست، ای دل / چو شادی می‌طلبی غم هم بخر', english: 'Sorrow and joy are bound together, O heart / If you seek joy, buy sorrow too', source: 'Hafez' },
+  // Saadi (4)
+  { id: 10, persian: 'دانش بی‌عمل، درختی است بی‌برگ', english: 'Knowledge without action is a tree without leaves', source: 'Saadi' },
+  { id: 11, persian: 'صبر تلخ است، لیکن ثمراتش شیرین است', english: 'Patience is bitter, but its fruits are sweet', source: 'Saadi' },
+  { id: 12, persian: 'بنی آدم اعضای یکدیگرند / که در آفرینش ز یک گوهرند', english: 'Human beings are members of a whole / In creation of one essence and soul', source: 'Saadi' },
+  { id: 13, persian: 'چو عضوی به درد آورد روزگار / دگر عضوها را نماند قرار', english: 'When one member is afflicted with pain / The other members cannot remain at rest', source: 'Saadi' },
+  // Attar (3)
+  { id: 14, persian: 'از گلزار عالم، هیچ نگذر که بی‌حاصل نگذری', english: 'Pass not through any garden of the world without harvest', source: 'Attar' },
+  { id: 15, persian: 'هفت وادی عشق را طی کن تا به سیمرغ برسی', english: 'Traverse the seven valleys of love to reach the Simurgh', source: 'Attar' },
+  { id: 16, persian: 'هر که در راه حق قدم نهاد / از خودی خود به کلی برون آمد', english: 'Whoever steps on the path of truth / Came completely out of their selfhood', source: 'Attar' },
+  // Sanai (2)
+  { id: 17, persian: 'در طلب حق، جان را فدا کن که جان بخشایی می‌یابی', english: "In seeking the Truth, sacrifice your soul, for you shall find the soul's salvation", source: 'Sanai' },
+  { id: 18, persian: 'از خود برون آ تا درون یابی / در عشق فنا شو تا بقا یابی', english: 'Come out of yourself to find within / Die in love to find eternal life', source: 'Sanai' },
+  // Jami (2)
+  { id: 19, persian: 'هر که را عشق باشد، همه چیز را در همه چیز ببیند', english: 'He who has love sees everything in everything', source: 'Jami' },
+  { id: 20, persian: 'عشق حقیقی پرده از رخ بر گرفت / هر دو جهان را در خود مستغرق یافت', english: 'True love unveiled its face / Found both worlds drowned in itself', source: 'Jami' },
+  // Nizami (2)
+  { id: 21, persian: 'از این گفتار پرده بردار که راز جاودانگی در آن نهفته است', english: 'Unveil this speech, for the secret of eternity lies within it', source: 'Nizami' },
+  { id: 22, persian: 'گر همه عالم به تو روی آرد / از تو مپندار که حق برگردد', english: 'Even if the whole world turns to you / Do not think the Truth will turn from you', source: 'Nizami' },
+  // Ferdowsi (3)
+  { id: 23, persian: 'توانا بود هر که دانا بود / ز دانش دل پیر برنا بود', english: 'Powerful is one who is knowledgeable / Through knowledge the old heart grows young', source: 'Ferdowsi' },
+  { id: 24, persian: 'به جهان خرم از آنم که جهان خرم از اوست / عاشقم بر همه عالم که همه عالم از اوست', english: 'I am happy in this world because the world is happy from Him / I love all the world because all the world is from Him', source: 'Ferdowsi' },
+  { id: 25, persian: 'بسی رنج بردم در این سال سی / عجم زنده کردم بدین پارسی', english: 'I suffered greatly in these thirty years / I revived Persia with this Persian tongue', source: 'Ferdowsi' },
+  // Ibn Sina (3)
+  { id: 26, persian: 'معرفت به نفس، مقدمه معرفت به خداست', english: 'Knowledge of the self is the prelude to knowledge of God', source: 'Ibn Sina' },
+  { id: 27, persian: 'عقل فعال، دهنده صورت‌هاست به ماده', english: 'The Active Intellect gives forms to matter', source: 'Ibn Sina' },
+  { id: 28, persian: 'نفس ناطقه، جوهری است غیر مادی', english: 'The rational soul is a non-material substance', source: 'Ibn Sina' },
+  // Al-Farabi (2)
+  { id: 29, persian: 'مدینه فاضله، شهری است که در آن هر کس به کمال خود رسد', english: 'The virtuous city is one where each person reaches their perfection', source: 'Al-Farabi' },
+  { id: 30, persian: 'خوشبختی غایت قصوای انسان است و جز با تعقل حاصل نمی‌شود', english: 'Happiness is humanity\'s ultimate end, attained only through reason', source: 'Al-Farabi' },
+  // Al-Ghazali (3)
+  { id: 31, persian: 'هر روزی که در آن ذکر حق تعالی نباشد، روز بی‌برکت است', english: 'Every day without remembrance of God is a day without blessing', source: 'Al-Ghazali' },
+  { id: 32, persian: 'شک، پلی است به سوی یقین', english: 'Doubt is a bridge to certainty', source: 'Al-Ghazali' },
+  { id: 33, persian: 'کسی که خود را نشناخت، خدای خود را نشناخت', english: 'Who does not know themselves does not know their God', source: 'Al-Ghazali' },
+  // Suhrawardi (2)
+  { id: 34, persian: 'نور حقیقتی است که خود را آشکار می‌کند و دیگر اشیا را آشکار می‌سازد', english: 'Light is a reality that reveals itself and makes other things manifest', source: 'Suhrawardi' },
+  { id: 35, persian: 'هر ذره از جهان، آیینه‌ای است که نور حق در آن تجلی می‌کند', english: 'Every particle of the world is a mirror in which the light of Truth manifests', source: 'Suhrawardi' },
+  // Mulla Sadra (3)
+  { id: 36, persian: 'زندگی آن است که بین مرگ و دروازه‌های جاودانگی باشد', english: 'Life is that which stands between death and the gates of eternity', source: 'Mulla Sadra' },
+  { id: 37, persian: 'وجود حقیقتی است که همیشه در حال حرکت و اشتداد است', english: 'Existence is a reality that is always in motion and intensification', source: 'Mulla Sadra' },
+  { id: 38, persian: 'نفس در حرکت جوهری خود از ماده به معنا سفر می‌کند', english: 'The soul journeys in its substantial motion from matter to meaning', source: 'Mulla Sadra' },
+  // Nasir al-Din Tusi (2)
+  { id: 39, persian: 'انسان نقطه وسط است میان حیوان و فرشته', english: 'Man stands between animal and angel', source: 'Nasir al-Din al-Tusi' },
+  { id: 40, persian: 'جهان همچون کتابی است که هر که خواندن داند، از آن بهره گیرد', english: 'The world is like a book from which anyone who knows how to read may benefit', source: 'Nasir al-Din al-Tusi' },
+  // Ibn Rushd (2)
+  { id: 41, persian: 'حقیقت با حقیقت تضاد ندارد، بلکه موافق و شاهد آن است', english: 'Truth does not contradict truth; rather, it agrees and bears witness to it', source: 'Ibn Rushd' },
+  { id: 42, persian: 'فلسفه، دوست حقیقت است و دین نیز حقیقت را می‌جوید', english: 'Philosophy is the friend of truth, and religion also seeks truth', source: 'Ibn Rushd' },
+  // Al-Kindi (2)
+  { id: 43, persian: 'علم نوری است که خدا در قلب هر که بخواهد قرار می‌دهد', english: 'Knowledge is a light that God places in the heart of whom He wills', source: 'Al-Kindi' },
+  { id: 44, persian: 'نباید از پذیرش حق شرم کنیم، هر چند از مخالفان ما آمده باشد', english: 'We should not be ashamed to accept truth, even if it comes from our opponents', source: 'Al-Kindi' },
+  // Ibn Arabi (3)
+  { id: 45, persian: 'عارف کسی است که در هر دو جهان، بی‌مکان شده‌ست', english: 'The mystic is one who has become placeless in both worlds', source: 'Ibn Arabi' },
+  { id: 46, persian: 'قلب مؤمن، عرش الرحمن است', english: 'The heart of the believer is the throne of the All-Merciful', source: 'Ibn Arabi' },
+  { id: 47, persian: 'وجود یکی است و کثرت در مظاهر است', english: 'Existence is one, and multiplicity is in the manifestations', source: 'Ibn Arabi' },
+  // Bayazid Bastami (2)
+  { id: 48, persian: 'سالک باید از خود برهد تا به حق رسد', english: 'The seeker must escape from self to reach the Truth', source: 'Bayazid Bastami' },
+  { id: 49, persian: 'من آن کسم که در دریا درونم / ز خود رفتم چو ماهی در عیانم', english: 'I am one who is within the sea / I left myself like a fish in manifest waters', source: 'Bayazid Bastami' },
+  // Hallaj (2)
+  { id: 50, persian: 'مرگ ما را نمی‌ترساند، زیرا ما دوستان مرگیم', english: 'Death does not frighten us, for we are friends of death', source: 'Hallaj' },
+  { id: 51, persian: 'انا الحق / من حقم', english: 'I am the Truth', source: 'Hallaj' },
+  // Junayd Baghdadi (2)
+  { id: 52, persian: 'صوفی، زنده به وقت است', english: 'The Sufi is the child of the moment', source: 'Junayd of Baghdad' },
+  { id: 53, persian: 'توحید، برداشتن حدوث از قدم است', english: 'Tawhid is the removal of temporality from eternity', source: 'Junayd of Baghdad' },
+  // Abdul-Qadir Gilani (2)
+  { id: 54, persian: 'هر که خدا را شناخت، از غیر او برید', english: 'Whoever knows God cuts off from other than Him', source: 'Abdul-Qadir Gilani' },
+  { id: 55, persian: 'دل جایگاه خداست، آن را از غیر پاک کن', english: 'The heart is the place of God, purify it from other than Him', source: 'Abdul-Qadir Gilani' },
+  // Najm Kubra (2)
+  { id: 56, persian: 'نور معرفت در دل سالک می‌تابد و او را به اصل خود می‌رساند', english: 'The light of knowledge shines in the seeker\'s heart and leads them to their origin', source: 'Najm al-Din Kubra' },
+  { id: 57, persian: 'رنگ‌های روحانی نشانه مقامات سلوک است', english: 'Spiritual colors are signs of the stations of the journey', source: 'Najm al-Din Kubra' },
+  // Seyyed Hossein Nasr (2)
+  { id: 58, persian: 'حکمت جاودان، گوهری است که در همه سنت‌های اصیل یافت می‌شود', english: 'Sophia perennis is a jewel found in all authentic traditions', source: 'Seyyed Hossein Nasr' },
+  { id: 59, persian: 'علم مقدس، دانشی است که انسان را به خدا نزدیک می‌کند', english: 'Sacred science is knowledge that brings humanity closer to God', source: 'Seyyed Hossein Nasr' },
+  // Allama Tabatabai (2)
+  { id: 60, persian: 'قرآن، کتاب هدایت است، نه کتاب علم', english: 'The Quran is a book of guidance, not a book of science', source: 'Allama Tabatabai' },
+  { id: 61, persian: 'اعتبار علم، به کشف واقعیت است نه به ساخت ذهن', english: 'The validity of knowledge lies in discovering reality, not mental construction', source: 'Allama Tabatabai' },
+  // Morteza Motahhari (2)
+  { id: 62, persian: 'انقلاب اسلامی، نتیجه بازگشت به هویت اسلامی بود', english: 'The Islamic Revolution was the result of a return to Islamic identity', source: 'Morteza Motahhari' },
+  { id: 63, persian: 'عدالت، اساس همه فضایل است', english: 'Justice is the foundation of all virtues', source: 'Morteza Motahhari' },
+  // Abdolkarim Soroush (2)
+  { id: 64, persian: 'دین، معرفتی است بشری در سایه وحی', english: 'Religion is human knowledge in the shadow of revelation', source: 'Abdolkarim Soroush' },
+  { id: 65, persian: 'قبض و بسط تئوریک شریعت، نظریه‌ای درباره تکامل معرفت دینی است', english: 'The theoretical contraction and expansion of Sharia is a theory about the evolution of religious knowledge', source: 'Abdolkarim Soroush' },
+  // Dariush Shayegan (2)
+  { id: 66, persian: 'ما در عصر گفتگوی تمدن‌ها زندگی می‌کنیم', english: 'We live in the age of dialogue among civilizations', source: 'Dariush Shayegan' },
+  { id: 67, persian: 'هویت، نه یک ذات ثابت، بلکه یک ساختار سیال است', english: 'Identity is not a fixed essence but a fluid structure', source: 'Dariush Shayegan' },
+  // Zoroaster (3)
+  { id: 68, persian: 'پندار نیک، گفتار نیک، کردار نیک', english: 'Good thoughts, good words, good deeds', source: 'Zoroaster' },
+  { id: 69, persian: 'اشا، راستی و نظم کیهانی است که جهان بر آن استوار است', english: 'Asha is truth and cosmic order upon which the world is founded', source: 'Zoroaster' },
+  { id: 70, persian: 'انسان در انتخاب میان خیر و شر آزاد است', english: 'Humanity is free to choose between good and evil', source: 'Zoroaster' },
+  // Mazdak (2)
+  { id: 71, persian: 'مال و ثروت باید در میان همه تقسیم شود', english: 'Wealth and property should be divided among all', source: 'Mazdak' },
+  { id: 72, persian: 'عدالت اجتماعی، اساس صلح و آرامش است', english: 'Social justice is the foundation of peace and tranquility', source: 'Mazdak' },
+  // Mani (2)
+  { id: 73, persian: 'نور و ظلمت، دو اصل ازلی و ابدی هستند', english: 'Light and darkness are two primordial and eternal principles', source: 'Mani' },
+  { id: 74, persian: 'روح انسان زندانی تن است و باید از آن رهایی یابد', english: 'The human soul is a prisoner of the body and must be liberated from it', source: 'Mani' },
+  // Classical wisdom (5)
+  { id: 75, persian: 'آن کس که خود را بشناسد، پروردگارش را شناخته‌است', english: 'He who knows himself has known his Lord', source: 'Sufi saying' },
+  { id: 76, persian: 'بهشت زیر قدم‌های مادران است', english: 'Paradise lies beneath the feet of mothers', source: 'Prophet Muhammad' },
+  { id: 77, persian: 'ادب، سرمایه‌ای است که با هیچ ثروتی برابر نیست', english: 'Etiquette is a capital that no wealth can equal', source: 'Persian proverb' },
+  { id: 78, persian: 'این نیز بگذرد', english: 'This too shall pass', source: 'Persian wisdom' },
+  { id: 79, persian: 'صبر کلید گشایش است', english: 'Patience is the key to relief', source: 'Persian proverb' },
+  // Additional Rumi depth
+  { id: 80, persian: 'قضای حق به جانان در قفاست / که هر که راست بیند جان، جانان را', english: 'The decree of truth follows the beloved / Whoever sees the soul truly, sees the Beloved', source: 'Rumi' },
 ]
 
 const SLIDE_DURATION = 8000
@@ -900,15 +891,15 @@ function SlideshowContent() {
             gap: 0.75,
           }}
         >
-          {quotes.slice(0, 10).map((_: Quote, idx: number) => (
+          {quotes.slice(0, Math.min(quotes.length, 30)).map((_: Quote, idx: number) => (
             <Box
               key={idx}
               sx={{
-                width: idx === currentIndex % 10 ? 28 : 6,
+                width: idx === currentIndex % quotes.length ? 28 : 6,
                 height: 2,
                 borderRadius: 1,
                 bgcolor:
-                  idx === currentIndex % 10 ? '#c9a962' : 'rgba(201, 169, 98, 0.15)',
+                  idx === currentIndex % quotes.length ? '#c9a962' : 'rgba(201, 169, 98, 0.15)',
                 transition: 'all 0.5s ease',
               }}
             />
