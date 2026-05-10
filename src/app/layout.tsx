@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     description: 'Explore 2,500 years of wisdom from Persia\'s greatest philosophers. Discover Rumi, Hafez, Saadi, and the rich tradition of Persian philosophical thought.',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/hero-main.png',
         width: 1200,
-        height: 630,
+        height: 800,
         alt: 'Hikmatia - Persian Philosophy & Wisdom',
       },
     ],
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hikmatia | Persian Philosophy & Wisdom',
     description: 'Explore 2,500 years of wisdom from Persia\'s greatest philosophers.',
-    images: ['/images/og-image.png'],
+    images: ['/images/hero-main.png'],
     creator: '@hikmatia',
   },
   robots: {

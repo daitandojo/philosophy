@@ -48,7 +48,7 @@ const philosopherImages: Record<string, string> = {
   'allama-tabatabai': '/images/philosopher-allama-tabatabai.png',
   'morteza-motahhari': '/images/philosopher-morteza-motahhari.png',
   'abdolkarim-soroush': '/images/philosopher-abdolkarim-soroush.png',
-  'Dariush-shayegan': '/images/philosopher-Dariush-shayegan.png',
+  'Dariush-shayegan': '/images/philosopher-dariush-shayegan.png',
   zoroaster: '/images/philosopher-zoroaster.png',
   mazdak: '/images/philosopher-mazdak.png',
   mani: '/images/philosopher-mani.png',
