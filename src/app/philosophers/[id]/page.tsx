@@ -25,6 +25,7 @@ import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import GroupIcon from '@mui/icons-material/Group';
 import { useState } from 'react';
 import { getPhilosopherById, getWorksByPhilosopher, eraLabels, eraColors } from '@/lib/philosophers';
+import ExternalLinks from '@/components/ExternalLinks';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -216,7 +217,8 @@ export default function PhilosopherDetailPage({ params }: PageProps) {
             ))}
           </Stack>
           
-          <Typography variant="h4" sx={{ mb: 2 }}>Why They Matter Today</Typography>
+          <ExternalLinks philosopher={philosopher} />
+          <Typography variant="h4" sx={{ mb: 2, mt: 4 }}>Why They Matter Today</Typography>
           <Card>
             <CardContent>
               <Typography variant="body1">

@@ -11,6 +11,12 @@ export const philosophers: Philosopher[] = [
     quoteCount: 450,
     influence: 100,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Rumi",
+    sep: "https://plato.stanford.edu/entries/rumi/",
+    britannica: "https://www.britannica.com/biography/Jalal-al-Din-Rumi",
+    iranica: "https://www.iranicaonline.org/articles/rumi",
+  },
     influences: ['sanai', 'attar', 'ibn-arabi', 'shams-tabrizi'],
     influenced: ['hafez', 'jami', 'iqbal'],
   },
@@ -23,6 +29,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 380,
     influence: 95,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Hafez",
+    britannica: "https://www.britannica.com/biography/Hafez",
+    iranica: "https://www.iranicaonline.org/articles/hafez",
+  },
     influences: ['rumi', 'saadi', 'attar'],
     influenced: ['jami', 'iqbal'],
   },
@@ -35,6 +46,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 320,
     influence: 90,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Saadi_Shirazi",
+    britannica: "https://www.britannica.com/biography/Sadi",
+    iranica: "https://www.iranicaonline.org/articles/sadi",
+  },
     influences: ['attar', 'sanai'],
     influenced: ['hafez', 'jami'],
   },
@@ -47,6 +63,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 180,
     influence: 85,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Attar_of_Nishapur",
+    britannica: "https://www.britannica.com/biography/Attar",
+    iranica: "https://www.iranicaonline.org/articles/attar",
+  },
     influences: ['sanai', 'hallaj', 'bayazid'],
     influenced: ['rumi', 'jami'],
   },
@@ -59,6 +80,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 120,
     influence: 80,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Sanai",
+  },
     influences: ['ghazali'],
     influenced: ['attar', 'rumi'],
   },
@@ -71,6 +95,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 95,
     influence: 78,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Jami",
+  },
     influences: ['rumi', 'hafez', 'attar', 'nizami'],
     influenced: [],
   },
@@ -83,6 +110,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 85,
     influence: 75,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Nizami_Ganjavi",
+  },
   },
   {
     id: 'ferdowsi',
@@ -93,6 +123,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 200,
     influence: 98,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Ferdowsi",
+    britannica: "https://www.britannica.com/biography/Ferdowsi",
+    iranica: "https://www.iranicaonline.org/articles/ferdowsi",
+  },
   },
   // Tier 2 - Islamic Philosophers & Theologians
   {
@@ -104,6 +139,12 @@ export const philosophers: Philosopher[] = [
     quoteCount: 150,
     influence: 100,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Avicenna",
+    sep: "https://plato.stanford.edu/entries/ibn-sina/",
+    britannica: "https://www.britannica.com/biography/Avicenna",
+    iranica: "https://www.iranicaonline.org/articles/avicenna",
+  },
   },
   {
     id: 'al-farabi',
@@ -114,6 +155,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 80,
     influence: 85,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Al-Farabi",
+    sep: "https://plato.stanford.edu/entries/al-farabi/",
+    iranica: "https://www.iranicaonline.org/articles/farabi",
+  },
   },
   {
     id: 'al-ghazali',
@@ -124,6 +170,12 @@ export const philosophers: Philosopher[] = [
     quoteCount: 140,
     influence: 98,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Al-Ghazali",
+    sep: "https://plato.stanford.edu/entries/al-ghazali/",
+    britannica: "https://www.britannica.com/biography/Al-Ghazali",
+    iranica: "https://www.iranicaonline.org/articles/ghazali",
+  },
   },
   {
     id: 'suhrawardi',
@@ -134,6 +186,12 @@ export const philosophers: Philosopher[] = [
     quoteCount: 75,
     influence: 80,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Suhrawardi",
+    sep: "https://plato.stanford.edu/entries/suhrawardi/",
+    britannica: "https://www.britannica.com/biography/Yahya-Suhrawardi",
+    iranica: "https://www.iranicaonline.org/articles/suhrawardi",
+  },
   },
   {
     id: 'mulla-sadra',
@@ -144,6 +202,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 90,
     influence: 92,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Mulla_Sadra",
+    sep: "https://plato.stanford.edu/entries/mulla-sadra/",
+    iranica: "https://www.iranicaonline.org/articles/molla-sadra",
+  },
   },
   {
     id: 'nasir-tusi',
@@ -154,6 +217,11 @@ export const philosophers: Philosopher[] = [
     quoteCount: 65,
     influence: 75,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Nasir_al-Din_al-Tusi",
+    sep: "https://plato.stanford.edu/entries/ibn-sina/logic.html",
+    iranica: "https://www.iranicaonline.org/articles/tusi-nasir-al-din",
+  },
   },
   {
     id: 'ibn-rushd',
@@ -164,6 +232,10 @@ export const philosophers: Philosopher[] = [
     quoteCount: 60,
     influence: 85,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Averroes",
+    sep: "https://plato.stanford.edu/entries/ibn-rushd/",
+  },
   },
   {
     id: 'al-kindi',
@@ -174,6 +246,10 @@ export const philosophers: Philosopher[] = [
     quoteCount: 50,
     influence: 78,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Al-Kindi",
+    sep: "https://plato.stanford.edu/entries/al-kindi/",
+  },
   },
   // Tier 3 - Sufi Masters & Mystics
   {
@@ -185,6 +261,10 @@ export const philosophers: Philosopher[] = [
     quoteCount: 110,
     influence: 95,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Ibn_Arabi",
+    sep: "https://plato.stanford.edu/entries/ibn-arabi/",
+  },
   },
   {
     id: 'bayazid-bastami',
@@ -195,6 +275,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 45,
     influence: 88,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Bayazid_Bastami",
+  },
   },
   {
     id: 'hallaj',
@@ -205,6 +288,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 55,
     influence: 90,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Mansur_Al-Hallaj",
+  },
   },
   {
     id: 'junayd-baghdadi',
@@ -215,6 +301,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 40,
     influence: 85,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Junayd_of_Baghdad",
+  },
   },
   {
     id: 'abdul-qadir-gilani',
@@ -225,6 +314,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 50,
     influence: 82,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Abdul_Qadir_Gilani",
+  },
   },
   {
     id: 'najm-kubra',
@@ -235,6 +327,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 35,
     influence: 75,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Najm_al-Din_Kubra",
+  },
   },
   // Tier 4 - Modern & Contemporary
   {
@@ -246,6 +341,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 120,
     influence: 88,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Seyyed_Hossein_Nasr",
+  },
   },
   {
     id: 'allama-tabatabai',
@@ -256,6 +354,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 65,
     influence: 90,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Muhammad_Husayn_Tabataba%27i",
+  },
   },
   {
     id: 'morteza-motahhari',
@@ -266,6 +367,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 80,
     influence: 82,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Morteza_Motahhari",
+  },
   },
   {
     id: 'abdolkarim-soroush',
@@ -276,6 +380,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 75,
     influence: 80,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Abdolkarim_Soroush",
+  },
   },
   {
     id: 'Dariush-shayegan',
@@ -286,6 +393,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 50,
     influence: 72,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Dariush_Shayegan",
+  },
   },
   // Tier 5 - Ancient Persian (Pre-Islamic)
   {
@@ -297,6 +407,12 @@ export const philosophers: Philosopher[] = [
     quoteCount: 30,
     influence: 95,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Zoroaster",
+    sep: "https://plato.stanford.edu/entries/zoroaster/",
+    britannica: "https://www.britannica.com/biography/Zoroaster-Iranian-prophet",
+    iranica: "https://www.iranicaonline.org/articles/zoroaster",
+  },
   },
   {
     id: 'mazdak',
@@ -307,6 +423,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 20,
     influence: 60,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Mazdak",
+  },
   },
   {
     id: 'mani',
@@ -317,6 +436,9 @@ export const philosophers: Philosopher[] = [
     quoteCount: 25,
     influence: 70,
     verified: true,
+  externalLinks: {
+    wikipedia: "https://en.wikipedia.org/wiki/Mani_(prophet)",
+  },
   },
 ];
 

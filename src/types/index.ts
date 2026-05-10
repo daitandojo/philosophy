@@ -52,6 +52,14 @@ export interface Philosopher {
   influenced?: string[];
   teachers?: string[];
   students?: string[];
+  externalLinks?: {
+    wikipedia?: string;
+    iranica?: string;
+    sep?: string;
+    iep?: string;
+    britannica?: string;
+    website?: string;
+  };
 }
 
 export interface Work {
