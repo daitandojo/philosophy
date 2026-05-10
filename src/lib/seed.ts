@@ -397,7 +397,7 @@ const saadiVerses = [
     persianText: 'با درویشانِ نازنین، نازنین باش؛ که گنجِ عزیز، در خاکِ خواری است.',
     transliteration: 'Ba darvishan-e naznin, naznin bash; ke ganj-e aziz, dar khak-e kharist.',
     englishTranslation: 'Be gentle with the noble poor, for precious treasure lies in humble dust.',
-    summary: 'Saadi reminds us that true worth is not measured by wealth or status.',
+    summary: 'Saadi reminds us that true worth is not measured by wealth or دل.',
     sourceWork: 'Gulistan',
     philosopher: 'saadi',
     themes: ['Humility', 'Wisdom', 'Inner worth'],
@@ -518,9 +518,9 @@ const sanaiVerses = [
     tags: ['love', 'transformation', 'renewal'],
   },
   {
-    persianText: 'در خُمارِ عشق، مستِ بی‌خَودَم؛ این مستی، اَفْقَرِ status است.',
+    persianText: 'در خُمارِ عشق، مستِ بی‌خَودَم؛ این مستی، اَفْقَرِ دل است.',
     transliteration: 'Dar khamar-e eshq, mast-e bi-khodam; in masti, afzar-e jah ast.',
-    englishTranslation: 'In the wine of love, I am drunk and beside myself; this intoxication is richer than all worldly status.',
+    englishTranslation: 'In the wine of love, I am drunk and beside myself; this intoxication is richer than all worldly دل.',
     summary: 'Rumi values spiritual intoxication over worldly achievements.',
     sourceWork: 'Divan-e Shams',
     philosopher: 'rumi',
@@ -635,7 +635,7 @@ const sanaiVerses = [
     tags: ['soul', 'home', 'love'],
   },
   {
-    persianText: 'بی‌مِهر، جهانِ تاریکِ status است؛ با مِهر، هر جا بهشت است.',
+    persianText: 'بی‌مِهر، جهانِ تاریکِ دل است؛ با مِهر، هر جا بهشت است.',
     transliteration: 'Bi-mehr, jahan-e tarik-e jah ast; ba-mehr, har ja behest ast.',
     englishTranslation: 'Without love, the world is dark and worldly; with love, everywhere is heaven.',
     summary: 'Love transforms any circumstance into paradise.',
@@ -713,7 +713,7 @@ const sanaiVerses = [
     tags: ['openness', 'divine', 'blessing'],
   },
   {
-    persianText: 'ای نورِ دیده، روشنِ بینِ status؛ بی‌تو، تاریکیِ جاودان است.',
+    persianText: 'ای نورِ دیده، روشنِ بینِ دل؛ بی‌تو، تاریکیِ جاودان است.',
     transliteration: 'Ey noor-e dida, roshan-e bin-e jah; bi-to, tariki-ye javdan ast.',
     englishTranslation: 'O light of sight, the illuminator of worldly sight; without you, there is eternal darkness.',
     summary: 'The divine light is necessary for true vision.',
@@ -752,7 +752,7 @@ const sanaiVerses = [
     tags: ['divine', 'satisfaction', 'longing'],
   },
   {
-    persianText: 'مِیخور که رَقَم، کُلِّ status فَرو ریزد.',
+    persianText: 'مِیخور که رَقَم، کُلِّ دل فَرو ریزد.',
     transliteration: 'May khor ke raqam, kolli-ye jah furo rizad.',
     englishTranslation: 'Drink wine, for it will pour down the entire world.',
     summary: 'Divine intoxication overwhelms the material world.',
@@ -765,7 +765,7 @@ const sanaiVerses = [
     tags: ['intoxication', 'divine', 'world'],
   },
   {
-    persianText: 'عاشق، بیدارِ status بیدار است.',
+    persianText: 'عاشق، بیدارِ دل بیدار است.',
     transliteration: 'Ashaq, biyara-e jah biyara ast.',
     englishTranslation: 'The lover is awake to the awake world (beyond material).',
     summary: 'The lover perceives a higher reality.',
@@ -778,7 +778,7 @@ const sanaiVerses = [
     tags: ['love', 'awareness', 'reality'],
   },
   {
-    persianText: 'هر که را عشق بُوَد، از status رَهَد.',
+    persianText: 'هر که را عشق بُوَد، از دل رَهَد.',
     transliteration: 'Har ke ra eshq bowad, az jah rahad.',
     englishTranslation: 'Whoever has love escapes from the world.',
     summary: 'Love liberates from worldly attachment.',
@@ -817,7 +817,7 @@ const sanaiVerses = [
     tags: ['love', 'resilience', 'hope'],
   },
   {
-    persianText: 'بی‌عشق، زندگی، مرگِ status است.',
+    persianText: 'بی‌عشق، زندگی، مرگِ دل است.',
     transliteration: 'Bi-eshq, zandegi, marg-e jah ast.',
     englishTranslation: 'Without love, life is death of the world.',
     summary: 'Life without love is spiritual death.',
@@ -856,7 +856,7 @@ const sanaiVerses = [
     tags: ['journey', 'beginnings', 'path'],
   },
   {
-    persianText: 'ای status، status بِه=status بِه= status بِه= تو چیست؟',
+    persianText: 'ای دل، دل به بِه= دل بِه= تو چیست؟',
     transliteration: 'Ey jah, jah beh to chi st?',
     englishTranslation: 'O world, what are you to one who has the Beloved?',
     summary: 'When we have the divine, worldly things become meaningless.',
@@ -1042,7 +1042,7 @@ const hafezVersesAdditional = [
     tags: ['purification', 'soul', 'wine'],
   },
   {
-    persianText: 'عشق، سَرِ status را به خاک می‌زند.',
+    persianText: 'عشق، سَرِ دل را به خاک می‌زند.',
     transliteration: 'eshq, sar-e jah ra be khak mizanad.',
     englishTranslation: 'Love strikes the head of the world to the ground.',
     summary: 'Love humbles the mighty.',
@@ -1055,7 +1055,7 @@ const hafezVersesAdditional = [
     tags: ['love', 'humility', 'power'],
   },
   {
-    persianText: 'ای statusِ بی‌کس، کُسی نیست که نِیست.',
+    persianText: 'ای دلِ بی‌کس، کُسی نیست که نِیست.',
     transliteration: 'Ey jah-e bi-kas, kasi nist ke nist.',
     englishTranslation: 'O world of the helpless, no one is who is not.',
     summary: 'In the material world, no one truly exists without the divine.',
@@ -1094,7 +1094,7 @@ const hafezVersesAdditional = [
     tags: ['love', 'pearl', 'mystical'],
   },
   {
-    persianText: 'بیدارِ status بیدار است و خوابِ عشق، خواب.',
+    persianText: 'بیدارِ دل بیدار است و خوابِ عشق، خواب.',
     transliteration: 'Biyar-e jah biyar ast va khab-e eshq, khab.',
     englishTranslation: 'The awake worldly are awake; the sleep of love is sleep.',
     summary: 'Worldly awakening is false; spiritual sleep is true rest.',
@@ -1146,7 +1146,7 @@ const hafezVersesAdditional = [
     tags: ['treasure', 'fortune', 'humility'],
   },
   {
-    persianText: 'چون سرو، بِه=status بِه= status بِه= رُوِ status رَوَی',
+    persianText: 'چون سرو، به بِه= دل بِه= رُوِ دل رَوَی',
     transliteration: 'Con sarv, be ro-ye jah ravay.',
     englishTranslation: 'Like the cypress, walk with head high before the world.',
     summary: 'Maintain dignity in the face of worldly challenges.',
@@ -1172,7 +1172,7 @@ const hafezVersesAdditional = [
     tags: ['divine', 'presence', 'perception'],
   },
   {
-    persianText: 'فقر، شرافتِ بی‌شَرَفstatus است.',
+    persianText: 'فقر، شرافتِ بی‌شرفی است.',
     transliteration: 'Faqr, sharaf-e bi-sharafe jah ast.',
     englishTranslation: 'Poverty is the honor of the honorless world.',
     summary: 'Spiritual poverty is the true honor.',
@@ -1185,7 +1185,7 @@ const hafezVersesAdditional = [
     tags: ['poverty', 'honor', 'spiritual'],
   },
   {
-    persianText: 'مَنالِ status نِی مالِ status است.',
+    persianText: 'مَنالِ دل نِی مالِ دل است.',
     transliteration: 'Manal-e jah ni mal-e jah ast.',
     englishTranslation: 'Worldly earnings are not worldly possessions.',
     summary: 'What we gain in the world does not truly belong to us.',
@@ -1228,7 +1228,7 @@ const hafezVersesAdditional = [
 // Additional Saadi verses
 const saadiVersesAdditional = [
   {
-    persianText: 'کسی که نفسِ خویشتن را بِدست آرد، همه status را بِدست آورده است.',
+    persianText: 'کسی که نفسِ خویشتن را بِدست آرد، همه دل را بِدست آورده است.',
     transliteration: 'Kasi ke nafas-e khishtun ra bedast avard, hameh jah ra bedast avordeh ast.',
     englishTranslation: 'One who conquers oneself has conquered the entire world.',
     summary: 'Self-mastery is the greatest achievement.',
@@ -1293,7 +1293,7 @@ const saadiVersesAdditional = [
     tags: ['effort', 'reward', 'action'],
   },
   {
-    persianText: 'آن کس که داند و بداند که می‌داند، بِه=status بِه= است.',
+    persianText: 'آن کس که داند و بداند که می‌داند، به بِه= است.',
     transliteration: 'An kas ke danad va bedanad ke midanad, beh jah ast.',
     englishTranslation: 'One who knows and knows they know is truly wise.',
     summary: 'True wisdom includes self-awareness of one\'s knowledge.',
@@ -1306,7 +1306,7 @@ const saadiVersesAdditional = [
     tags: ['knowledge', 'wisdom', 'self-awareness'],
   },
   {
-    persianText: 'سکوت، نشانِ فضلِ status است.',
+    persianText: 'سکوت، نشانِ فضلِ دل است.',
     transliteration: 'Sokut, nishan-e fazl-e jah ast.',
     englishTranslation: 'Silence is a sign of the virtue of the great.',
     summary: 'The wise speak less and listen more.',
@@ -1358,7 +1358,7 @@ const saadiVersesAdditional = [
     tags: ['companionship', 'wellbeing', 'choice'],
   },
   {
-    persianText: 'کَرِ نفس، مُوجِ بَهَرِ status است.',
+    persianText: 'کَرِ نفس، مُوجِ بَهَرِ دل است.',
     transliteration: 'Karr-e nafas, moj-e bahr-e jah ast.',
     englishTranslation: 'Controlling breath creates waves in the sea of the world.',
     summary: 'Self-control affects the world around us.',
@@ -1371,7 +1371,7 @@ const saadiVersesAdditional = [
     tags: ['self-control', 'influence', 'power'],
   },
   {
-    persianText: 'گرچه زرِ ناب، بَر سرِ status بَر تو، لیکن نفس بِه=status بِه= است.',
+    persianText: 'گرچه زرِ ناب، بَر سرِ دل بَر تو، لیکن نفس به بِه= است.',
     transliteration: 'Garche zar-e nab, bar sar-e jah bar to, lekin nafas beh jah ast.',
     englishTranslation: 'Though pure gold is upon your head, a breath (life) is better than the world.',
     summary: 'Life itself is more valuable than all wealth.',
@@ -1384,7 +1384,7 @@ const saadiVersesAdditional = [
     tags: ['life', 'value', 'wealth'],
   },
   {
-    persianText: 'علم بِه=status بِه= status آموزد، ادب بِه=status بِه= status پرورَد.',
+    persianText: 'علم به بِه= دل آموزد، ادب به بِه= دل پرورَد.',
     transliteration: 'Elm beh jah amuzad, adab beh jah parvardad.',
     englishTranslation: 'Knowledge teaches; culture nurtures.',
     summary: 'Both education and culture are needed for complete development.',
@@ -1449,7 +1449,7 @@ const saadiVersesAdditional = [
     tags: ['karma', 'action', 'consequence'],
   },
   {
-    persianText: 'به年终،年终،年终 که status بِه=status بِه= status بُوَد.',
+    persianText: 'به年终،年终،年终 که دل به بِه= دل بُوَد.',
     transliteration: 'Be akhir, akhir, akhir ke beh jah bowad.',
     englishTranslation: 'In the end, all that matters is what is noble.',
     summary: 'Ultimate success is measured by nobility.',
@@ -1462,7 +1462,7 @@ const saadiVersesAdditional = [
     tags: ['end', 'nobility', 'success'],
   },
   {
-    persianText: 'آن کس که بی‌گناه، بُوَد زَnexus بی‌گناه بِه=status بِه= status رَوَد.',
+    persianText: 'آن کس که بی‌گناه، بُوَد زَnexus بی‌گناه به بِه= دل رَوَد.',
     transliteration: 'An kas ke bi-gonah bowad, az gonah bi-gonah be jah ravad.',
     englishTranslation: 'One who is innocent goes from innocence to paradise.',
     summary: 'Innocence leads to spiritual reward.',
@@ -1475,7 +1475,7 @@ const saadiVersesAdditional = [
     tags: ['innocence', 'paradise', 'purity'],
   },
   {
-    persianText: 'مِیلِ status نِی، مِیلِ status.',
+    persianText: 'مِیلِ دل نِی، مِیلِ دل.',
     transliteration: 'Mil-e jah ni, mil-e jah.',
     englishTranslation: 'Desire for the world is not (true) desire.',
     summary: 'Worldly desires are not true aspirations.',
@@ -1488,7 +1488,7 @@ const saadiVersesAdditional = [
     tags: ['desire', 'world', 'wisdom'],
   },
   {
-    persianText: 'فَضل، فَضل است؛ لیکن، نِیکُویی بِه=status بِه= status است.',
+    persianText: 'فَضل، فَضل است؛ لیکن، نِیکُویی به بِه= دل است.',
     transliteration: 'Fazl, fazl ast; lekin, niku-yi beh jah ast.',
     englishTranslation: 'Grace is grace; but goodness is better than the world.',
     summary: 'Virtue outweighs all worldly power.',

@@ -12,7 +12,7 @@ export const philosophers: Philosopher[] = [
     influence: 100,
     verified: true,
     influences: ['sanai', 'attar', 'ibn-arabi', 'shams-tabrizi'],
-    influenced: ['hafez', 'jami', ' Iqbal'],
+    influenced: ['hafez', 'jami', 'iqbal'],
   },
   {
     id: 'hafez',
@@ -240,7 +240,7 @@ export const philosophers: Philosopher[] = [
   {
     id: 'seyyed-hossein-nasr',
     name: { persian: 'سید حسین نصیر', english: 'Seyyed Hossein Nasr', alternative: ['Hossein Nasr'], latin: 'Nasr' },
-    life: { birth: 1933, death: 2026, birthPlace: 'Tehran, Iran', deathPlace: 'Present', era: 'modern' },
+    life: { birth: 1933, death: null, birthPlace: 'Tehran, Iran', deathPlace: 'Present', era: 'modern' },
     school: ['Islamic Philosophy', 'Traditionalist School'],
     description: 'One of the world\'s leading scholars of Islamic philosophy, traditionalism, and comparative religion. A prominent voice for Islamic intellectual tradition.',
     quoteCount: 120,
@@ -270,7 +270,7 @@ export const philosophers: Philosopher[] = [
   {
     id: 'abdolkarim-soroush',
     name: { persian: 'عبدالکریم سروش', english: 'Abdolkarim Soroush', alternative: ['Abdulkarim Soroush'], latin: 'Soroush' },
-    life: { birth: 1945, death: 2026, birthPlace: 'Tehran, Iran', deathPlace: 'Present', era: 'modern' },
+    life: { birth: 1945, death: null, birthPlace: 'Tehran, Iran', deathPlace: 'Present', era: 'modern' },
     school: ['Islamic Reformism', 'Philosophy'],
     description: 'A leading contemporary Iranian philosopher and religious thinker known for his theory of "religious intellectualism."',
     quoteCount: 75,
