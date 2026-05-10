@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
         }
         return true;
       } catch (error) {
-        console.error('Error in signIn:', error);
+        console.error('Auth signIn error (DB unavailable):', error instanceof Error ? error.message : error);
         return true;
       }
     },
@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
             session.user.role = dbUser.role;
           }
         } catch (error) {
-          console.error('Error fetching user session:', error);
+          console.error('Auth session error (DB unavailable, session limited):', error instanceof Error ? error.message : error);
         }
       }
       return session;

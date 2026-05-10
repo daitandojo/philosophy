@@ -240,3 +240,5 @@ export default function BlogPage() {
     </Box>
   );
 }
+
+export const dynamic = "force-dynamic";

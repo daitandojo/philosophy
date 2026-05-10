@@ -187,3 +187,5 @@ export default function ARPage() {
     </Container>
   );
 }
+
+export const dynamic = "force-dynamic";
