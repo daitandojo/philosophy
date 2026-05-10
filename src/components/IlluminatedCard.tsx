@@ -57,9 +57,9 @@ export function withIllumination<P extends object>(
       <Box
         sx={{
           borderImageSource: `url(${style.borderImageSource})`,
-          borderImageSlice: style.borderImageSlice,
+          borderImageSlice: { xs: 12, sm: 20, md: style.borderImageSlice },
           borderImageRepeat: style.borderImageRepeat,
-          borderWidth: '30px',
+          borderWidth: { xs: '12px', sm: '20px', md: '30px' },
           borderStyle: 'solid',
           p: padding,
         }}
@@ -81,9 +81,9 @@ export function IlluminatedCard({
     <Box
       sx={{
         borderImageSource: `url(${style.borderImageSource})`,
-        borderImageSlice: style.borderImageSlice,
+        borderImageSlice: { xs: 12, sm: 20, md: style.borderImageSlice },
         borderImageRepeat: style.borderImageRepeat,
-        borderWidth: '30px',
+        borderWidth: { xs: '12px', sm: '20px', md: '30px' },
         borderStyle: 'solid',
         p: padding,
         background: 'rgba(5, 15, 10, 0.4)',
