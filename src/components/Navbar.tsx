@@ -178,10 +178,14 @@ export default function Navbar() {
             <Box
               sx={{
                 display: { xs: 'none', md: 'flex' },
-                gap: 0.5,
-                justifyContent: 'center',
+                gap: 0,
+                justifyContent: 'flex-start',
                 flex: 1,
-                px: 3,
+                mx: 2,
+                overflow: 'auto',
+                '&::-webkit-scrollbar': { display: 'none' },
+                scrollbarWidth: 'none',
+                maskImage: 'linear-gradient(to right, black 90%, transparent 100%)',
               }}
             >
               {navItems.map((item) => (
@@ -192,10 +196,11 @@ export default function Navbar() {
                     sx={{
                       color: pathname === item.href ? '#c9a962' : '#a0a0a0',
                       fontWeight: pathname === item.href ? 600 : 400,
-                      fontSize: '0.8rem',
-                      px: 2,
+                      fontSize: '0.78rem',
+                      px: 1.25,
                       py: 1,
                       minWidth: 'auto',
+                      flexShrink: 0,
                       whiteSpace: 'nowrap',
                       fontFamily: 'system-ui, sans-serif',
                       letterSpacing: '0.02em',
@@ -230,7 +235,7 @@ export default function Navbar() {
                 ))}
               </Box>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
               <IconButton
                 onClick={toggleTheme}
                 size="small"
