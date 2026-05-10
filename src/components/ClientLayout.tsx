@@ -12,6 +12,7 @@ import { I18nProvider } from '@/i18n';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 
 // Lazy load heavy components
 const LazyPhilosophyGraph = dynamic(() => import('./PhilosophyGraph'), {
@@ -51,6 +52,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeRegistry>
+      <SessionProvider>
       <SmoothScrollProvider>
         <ScrollProgress />
         <I18nProvider>
@@ -78,6 +80,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
            <PWAInstallPrompt />
          </I18nProvider>
         </SmoothScrollProvider>
+      </SessionProvider>
       </ThemeRegistry>
     );
   }
