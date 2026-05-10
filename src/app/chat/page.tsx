@@ -405,7 +405,7 @@ function ChatContent() {
   return (
     <Box
       sx={{
-        height: '100dvh',
+        height: 'calc(100dvh - 56px)',
         display: 'flex',
         flexDirection: 'column',
         bgcolor: '#0d1f18',
