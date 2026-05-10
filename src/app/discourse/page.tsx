@@ -170,7 +170,7 @@ export default function DiscoursePage() {
 
   if (!mounted) {
     return (
-      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#0d1f18' }}>
+      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: "background.default" }}>
         <CircularProgress sx={{ color: '#c9a962' }} />
       </Box>
     );
@@ -179,7 +179,7 @@ export default function DiscoursePage() {
   const selectedPhilosopher = philosophers.find(p => p.id === philosopher);
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', color: '#f5f5f5' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: "background.default", color: '#f5f5f5' }}>
       {/* Hero Section */}
       <Box
         sx={{

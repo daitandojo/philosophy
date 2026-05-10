@@ -665,20 +665,17 @@ function ChatContent() {
       <Box
         sx={{
           flexShrink: 0,
-          p: { xs: 1.5, md: 3 },
+          p: { xs: 1, md: 3 },
           borderTop: '1px solid rgba(201,169,98,0.15)',
           bgcolor: 'rgba(0,0,0,0.3)',
           paddingBottom: { xs: 'calc(var(--sab, 0px) + 64px)', md: 3 },
         }}
       >
-        <Stack direction="row" spacing={1.5} alignItems="flex-end">
-          <VoiceInput
-            onTranscript={handleTranscript}
-            disabled={loading}
-          />
-          <VoiceOutput
-            text={messages[messages.length - 1]?.content || ''}
-          />
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, flexShrink: 0 }}>
+            <VoiceInput onTranscript={handleTranscript} disabled={loading} />
+            <VoiceOutput text={messages[messages.length - 1]?.content || ''} />
+          </Box>
           <TextField
             fullWidth
             multiline
@@ -712,6 +709,7 @@ function ChatContent() {
               borderRadius: 3,
               bgcolor: '#c9a962',
               color: '#0d1f18',
+              flexShrink: 0,
               '&:hover': {
                 bgcolor: '#d4bc7d',
               },
@@ -723,7 +721,7 @@ function ChatContent() {
           >
             <SendIcon />
           </Button>
-        </Stack>
+        </Box>
       </Box>
     </Box>
   );

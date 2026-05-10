@@ -185,7 +185,7 @@ export default function BlogPage() {
                         fontWeight: 700,
                         mb: 2,
                         fontSize: index === 0 ? '1.75rem' : '1.25rem',
-                        color: '#1a3a2a',
+                        color: 'text.primary',
                         lineHeight: 1.3,
                       }}
                     >
@@ -220,7 +220,7 @@ export default function BlogPage() {
                       <Button 
                         size="small"
                         sx={{ 
-                          color: '#8b4513',
+                          color: "primary.main",
                           fontWeight: 600,
                           '&:hover': {
                             bgcolor: 'rgba(139, 69, 19, 0.08)',

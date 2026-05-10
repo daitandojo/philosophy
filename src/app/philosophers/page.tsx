@@ -93,7 +93,7 @@ export default function PhilosophersPage() {
   const schools = [...new Set(philosophers.flatMap(p => p.school))];
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#c8d8d0' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Hero Section */}
       <Box
         sx={{
@@ -197,7 +197,7 @@ export default function PhilosophersPage() {
             <Card
               sx={{
                 height: '100%',
-                background: 'linear-gradient(180deg, #ffffff 0%, #faf9f7 100%)',
+                  bgcolor: 'background.paper',
                 border: '1px solid rgba(139, 69, 19, 0.1)',
                 transition: 'all 0.3s ease',
                 '&:hover': {

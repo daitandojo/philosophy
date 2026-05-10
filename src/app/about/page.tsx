@@ -70,7 +70,7 @@ export default function AboutPage() {
   const { t } = useI18n();
   
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', color: '#f5f5f5' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: "background.default", color: '#f5f5f5' }}>
       {/* Hero Section */}
       <Box
         sx={{

@@ -221,7 +221,7 @@ export default function MediaPage() {
       {/* Featured Video */}
       {featuredVideo && (
         <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Typography variant="h5" sx={{ mb: 3, fontWeight: 600, color: '#1a3a2a' }}>
+          <Typography variant="h5" sx={{ mb: 3, fontWeight: 600, color: "text.primary" }}>
             Featured Video
           </Typography>
           <Grid container spacing={3}>
@@ -269,7 +269,7 @@ export default function MediaPage() {
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
               <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1a3a2a' }}>
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: "text.primary" }}>
                   {featuredVideo.title}
                 </Typography>
                 <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap', gap: 1 }}>
@@ -277,7 +277,7 @@ export default function MediaPage() {
                     <Chip
                       label={featuredVideo.philosopher}
                       size="small"
-                      sx={{ bgcolor: 'rgba(26, 58, 42, 0.1)', color: '#1a3a2a' }}
+                      sx={{ bgcolor: 'rgba(26, 58, 42, 0.1)', color: "text.primary" }}
                     />
                   )}
                   <Chip
@@ -293,7 +293,7 @@ export default function MediaPage() {
                   variant="contained"
                   onClick={() => handlePlayVideo(featuredVideo)}
                   sx={{
-                    bgcolor: '#1a3a2a',
+                    bgcolor: "background.paper",
                     '&:hover': { bgcolor: '#2e4a3d' },
                     alignSelf: 'flex-start',
                   }}
@@ -323,7 +323,7 @@ export default function MediaPage() {
                 onClick={() => setSelectedCategory(cat.value)}
                 sx={{
                   bgcolor: selectedCategory === cat.value ? '#1a3a2a' : 'transparent',
-                  color: selectedCategory === cat.value ? 'white' : '#1a3a2a',
+                  color: selectedCategory === cat.value ? 'white' : "text.primary",
                   border: '1px solid',
                   borderColor: selectedCategory === cat.value ? '#1a3a2a' : 'rgba(26, 58, 42, 0.3)',
                   fontWeight: 500,

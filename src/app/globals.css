@@ -48,6 +48,11 @@
   --reduced-motion: no-preference;
 }
 
+/* Ensure pages with hardcoded dark bg are readable in light mode */
+[data-theme="light"] [class*="background\: '#0d1f18'"] {
+  background-color: var(--background) !important;
+}
+
 /* High contrast mode */
 :root[style*="--contrast-mode: high"] {
   --background: #000000;

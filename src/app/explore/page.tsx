@@ -96,7 +96,7 @@ function ExploreContent() {
   const sources = ['Masnavi', 'Divan-e Shams', 'Fihi Ma Fihi', 'Mawlana Letters', 'Gulistan', 'Bustan', 'Divan-e Hafez', 'Shahnameh', 'Conference of the Birds', 'Ilahi-Nama', 'Walled Garden of Truth'];
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', color: '#f5f5f5' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: "background.default", color: '#f5f5f5' }}>
       {/* Hero */}
       <Box
         sx={{
@@ -368,7 +368,7 @@ function ExploreContent() {
 export default function ExplorePage() {
   return (
     <Suspense fallback={
-      <Box sx={{ minHeight: '100vh', bgcolor: '#0d1f18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: "background.default", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <CircularProgress sx={{ color: '#c9a962' }} />
       </Box>
     }>

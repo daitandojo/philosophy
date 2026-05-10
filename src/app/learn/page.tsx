@@ -274,7 +274,7 @@ export default function LearnPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#c8d8d0', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
       <Box
         sx={{
