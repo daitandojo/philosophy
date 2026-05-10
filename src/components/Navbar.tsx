@@ -17,6 +17,8 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import CloseIcon from '@mui/icons-material/Close'
 import { useThemeMode } from '@/theme/ThemeRegistry'
 import { triggerHaptic } from '@/lib/haptic'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 const navItems = [
   { label: 'Intro', href: '/' },
@@ -66,6 +68,7 @@ export default function Navbar() {
   const [animateItems, setAnimateItems] = useState(false)
   const pathname = usePathname()
   const { mode, toggleTheme } = useThemeMode()
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (typeof document !== 'undefined' && !document.getElementById('navbar-keyframes')) {
@@ -242,32 +245,88 @@ export default function Navbar() {
               >
                 {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
               </IconButton>
-              <Button
-                component={Link}
-                href="/account"
-                size="small"
-                sx={{
-                  color: '#f5f5f5',
-                  backgroundColor: 'rgba(201,169,98,0.15)',
-                  border: '1px solid rgba(201,169,98,0.3)',
-                  borderRadius: 1.5,
-                  px: 2,
-                  py: 0.5,
-                  fontSize: '0.75rem',
-                  fontFamily: 'system-ui, sans-serif',
-                  fontWeight: 500,
-                  letterSpacing: '0.05em',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: 'rgba(201,169,98,0.25)',
-                    borderColor: '#c9a962',
-                    transform: 'scale(1.02)',
-                    boxShadow: '0 0 20px rgba(201,169,98,0.2)',
-                  },
-                }}
-              >
-                Sign In
-              </Button>
+              {session?.user ? (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Button
+                    component={Link}
+                    href="/account"
+                    size="small"
+                    startIcon={
+                      session.user.image ? (
+                        <Box
+                          component="img"
+                          src={session.user.image}
+                          alt=""
+                          sx={{ width: 22, height: 22, borderRadius: '50%' }}
+                        />
+                      ) : (
+                        <AccountCircleIcon sx={{ fontSize: 20 }} />
+                      )
+                    }
+                    sx={{
+                      color: '#f5f5f5',
+                      backgroundColor: 'rgba(201,169,98,0.15)',
+                      border: '1px solid rgba(201,169,98,0.3)',
+                      borderRadius: 1.5,
+                      px: 2,
+                      py: 0.5,
+                      fontSize: '0.75rem',
+                      fontFamily: 'system-ui, sans-serif',
+                      fontWeight: 500,
+                      letterSpacing: '0.05em',
+                      textTransform: 'none',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        backgroundColor: 'rgba(201,169,98,0.25)',
+                        borderColor: '#c9a962',
+                        transform: 'scale(1.02)',
+                        boxShadow: '0 0 20px rgba(201,169,98,0.2)',
+                      },
+                    }}
+                  >
+                    {session.user.name?.split(' ')[0] || 'Account'}
+                  </Button>
+                  <IconButton
+                    onClick={() => signOut()}
+                    size="small"
+                    sx={{
+                      color: 'rgba(255,255,255,0.5)',
+                      fontSize: '0.65rem',
+                      '&:hover': { color: '#c9a962' },
+                    }}
+                  >
+                    <Typography sx={{ fontSize: '0.65rem', letterSpacing: '0.04em' }}>
+                      Sign Out
+                    </Typography>
+                  </IconButton>
+                </Box>
+              ) : (
+                <Button
+                  onClick={() => signIn('google')}
+                  size="small"
+                  sx={{
+                    color: '#f5f5f5',
+                    backgroundColor: 'rgba(201,169,98,0.15)',
+                    border: '1px solid rgba(201,169,98,0.3)',
+                    borderRadius: 1.5,
+                    px: 2,
+                    py: 0.5,
+                    fontSize: '0.75rem',
+                    fontFamily: 'system-ui, sans-serif',
+                    fontWeight: 500,
+                    letterSpacing: '0.05em',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(201,169,98,0.25)',
+                      borderColor: '#c9a962',
+                      transform: 'scale(1.02)',
+                      boxShadow: '0 0 20px rgba(201,169,98,0.2)',
+                    },
+                  }}
+                >
+                  Sign In
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </Container>
