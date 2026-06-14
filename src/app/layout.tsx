@@ -1,8 +1,15 @@
 import type { Metadata, Viewport } from 'next';
+import { EB_Garamond } from 'next/font/google';
 import ClientLayout from '@/components/ClientLayout';
 import JsonLd, { websiteSchema, organizationSchema } from '@/components/JsonLd';
 import { SkipToContent } from '@/components/Accessibility';
 import './globals.css';
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  variable: '--font-eb-garamond',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   themeColor: '#1a3a2a',
@@ -106,7 +113,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={ebGaramond.variable}>
       <head>
         <link rel="preload" href="/splash_screen.jpg" as="image" />
       </head>
